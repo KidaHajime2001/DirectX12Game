@@ -18,9 +18,9 @@ Enemy::Enemy(CollisionTag _tag, bool Alive)
 	, m_json(Singleton<SupportJson>::GetInstance())
 {
 
-	m_param.mCollision = new Collision(this, m_json.GetInt(JsonDataType::Enemy,"Radius","EnemyData", 1));
-	Init();
+	m_param.mCollision = new Collision(this, m_json.GetInt(JsonDataType::Enemy,"Radius","EnemyData", 1));	
 	modeltype = m_model.GetModelType(m_json.GetString(JsonDataType::Enemy, "VisualPattern", "EnemyData", 1));
+	Init();
 }
 
 
@@ -31,12 +31,7 @@ Enemy::~Enemy()
 void Enemy::Update()
 {
 	m_param.mCollision->Update();
-	auto newpos = GetPosition();
-	SetPotision(XMFLOAT3(newpos.x, newpos.y, newpos.z - m_speed));
-	if (GetPosition().z < -100||!GetAlive())
-	{
-		Init();
-	}
+	
 }
 void Enemy::Draw()
 {
@@ -45,15 +40,7 @@ void Enemy::Draw()
 
 void Enemy::Init()
 {
-	//ランダムに初期化一の値を生成
-	float randInitNumber=(rand()%100)-50;
 	
-	float randSpeedNumber = (rand() % 6 + 1);
-
-	m_param.IsAlive = true;
-	m_speed=randSpeedNumber;
-	//  取得したデータを元に初
-	SetPotision(XMFLOAT3(randInitNumber,0, 450));
 }
 
 void Enemy::OnCollisionEnter(Collision* otherCollision)

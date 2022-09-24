@@ -2,7 +2,6 @@
 #include"SceneBase.h"
 #include<vector>
 #include"Enemy.h"
-#include"ActorPool.h"
 class Game :public SceneBase
 {
 public:
@@ -27,7 +26,6 @@ private:
 	class Player* m_player;
 	class Enemy* m_Enemy;
 	class Time* m_time;
-	class Pool* m_enemypool;
 	class ShootDirector* m_shootDirector;
 	class CollisionManager* m_collisionManager;
 	class Ground* m_ground;

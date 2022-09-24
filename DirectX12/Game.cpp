@@ -22,7 +22,6 @@ Game::Game(SceneTag _sceneTag)
 	, m_sound(Singleton<Sound>::GetInstance())
 
 	, m_player(new Player(CollisionTag::Player, true))
-	, m_enemypool(new Pool())
 	, m_Enemy(new Enemy(CollisionTag::Enemy, true))
 	, m_collisionManager(new CollisionManager())
 	, m_time(new Time())
@@ -35,8 +34,7 @@ Game::Game(SceneTag _sceneTag)
 
 	m_collisionManager->AddCollision(m_player->GetCollision());
 
-	m_enemypool->Create(15,ActorTag::Enemy);
-	m_enemypool->AddCollisionManager(m_collisionManager);
+	
 	BGMHandle = m_sound.Play(SoundType::GameSceneBGM,true,true);
 
 }
@@ -45,7 +43,6 @@ Game::~Game()
 {
 	delete m_player;
 	delete m_Enemy;
-	delete m_enemypool;
 	delete m_time;
 	delete m_collisionManager;
 	delete m_ground;
@@ -62,7 +59,6 @@ void Game::Update()
 
 		m_shootDirector->Update(m_player);
 
-		m_enemypool->Update();
 		m_collisionManager->CollisionUpdate();
 		
 		if (m_controller.IsPushEnter(ButtonName::GAMEPAD_BACK))
@@ -89,7 +85,6 @@ void Game::Draw()
 {
 
 	m_player->Draw();
-	m_enemypool->Draw();
 	m_ground->Draw();
 	m_shootDirector->Draw();
 	if (m_gameOverFlag)

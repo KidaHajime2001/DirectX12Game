@@ -164,7 +164,7 @@
     <ClInclude Include="EffectData.h" />
     <ClInclude Include="EffectType.h" />
     <ClInclude Include="EffekseerMng.h" />
-    <ClInclude Include="ActorPool.h" />
+    <ClInclude Include="EnemyPool.h" />
     <ClInclude Include="EnumItr.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="Fps.h" />
@@ -212,7 +212,7 @@
     <ClCompile Include="D12Device.cpp" />
     <ClCompile Include="DirectXManager.cpp" />
     <ClCompile Include="EffekseerMng.cpp" />
-    <ClCompile Include="ActorPool.cpp" />
+    <ClCompile Include="EnemyPool.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Ground.cpp" />

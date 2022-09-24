@@ -168,9 +168,6 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>ソース ファイル\Actor\Player\bullet</Filter>
     </ClCompile>
-    <ClCompile Include="ActorPool.cpp">
-      <Filter>ソース ファイル\Actor\Pool</Filter>
-    </ClCompile>
     <ClCompile Include="BulletPool.cpp">
       <Filter>ソース ファイル\Actor\Player\bullet</Filter>
     </ClCompile>
@@ -206,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="SupportJSON.cpp">
       <Filter>ソース ファイル\System\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyPool.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +284,6 @@
     <ClInclude Include="Bullet.h">
       <Filter>ソース ファイル\Actor\Player\bullet</Filter>
     </ClInclude>
-    <ClInclude Include="ActorPool.h">
-      <Filter>ソース ファイル\Actor\Pool</Filter>
-    </ClInclude>
     <ClInclude Include="BulletPool.h">
       <Filter>ソース ファイル\Actor\Player\bullet</Filter>
     </ClInclude>
@@ -361,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="JsonDataType.h">
       <Filter>ソース ファイル\System\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyPool.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
