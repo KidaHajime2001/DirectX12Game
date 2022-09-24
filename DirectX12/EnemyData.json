@@ -1,0 +1,15 @@
+{
+	"EnemyData":
+		[
+			{
+				"EnemyType":"NoShotEnemy",
+				"Radius":2,
+				"VisualPattern":"RedEnemy"
+			},
+			{
+				"EnemyType":"NoShotEnemy",
+				"Radius":2,
+				"VisualPattern":"BlueEnemy"
+			}
+		]
+}
