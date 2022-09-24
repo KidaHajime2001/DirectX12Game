@@ -1,4 +1,6 @@
 #pragma once
+
+#include"ModelTypeData.h"
 #include"Actor.h"
 class Enemy:public Actor
 {
@@ -20,5 +22,5 @@ private:
 	float m_speed;
 	class Sound& m_sound;
 	class SupportJson& m_json;
-	/*PMDModelType modeltype;*/
+	 PMDModelType modeltype;
 };

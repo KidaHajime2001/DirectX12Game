@@ -30,7 +30,6 @@ Game::Game(SceneTag _sceneTag)
 	, m_distanceMoved(0)
 	, m_debugFlag(false)
 	, m_gameOverFlag(false)
-	,m_bulletPool(new BulletPool())
 	,m_shootDirector(new ShootDirector())
 {
 
@@ -38,8 +37,6 @@ Game::Game(SceneTag _sceneTag)
 
 	m_enemypool->Create(15,ActorTag::Enemy);
 	m_enemypool->AddCollisionManager(m_collisionManager);
-	m_bulletPool->CreatePool(100);
-	m_bulletPool->AddCollisionManager(m_collisionManager);
 	BGMHandle = m_sound.Play(SoundType::GameSceneBGM,true,true);
 
 }
@@ -53,7 +50,6 @@ Game::~Game()
 	delete m_collisionManager;
 	delete m_ground;
 	delete m_shootDirector;
-	delete m_bulletPool;
 }
 
 void Game::Update()
@@ -64,8 +60,7 @@ void Game::Update()
 
 		
 
-		m_bulletPool->Update();
-		m_shootDirector->Update(m_player,m_bulletPool);
+		m_shootDirector->Update(m_player);
 
 		m_enemypool->Update();
 		m_collisionManager->CollisionUpdate();
@@ -94,9 +89,9 @@ void Game::Draw()
 {
 
 	m_player->Draw();
-	m_bulletPool->Draw();
 	m_enemypool->Draw();
 	m_ground->Draw();
+	m_shootDirector->Draw();
 	if (m_gameOverFlag)
 	{
 		m_sprite.Draw(SpriteType::ResultBack,XMFLOAT2(0,0));

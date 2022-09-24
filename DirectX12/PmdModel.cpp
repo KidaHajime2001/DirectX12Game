@@ -91,6 +91,24 @@ void PMDModel::SetUp(const int _modelNum)
     }
 }
 
+const PMDModelType PMDModel::GetModelType(const std::string _typename)
+{
+    if (_typename == "RedEnemy")
+    {
+        return PMDModelType::RedEnemy;
+    }
+    if (_typename == "BlueEnemy")
+    {
+        return PMDModelType::BlueEnemy;
+    }
+    if (_typename == "YellowEnemy")
+    {
+        return PMDModelType::YellowEnemy;
+    }
+
+    return PMDModelType::AimingBullet;
+}
+
 //  ÉçÅ[Éh
 void PMDModel::Load(const PMDModelType _type)
 {

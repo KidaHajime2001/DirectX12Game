@@ -57,6 +57,11 @@ std::string SupportJson::GetString(JsonDataType _type, const char* _dataKey, con
     {
         ret = m_doc[_type][_dataKey].GetString();
     }
+    else
+    {
+        ret = m_doc[_type][_IndexString][Index][_dataKey].GetString();
+    }
+
     return ret;
 }
 

@@ -20,6 +20,7 @@ Enemy::Enemy(CollisionTag _tag, bool Alive)
 
 	m_param.mCollision = new Collision(this, m_json.GetInt(JsonDataType::Enemy,"Radius","EnemyData", 1));
 	Init();
+	modeltype = m_model.GetModelType(m_json.GetString(JsonDataType::Enemy, "VisualPattern", "EnemyData", 1));
 }
 
 
@@ -39,7 +40,7 @@ void Enemy::Update()
 }
 void Enemy::Draw()
 {
-	m_model.Draw(GetPosition(), 0, PMDModelType::RedEnemy);
+	m_model.Draw(GetPosition(), 0, modeltype);
 }
 
 void Enemy::Init()

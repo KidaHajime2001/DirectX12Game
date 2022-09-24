@@ -28,7 +28,6 @@ private:
 	class Enemy* m_Enemy;
 	class Time* m_time;
 	class Pool* m_enemypool;
-	class BulletPool* m_bulletPool;
 	class ShootDirector* m_shootDirector;
 	class CollisionManager* m_collisionManager;
 	class Ground* m_ground;

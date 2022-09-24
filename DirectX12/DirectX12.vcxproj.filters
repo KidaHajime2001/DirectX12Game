@@ -183,9 +183,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyFactory.cpp">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="CheckError.cpp">
       <Filter>ソース ファイル\System\Error</Filter>
     </ClCompile>
@@ -304,9 +301,6 @@
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>ソース ファイル\Actor\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyFactory.h">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>

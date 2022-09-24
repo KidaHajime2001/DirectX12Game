@@ -4,8 +4,9 @@ class ShootDirector
 public:
 	ShootDirector();
 	~ShootDirector();
-	void Update( class Player* _player, class BulletPool* _bulletPool);
-
+	void Update( class Player* _player);
+	void Draw();
 private:
 
+	class BulletPool* m_bulletPool;
 };

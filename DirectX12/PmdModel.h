@@ -26,6 +26,9 @@ public:
 
     //  ƒ‚ƒfƒ‹‚ğ•`‰æ‚·‚é‚½‚ß‚Ìİ’è
     void SetUp(const int _modelNum = 1);
+
+    //
+    const PMDModelType GetModelType(const std::string _typename);
 private:
     //  ƒ[ƒh
     void Load(const PMDModelType _type);
