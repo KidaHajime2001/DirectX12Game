@@ -18,7 +18,7 @@ Enemy::Enemy(CollisionTag _tag, bool Alive)
 	, m_json(Singleton<SupportJson>::GetInstance())
 {
 
-	m_param.mCollision = new Collision(this, m_json.GetInt(JsonDataType::Enemy));
+	m_param.mCollision = new Collision(this, 2/*m_json.GetInt(JsonDataType::Enemy)*/);
 	Init();
 }
 

@@ -24,7 +24,7 @@ SupportJson::~SupportJson()
 {
 }
 
-int SupportJson::GetInt(JsonDataType _type, const char* _dataKey, int Index = -1)
+int SupportJson::GetInt(JsonDataType _type, const char* _dataKey, int Index )
 {
     int ret;
     if (Index==-1)
@@ -35,7 +35,7 @@ int SupportJson::GetInt(JsonDataType _type, const char* _dataKey, int Index = -1
     return ret;
 }
 
-float SupportJson::Getfloat(JsonDataType _type, const char* _dataKey, int Index = -1)
+float SupportJson::Getfloat(JsonDataType _type, const char* _dataKey, int Index )
 {
     float ret;
     if (Index == -1)
@@ -46,7 +46,7 @@ float SupportJson::Getfloat(JsonDataType _type, const char* _dataKey, int Index 
     return ret;
 }
 
-std::string SupportJson::GetString(JsonDataType _type, const char* _dataKey, int Index = -1)
+std::string SupportJson::GetString(JsonDataType _type, const char* _dataKey, int Index )
 {
     std::string ret;
     if (Index == -1)
@@ -56,7 +56,7 @@ std::string SupportJson::GetString(JsonDataType _type, const char* _dataKey, int
     return ret;
 }
 
-DirectX::XMFLOAT3 SupportJson::GetXMFLOAT3(JsonDataType _type, const char* _dataKey, int Index = -1)
+DirectX::XMFLOAT3 SupportJson::GetXMFLOAT3(JsonDataType _type, const char* _dataKey, int Index)
 {
     
     DirectX::XMFLOAT3 ret;

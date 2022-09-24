@@ -20,5 +20,5 @@ private:
 	float m_speed;
 	class Sound& m_sound;
 	class SupportJson& m_json;
-	PMDModel modeltype;
+	/*PMDModelType modeltype;*/
 };
