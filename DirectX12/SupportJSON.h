@@ -12,10 +12,10 @@ public:
 
 	void Load();
 	//読み込んだファイルデータのゲッター
-	 int				GetInt			(JsonDataType _type,	const char* _dataKey, int Index = -1);
-	 float			    Getfloat		(JsonDataType _type,	const char* _dataKey, int Index = -1);
-	 std::string		GetString		(JsonDataType _type,	const char* _dataKey, int Index = -1);
-	 DirectX::XMFLOAT3  GetXMFLOAT3		(JsonDataType _type,	const char* _dataKey, int Index = -1);
+	 int				GetInt			(JsonDataType _type,	const char* _dataKey, const char* _IndexString = nullptr, int Index = -1);
+	 float			    Getfloat		(JsonDataType _type,	const char* _dataKey, const char* _IndexString = nullptr, int Index = -1);
+	 std::string		GetString		(JsonDataType _type,	const char* _dataKey, const char* _IndexString = nullptr, int Index = -1);
+	 DirectX::XMFLOAT3  GetXMFLOAT3		(JsonDataType _type,	const char* _dataKey, const char* _IndexString = nullptr, int Index = -1);
 	
 private:
 	std::unordered_map<JsonDataType, rapidjson::Document> m_doc;

@@ -22,9 +22,6 @@
     <Filter Include="shader">
       <UniqueIdentifier>{0f2ee40b-46ff-407b-84f9-1f82ddd30ef1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\System\Input">
-      <UniqueIdentifier>{c4fb8778-a034-489e-a7b4-a6171bde6b29}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Actor">
       <UniqueIdentifier>{ffd3b49d-df3c-4174-bf75-abdaf98ad3e0}</UniqueIdentifier>
     </Filter>
@@ -97,6 +94,9 @@
     <Filter Include="ソース ファイル\System\Json">
       <UniqueIdentifier>{4b32e8ec-6a56-4b0e-87f4-56cf1da939c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\System\Json\Input">
+      <UniqueIdentifier>{c4fb8778-a034-489e-a7b4-a6171bde6b29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -133,7 +133,7 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
-      <Filter>ソース ファイル\System\Input</Filter>
+      <Filter>ソース ファイル\System\Json\Input</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\Actor\Player</Filter>
@@ -234,7 +234,7 @@
       <Filter>ソース ファイル\System\Pmd\PmdData\Data</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
-      <Filter>ソース ファイル\System\Input</Filter>
+      <Filter>ソース ファイル\System\Json\Input</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ソース ファイル\Actor\Player</Filter>
