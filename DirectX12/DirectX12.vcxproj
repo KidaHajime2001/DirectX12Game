@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -164,12 +164,17 @@
     <ClInclude Include="EffectData.h" />
     <ClInclude Include="EffectType.h" />
     <ClInclude Include="EffekseerMng.h" />
+    <ClInclude Include="EnemyAttackBase.h" />
+    <ClInclude Include="EnemyBulletBase.h" />
+    <ClInclude Include="EnemyBulletPool.h" />
     <ClInclude Include="EnemyPool.h" />
+    <ClInclude Include="EnemyShotDirector.h" />
     <ClInclude Include="EnumItr.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="Fps.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="HomingAimShot.h" />
     <ClInclude Include="JsonDataType.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="ModelData.h" />
@@ -181,11 +186,12 @@
     <ClInclude Include="PmdModel.h" />
     <ClInclude Include="PmdRenderer.h" />
     <ClInclude Include="PmdShifter.h" />
+    <ClInclude Include="EnemyType.h" />
     <ClInclude Include="SupportJSON.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneTag.h" />
-    <ClInclude Include="ShootDirector.h" />
+    <ClInclude Include="PlayerShotDirector.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SingletonFinalizer.h" />
     <ClInclude Include="Sound.h" />
@@ -212,10 +218,15 @@
     <ClCompile Include="D12Device.cpp" />
     <ClCompile Include="DirectXManager.cpp" />
     <ClCompile Include="EffekseerMng.cpp" />
+    <ClCompile Include="EnemyAttackBase.cpp" />
+    <ClCompile Include="EnemyBulletBase.cpp" />
+    <ClCompile Include="EnemyBulletPool.cpp" />
     <ClCompile Include="EnemyPool.cpp" />
+    <ClCompile Include="EnemyShotDirector.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="HomingAimShot.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -226,7 +237,8 @@
     <ClCompile Include="PmdShifter.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="ShootDirector.cpp" />
+    <ClCompile Include="PlayerShotDirector.cpp" />
+    <ClCompile Include="ShotType.cpp" />
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="SingletonFinalizer.cpp" />
     <ClCompile Include="Sound.cpp" />

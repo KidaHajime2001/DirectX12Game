@@ -4,9 +4,10 @@
 #include"Collision.h"
 #include"XMF3Math.h"
 #include "ModelTypeData.h"
-Bullet::Bullet(CollisionTag _tag, bool Alive)
+Bullet::Bullet(CollisionTag _tag, const bool _alive)
 	:m_model(Singleton<PMDModel>::GetInstance())
-	,Actor(_tag, Alive)
+	,Actor(_tag)
+	,m_isAlive(_alive)
 {
 	m_param.mCollision = new Collision(this, RADIUS_NUM);
 	m_speed = 1.0f;
@@ -29,10 +30,10 @@ void Bullet::Update()
 	auto NextPosition = XMF3Math::AddXMFLOAT3( GetPosition() , XMF3Math::ScalarXMFLOAT3(m_directionVector,m_speed));
 	SetPotision(NextPosition);
 	auto nowTime = clock();
-	int time = (int)(nowTime - AliveTimeStart) / (int)CLOCKS_PER_SEC;
+	int time = (int)(nowTime - m_aliveTimeStart) / (int)CLOCKS_PER_SEC;
 	if (time>=ALIVE_TIME_MAX)
 	{
-		m_param.IsAlive = false;
+		m_isAlive = false;
 	}
 
 }
@@ -44,7 +45,7 @@ void Bullet::Draw()
 
 void Bullet::OnCollisionEnter(Collision* otherCollision)
 {
-	m_param.IsAlive=false;
+	m_isAlive = false;
 }
 
 void Bullet::Shot(const XMFLOAT3& _setPosition, const XMFLOAT3& _newDirection, const float& _shotspeed)
@@ -52,6 +53,6 @@ void Bullet::Shot(const XMFLOAT3& _setPosition, const XMFLOAT3& _newDirection, c
 	SetPotision(_setPosition);
 	SetDirection(_newDirection);
 	m_speed=_shotspeed;
-	m_param.IsAlive = true;
-	AliveTimeStart = clock();
+	m_isAlive = true;
+	m_aliveTimeStart = clock();
 }

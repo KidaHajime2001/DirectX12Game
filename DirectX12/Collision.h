@@ -14,13 +14,16 @@ public:
 		float radius;
 	};
 
-	Collision(class Actor* parent, float radius);
+	Collision(class Actor* _parent, const float _radius,const bool _isValidity = true);
 	~Collision();
-	bool Cheak(class Collision* otherObj);
+	bool Cheak( class Collision* _otherObj);
 	void Update();
-	CollisionTag GetTag() { return mTag; };
-	Actor* GetParent() { return mParent; };
-	CollisionTag mTag;
-	CollisionData mData;
-	Actor* mParent;
+	const CollisionTag GetTag() { return m_tag; };
+	Actor* GetParent() { return m_parent; };
+	const bool IsValidity() { return m_isValidity; };
+private:
+	CollisionTag m_tag;
+	CollisionData m_data;
+	Actor* m_parent;
+	bool m_isValidity;
 };

@@ -10,26 +10,30 @@
 #include"Sound.h"
 #include"SoundType.h"
 #include"SupportJSON.h"
-Player::Player(CollisionTag _tag, bool Alive)
+#include"PlayerShotDirector.h"
+Player::Player(CollisionTag _tag, bool _alive)
     :m_model(Singleton<PMDModel>::GetInstance())
     , m_controller(Singleton<Controller>::GetInstance())
     , m_camera(Singleton<Camera>::GetInstance())
     , m_sound(Singleton<Sound>::GetInstance())
     , m_json(Singleton<SupportJson>::GetInstance())
-    ,Actor(_tag,Alive)
+    , m_isAlive(_alive)
+    , m_shotDirector(new PlayerShotDirector())
+    ,Actor(_tag)
 {
     Init();
     m_camera.SetPlayerPosition(GetPosition());
+    
 }
 
 Player::~Player()
 {
-
+    delete m_shotDirector;
 }
 
 void Player::Update()
 {
-   
+    m_shotDirector->Update(IsShotFlag(),GetPosition(),GetShotDirection(),GetShotSpeed());
     m_param.mCollision->Update();
     m_camera.SetPlayerPosition(GetPosition());
     m_camera.Update();
@@ -79,8 +83,9 @@ void Player::Draw()
     
    
 
-    if (m_param.IsAlive)
+    if (m_isAlive)
     {
+        m_shotDirector->Draw();
         m_model.Draw(GetPosition(),m_shotStatus.cosDirection, PMDModelType::Player);
     }
     
@@ -94,7 +99,7 @@ void Player::Init()
     //  éÊìæÇµÇΩÉfÅ[É^Çå≥Ç…èâ
     SetPotision(posData);
    m_param.mCollision = new Collision(this, radiusData);
-   SetAlive(true);
+   m_isAlive = true;
 }
 
 void Player::OnCollisionEnter(Collision* otherCollision)
@@ -102,7 +107,7 @@ void Player::OnCollisionEnter(Collision* otherCollision)
     OutputDebugString("HitEnemy.\n");
     m_effect.PlayEffect(EffectType::DefeatRedEnemy,GetPosition(), false);
     
-    SetAlive(false);
+    m_isAlive = false;
     
 }
 

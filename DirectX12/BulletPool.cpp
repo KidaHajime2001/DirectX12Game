@@ -30,7 +30,7 @@ Bullet* BulletPool::GetUnUsedBullet()
 {
 	for (auto _bullet : m_bulletPool)
 	{
-		if (!_bullet->GetAlive())
+		if (!_bullet->IsAlive())
 		{
 			return _bullet;
 		}
@@ -57,7 +57,7 @@ void BulletPool::Update()
 {
 	for (auto _bullet : m_bulletPool)
 	{
-		if (_bullet->GetAlive())
+		if (_bullet->IsAlive())
 		{
 			_bullet->Update();
 		}
@@ -69,7 +69,7 @@ void BulletPool::Draw()
 {
 	for (auto _bullet : m_bulletPool)
 	{
-		if (_bullet->GetAlive())
+		if (_bullet->IsAlive())
 		{
 			_bullet->Draw();
 		}

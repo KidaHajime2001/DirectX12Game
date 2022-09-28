@@ -3,10 +3,10 @@
 class Ground:public Actor
 {
 public:
-	Ground(CollisionTag _tag, bool Alive);
+	Ground(CollisionTag _tag);
 	~Ground();
-	void Update()override;
-	void Draw()override;
+	void Update();
+	void Draw();
 private:
 	class PMDModel& m_model;            //  PMDƒ‚ƒfƒ‹‚ÌŠÇ—
 	XMFLOAT3 m_secondGround;

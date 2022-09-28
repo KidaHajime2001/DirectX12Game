@@ -10,15 +10,11 @@ using namespace DirectX;
 class Actor
 {
 public:
-	Actor(CollisionTag _tag,bool Alive);
+	Actor(CollisionTag _tag);
 	virtual ~Actor();
 
 	//初期化
 	virtual void Init();
-	//更新
-	virtual void Update();
-	//描画
-	virtual void Draw();
 	//位置セット
 	void SetPotision(XMFLOAT3 _pos) { m_param.pos = _pos; };
 	
@@ -31,17 +27,11 @@ public:
 	virtual void OnCollisionEnter(class Collision* otherCollision);
 
 	class Collision* GetCollision() { return m_param.mCollision; };
-
-	//生きているかのフラグゲット
-	const bool GetAlive() { return m_param.IsAlive; };
-	//生きているかのフラグセット
-	void SetAlive(bool _isAlive) { m_param.IsAlive = _isAlive; };
 protected:
 	//  プレイヤーのパラメータ
 	struct Param
 	{
 		XMFLOAT3 pos;
-		bool IsAlive;
 		class Collision* mCollision;
 		CollisionTag collisionTag;
 	};

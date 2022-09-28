@@ -97,6 +97,9 @@
     <Filter Include="ソース ファイル\System\Json\Input">
       <UniqueIdentifier>{c4fb8778-a034-489e-a7b4-a6171bde6b29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\EnemyAttack">
+      <UniqueIdentifier>{5551666a-9e44-49e8-ad10-8d5e3f4de459}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -174,7 +177,7 @@
     <ClCompile Include="Camera.cpp">
       <Filter>ソース ファイル\Actor\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="ShootDirector.cpp">
+    <ClCompile Include="PlayerShotDirector.cpp">
       <Filter>ソース ファイル\Actor\Player\bullet</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
@@ -204,8 +207,26 @@
     <ClCompile Include="SupportJSON.cpp">
       <Filter>ソース ファイル\System\Json</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyShotDirector.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBulletBase.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBulletPool.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClCompile>
     <ClCompile Include="EnemyPool.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotType.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAttackBase.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="HomingAimShot.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -293,7 +314,7 @@
     <ClInclude Include="ActorTag.h">
       <Filter>ソース ファイル\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="ShootDirector.h">
+    <ClInclude Include="PlayerShotDirector.h">
       <Filter>ソース ファイル\Actor\Player\bullet</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
@@ -359,8 +380,26 @@
     <ClInclude Include="JsonDataType.h">
       <Filter>ソース ファイル\System\Json</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyShotDirector.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBulletPool.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBulletBase.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClInclude>
     <ClInclude Include="EnemyPool.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyType.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAttackBase.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="HomingAimShot.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

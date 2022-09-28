@@ -26,7 +26,6 @@ private:
 	class Player* m_player;
 	class Enemy* m_Enemy;
 	class Time* m_time;
-	class ShootDirector* m_shootDirector;
 	class CollisionManager* m_collisionManager;
 	class Ground* m_ground;
 	const int TARGET_NUMBER_Z = 70;

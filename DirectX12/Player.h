@@ -3,21 +3,22 @@
 class Player:public Actor
 {
 public:
-	Player(CollisionTag _tag, bool Alive);
+	Player(CollisionTag _tag, const bool _alive);
 	~Player()override;
 	//更新
-	void Update()override;
+	void Update();
 	//描画
-	void Draw()override;
+	void Draw();
 	//初期化
 	void Init()override;
 	//当たり判定処理
 	void OnCollisionEnter(class Collision* otherCollision)override;
 	
 	const bool IsShotFlag() { return m_shotStatus.shotFlag; };
-	const XMFLOAT3 GetShootDirection() { return m_shotStatus.shotDirection; };
+	const XMFLOAT3 GetShotDirection() { return m_shotStatus.shotDirection; };
 	const float GetShotSpeed() { return m_shotStatus.shotSpeed; };
 	const XMFLOAT3 GetInputVec() { return m_shotStatus.shotDirection; };
+	const bool IsAlive() { return m_isAlive; };
 private:
 	//移動系の処理updateの中で動いてほしいのでプライベート
 	void Move();
@@ -33,6 +34,8 @@ private:
 		XMFLOAT3 TmpShotDirection=shotDirection;
 	};
 	ShotStatus m_shotStatus;
+	class PlayerShotDirector* m_shotDirector;
+
 	const int SHOT_COOL_FLAME = 3;
 
 	struct JumpStatus
@@ -57,5 +60,6 @@ private:
 	class Sound& m_sound;
 	class SupportJson& m_json;
 	int RADIUS_NUM = 1;
+	bool m_isAlive;
 };
 

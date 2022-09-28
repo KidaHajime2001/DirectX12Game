@@ -2,9 +2,9 @@
 #include"Singleton.h"
 #include"PmdModel.h"
 #include"ModelTypeData.h"
-Ground::Ground(CollisionTag _tag, bool Alive)
+Ground::Ground(CollisionTag _tag)
 	:m_model(Singleton<PMDModel>::GetInstance())
-	, Actor(_tag, Alive)
+	, Actor(_tag)
 	, m_secondGround(0, 0, 300)
 	, m_thirdGround(0,0,150)
 {

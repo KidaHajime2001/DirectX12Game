@@ -8,7 +8,7 @@
 #include"Camera.h"
 #include"Bullet.h"
 #include"BulletPool.h"
-#include"ShootDirector.h"
+
 #include"Sound.h"
 #include"SoundType.h"
 Game::Game(SceneTag _sceneTag)
@@ -25,11 +25,10 @@ Game::Game(SceneTag _sceneTag)
 	, m_Enemy(new Enemy(CollisionTag::Enemy, true))
 	, m_collisionManager(new CollisionManager())
 	, m_time(new Time())
-	, m_ground(new Ground(CollisionTag::BackGround, true))
+	, m_ground(new Ground(CollisionTag::BackGround))
 	, m_distanceMoved(0)
 	, m_debugFlag(false)
 	, m_gameOverFlag(false)
-	,m_shootDirector(new ShootDirector())
 {
 
 	m_collisionManager->AddCollision(m_player->GetCollision());
@@ -46,7 +45,6 @@ Game::~Game()
 	delete m_time;
 	delete m_collisionManager;
 	delete m_ground;
-	delete m_shootDirector;
 }
 
 void Game::Update()
@@ -57,7 +55,6 @@ void Game::Update()
 
 		
 
-		m_shootDirector->Update(m_player);
 
 		m_collisionManager->CollisionUpdate();
 		
@@ -65,7 +62,7 @@ void Game::Update()
 		{
 			m_debugFlag = !m_debugFlag;
 		}
-		if (!m_player->GetAlive())
+		if (!m_player->IsAlive())
 		{
 			m_gameOverFlag = true;
 		}
@@ -86,7 +83,6 @@ void Game::Draw()
 
 	m_player->Draw();
 	m_ground->Draw();
-	m_shootDirector->Draw();
 	if (m_gameOverFlag)
 	{
 		m_sprite.Draw(SpriteType::ResultBack,XMFLOAT2(0,0));

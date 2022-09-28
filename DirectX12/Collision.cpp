@@ -1,10 +1,11 @@
 #include "Collision.h"
-Collision::Collision(Actor* parent, float radius)
-	:mParent(parent)
+Collision::Collision(Actor* parent, const float _radius, const bool _isValidity)
+	:m_parent(parent)
 {
-	mData.radius = radius;
-	mData.pos = parent->GetPosition();
-	mTag = mParent->GetTag();
+	m_data.radius = _radius;
+	m_data.pos = parent->GetPosition();
+	m_tag = m_parent->GetTag();
+	m_isValidity = _isValidity;
 }
 
 Collision::~Collision()
@@ -13,21 +14,21 @@ Collision::~Collision()
 
 bool Collision::Cheak(Collision* otherObj)
 {
-	if (!otherObj->GetParent()->GetAlive()||!GetParent()->GetAlive())
+	if (!otherObj->IsValidity() || !IsValidity())
 	{
 		return false;
 	}
-	CollisionData otherData = otherObj->mData;
+	CollisionData otherData = otherObj->m_data;
 
 
 	XMFLOAT3 subVector;
-	subVector.x= otherData.pos.x - this->mData.pos.x;
-	subVector.y = otherData.pos.y - this->mData.pos.y;
-	subVector.z = otherData.pos.z - this->mData.pos.z;
+	subVector.x= otherData.pos.x - this->m_data.pos.x;
+	subVector.y = otherData.pos.y - this->m_data.pos.y;
+	subVector.z = otherData.pos.z - this->m_data.pos.z;
 
 	sqrtf(subVector.x* subVector.x+ subVector.y* subVector.y+ subVector.z* subVector.z);
 
-	if (otherData.radius + this->mData.radius > sqrtf(subVector.x * subVector.x + subVector.y * subVector.y + subVector.z * subVector.z))
+	if (otherData.radius + this->m_data.radius > sqrtf(subVector.x * subVector.x + subVector.y * subVector.y + subVector.z * subVector.z))
 	{
 		return true;
 	}
@@ -38,5 +39,5 @@ bool Collision::Cheak(Collision* otherObj)
 
 void Collision::Update()
 {
-	mData.pos = mParent->GetPosition();
+	m_data.pos = m_parent->GetPosition();
 }
