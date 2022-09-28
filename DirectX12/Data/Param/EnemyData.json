@@ -7,7 +7,7 @@
 				"VisualPattern":"RedEnemy"
 			},
 			{
-				"EnemyType":"NoShotEnemy",
+				"EnemyType":"AimShotEnemy",
 				"Radius":2,
 				"VisualPattern":"BlueEnemy"
 			}

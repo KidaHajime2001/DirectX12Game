@@ -10,7 +10,7 @@ Bullet::Bullet(CollisionTag _tag, const bool _alive)
 	,m_isAlive(_alive)
 {
 	m_param.mCollision = new Collision(this, RADIUS_NUM);
-	m_speed = 1.0f;
+	m_speed = 0.0f;//‰¼’u‚«
 	Init();
 }
 

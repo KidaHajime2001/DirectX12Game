@@ -54,7 +54,7 @@ void Game::Update()
 		m_player->Update();
 
 		
-
+		
 
 		m_collisionManager->CollisionUpdate();
 		
@@ -83,6 +83,7 @@ void Game::Draw()
 
 	m_player->Draw();
 	m_ground->Draw();
+	m_Enemy->Draw();
 	if (m_gameOverFlag)
 	{
 		m_sprite.Draw(SpriteType::ResultBack,XMFLOAT2(0,0));

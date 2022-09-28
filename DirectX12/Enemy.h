@@ -2,6 +2,7 @@
 
 #include"ModelTypeData.h"
 #include"Actor.h"
+enum class EnemyType;
 class Enemy:public Actor
 {
 public:
@@ -17,6 +18,7 @@ public:
 	void OnCollisionEnter(class Collision* otherCollision)override;
 
 	const bool IsAlive() { return m_isAlive;}
+	const EnemyType GetEnemyType(const char* _typeName);
 private:
 	//ÉÇÉfÉã
 	class PMDModel& m_model;            //  PMDÉÇÉfÉãÇÃä«óù
@@ -25,5 +27,6 @@ private:
 	class Sound& m_sound;
 	class SupportJson& m_json;
 	bool m_isAlive;
-	 PMDModelType modeltype;
+	PMDModelType modeltype;
+	EnemyType m_enemyType;
 };
