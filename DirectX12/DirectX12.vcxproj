@@ -165,8 +165,10 @@
     <ClInclude Include="EffectType.h" />
     <ClInclude Include="EffekseerMng.h" />
     <ClInclude Include="EnemyAttackBase.h" />
-    <ClInclude Include="EnemyBulletBase.h" />
-    <ClInclude Include="EnemyBulletPool.h" />
+    <ClInclude Include="EnemyAttackPool.h" />
+    <ClInclude Include="EnemyAttackType.h" />
+    <ClInclude Include="EnemyBase.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyPool.h" />
     <ClInclude Include="EnemyShotDirector.h" />
     <ClInclude Include="EnumItr.h" />
@@ -174,12 +176,12 @@
     <ClInclude Include="Fps.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ground.h" />
-    <ClInclude Include="HomingAimShot.h" />
+    <ClInclude Include="HormingAimAttack.h" />
     <ClInclude Include="JsonDataType.h" />
+    <ClInclude Include="LesserEnemy.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="ModelData.h" />
     <ClInclude Include="ModelTypeData.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PmdDrawer.h" />
     <ClInclude Include="PmdLoader.h" />
@@ -187,6 +189,10 @@
     <ClInclude Include="PmdRenderer.h" />
     <ClInclude Include="PmdShifter.h" />
     <ClInclude Include="EnemyType.h" />
+    <ClInclude Include="ScoreItem.h" />
+    <ClInclude Include="SpreadShotEnemy.h" />
+    <ClInclude Include="StraightAttack.h" />
+    <ClInclude Include="StraightShotEnemy.h" />
     <ClInclude Include="SupportJSON.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneManager.h" />
@@ -204,6 +210,7 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="XMF3Math.h" />
+    <ClInclude Include="ヘッダー.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
@@ -219,16 +226,17 @@
     <ClCompile Include="DirectXManager.cpp" />
     <ClCompile Include="EffekseerMng.cpp" />
     <ClCompile Include="EnemyAttackBase.cpp" />
-    <ClCompile Include="EnemyBulletBase.cpp" />
-    <ClCompile Include="EnemyBulletPool.cpp" />
+    <ClCompile Include="EnemyAttackPool.cpp" />
+    <ClCompile Include="EnemyBase.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyPool.cpp" />
     <ClCompile Include="EnemyShotDirector.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Ground.cpp" />
-    <ClCompile Include="HomingAimShot.cpp" />
+    <ClCompile Include="HormingAimAttack.cpp" />
+    <ClCompile Include="LesserEnemy.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PmdDrawer.cpp" />
     <ClCompile Include="PmdLoader.cpp" />
@@ -238,11 +246,14 @@
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PlayerShotDirector.cpp" />
-    <ClCompile Include="ShotType.cpp" />
+    <ClCompile Include="ScoreItem.cpp" />
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="SingletonFinalizer.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SpreadShotEnemy.cpp" />
     <ClCompile Include="SpriteDrawer.cpp" />
+    <ClCompile Include="StraightAttack.cpp" />
+    <ClCompile Include="StraightShotEnemy.cpp" />
     <ClCompile Include="StringDrawer.cpp" />
     <ClCompile Include="SupportJSON.cpp" />
     <ClCompile Include="Time.cpp" />

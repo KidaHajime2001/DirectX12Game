@@ -20,7 +20,7 @@ bool Time::CheakTime()
 {
 	auto nowTime = clock();
 	int time = (int)(nowTime - m_startCount) / (int)CLOCKS_PER_SEC;
-	if (time>=LimitTime)
+	if (time>=m_limitTime)
 	{
 		m_nowCountFlag = false;
 		return true;
@@ -32,10 +32,10 @@ void Time::SetTimer(int _Limit)
 {
 	if (m_nowCountFlag)
 	{
-		OutputDebugString("AllReady Set.\n");
+		/*OutputDebugString("AllReady Set.\n");*/
 		return;
 	}
-	LimitTime=_Limit;
+	m_limitTime = _Limit;
 	m_startCount =  clock();
 	m_nowCountFlag = true;
 }

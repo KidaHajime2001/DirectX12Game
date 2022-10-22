@@ -1,7 +1,6 @@
 #pragma once
 #include"SceneBase.h"
 #include<vector>
-#include"Enemy.h"
 class Game :public SceneBase
 {
 public:
@@ -24,9 +23,9 @@ private:
 	int BGMHandle;
 
 	class Player* m_player;
-	class Enemy* m_Enemy;
+	class EnemyManager* m_enemyManager;
 	class Time* m_time;
-	class CollisionManager* m_collisionManager;
+	class CollisionManager& m_collisionManager;
 	class Ground* m_ground;
 	const int TARGET_NUMBER_Z = 70;
 	const int PLAYER_CAMERA_NUMBER_Y = 50;
@@ -34,5 +33,14 @@ private:
 	bool m_debugFlag;
 	float m_distanceMoved = 0.00f;//ˆÚ“®‚µ‚½‹——£
 	bool m_gameOverFlag;
+
+	const float WINDOW_WIDTH = 1920;
+	const float WINDOW_HEIGHT = 1080;
+
+
+
+
+	float backGroundMagnitude[2] = {};
+	float backGroundcode;
 };
 

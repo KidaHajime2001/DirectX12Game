@@ -5,16 +5,16 @@ enum class PMDModelType
 {
     //  プレイヤー
     Player = 0,
-
+    PlayerCube,
     //  エネミー
-    RedEnemy,
+    StraightEnemy,
     BlueEnemy,
     YellowEnemy,
 
     //  弾
     AimingBullet,       //  プレイヤーを狙う弾
     NoAimingBullet,     //  プレイヤーを狙わない球
-    ZigzagBullet,   //  ジグザグ攻撃の弾
+    PlayerBullet,   //  ジグザグ攻撃の弾
     HitZigzagBullet,    //  衝突後のジグザグ攻撃の弾
     BulletShadow,   //  影
 
@@ -25,6 +25,8 @@ enum class PMDModelType
     RedEnemyDefeater,
     BlueEnemyDefeater,
     YellowEnemyDefeater,
+    SpreadEnemy,
+    LesserEnemy,
 
     //  地面
     Ground,

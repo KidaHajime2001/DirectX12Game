@@ -27,4 +27,10 @@ private:
 	class Fps& m_fps;
 	class Sound& m_sound;
 	class Time* m_time;
+	enum class ButtonState
+	{
+		startButton,
+		OptionButton,
+	};
+	ButtonState m_buttonState;
 };

@@ -2,6 +2,7 @@
 #include"Player.h"
 #include"BulletPool.h"
 #include"Bullet.h"
+#include"XMF3Math.h"
 PlayerShotDirector::PlayerShotDirector()
 : m_bulletPool(new BulletPool())
 {
@@ -15,7 +16,8 @@ PlayerShotDirector::~PlayerShotDirector()
 	delete m_bulletPool;
 }
 
-void PlayerShotDirector::Update(const bool _isShot, const DirectX::XMFLOAT3 _pos, const DirectX::XMFLOAT3 _direction, const float _speed)
+
+void PlayerShotDirector::Update(const bool& _isShot, const DirectX::XMFLOAT3& _pos, const DirectX::XMFLOAT3& _direction, const float& _speed)
 {
 
 	m_bulletPool->Update();
@@ -26,7 +28,9 @@ void PlayerShotDirector::Update(const bool _isShot, const DirectX::XMFLOAT3 _pos
 		{
 			return;
 		}
-		bullet->Shot(_pos,_direction,_speed);
+		;
+		auto NewPos = XMF3Math::AddXMFLOAT3(_pos,XMF3Math::SetMagnitude(_direction,2.0f));
+		bullet->Shot(NewPos,_direction,_speed);
 	}
 }
 

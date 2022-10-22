@@ -1,18 +1,18 @@
 #include "Collision.h"
-Collision::Collision(Actor* parent, const float _radius, const bool _isValidity)
+Collision::Collision(Actor* parent, const bool& _isValidity)
 	:m_parent(parent)
 {
-	m_data.radius = _radius;
 	m_data.pos = parent->GetPosition();
 	m_tag = m_parent->GetTag();
 	m_isValidity = _isValidity;
+	m_parentPos = GetParent()->GetPosition();
 }
 
 Collision::~Collision()
 {
 }
 
-bool Collision::Cheak(Collision* otherObj)
+const bool Collision::Cheak(Collision* otherObj)
 {
 	if (!otherObj->IsValidity() || !IsValidity())
 	{
@@ -40,4 +40,9 @@ bool Collision::Cheak(Collision* otherObj)
 void Collision::Update()
 {
 	m_data.pos = m_parent->GetPosition();
+}
+
+void Collision::Hit(Collision* otherCollision)
+{
+	m_parent->OnCollisionEnter(otherCollision);
 }

@@ -12,11 +12,16 @@ namespace SpriteData
     //  ファイルへのパス
     std::unordered_map<SpriteType, const wchar_t*> FILE_PATH =
     {
-        { SpriteType::TitleBack,L"Data/Img/Title/TitleBack.png" },
+        { SpriteType::TitleBack,L"Data/Img/Title/NEOHACK.png" },
         { SpriteType::TitleText,L"Data/Img/Title/Titlename.png" },
-        { SpriteType::TitleStart,L"Data/Img/Title/Title_button.png" },
-
-        { SpriteType::GameBackGround,L"Data/Img/GameScene/megido_background07_1920x1080.png" },
+        { SpriteType::TitleStart,L"Data/Img/Title/STARTTRUE.png" },
+        { SpriteType::TitleStartFalse ,L"Data/Img/Title/STARTFALSE.png" },
+        { SpriteType::TitleOption,L"Data/Img/Title/OPTIONTRUE.png" },
+        { SpriteType::TitleOptionFalse,L"Data/Img/Title/OPTIONFALSE.png" },
+        
+        { SpriteType::GameBackGround,L"Data/Img/back.png" },
+        { SpriteType::GameBackGroundCirCle,L"Data/Img/CIRCLE2.png" },
+        
         { SpriteType::Gauge,L"Data/Img/GameScene/Gauge.png" },
         { SpriteType::GaugeFrame,L"Data/Img/GameScene/GaugeFrame.png" },
 

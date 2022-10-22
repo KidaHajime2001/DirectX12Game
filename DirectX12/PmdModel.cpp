@@ -93,10 +93,7 @@ void PMDModel::SetUp(const int _modelNum)
 
 const PMDModelType PMDModel::GetModelType(const std::string _typename)
 {
-    if (_typename == "RedEnemy")
-    {
-        return PMDModelType::RedEnemy;
-    }
+
     if (_typename == "BlueEnemy")
     {
         return PMDModelType::BlueEnemy;

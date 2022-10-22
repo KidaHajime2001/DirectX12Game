@@ -11,17 +11,19 @@ namespace PMDModelData
     std::unordered_map<PMDModelType, const std::string> FILE_PATH =
     {
         //  プレイヤー
-        {PMDModelType::Player,"Data/Model/Player/Player.pmd"},
-
+        {PMDModelType::Player,"Data/Model/Player/newPlayer.pmd"},
+         {PMDModelType::PlayerCube,"Data/Model/Player/cube.pmd"},
         //  エネミー
-        {PMDModelType::RedEnemy,"Data/Model/Enemy/RedEnemy.pmd"},
-        {PMDModelType::BlueEnemy,"Data/Model/鏡音リン.pmd"},
+        {PMDModelType::StraightEnemy,"Data/Model/Enemy/Enemy_St.pmd"},
+        {PMDModelType::SpreadEnemy,"Data/Model/Enemy/Enemy_S.pmd"},
+        {PMDModelType::LesserEnemy,"Data/Model/Enemy/Enemy_L.pmd"},
+        {PMDModelType::BlueEnemy,"Data/Model/TestPMX/box.pmd"},
         {PMDModelType::YellowEnemy,"Data/Model/Enemy/YellowEnemy.pmd"},
 
         //  弾
-        {PMDModelType::AimingBullet,"Data/Model/Bullet/RedBullet.pmd"},
+        {PMDModelType::AimingBullet,"Data/Model/Bullet/bullet.pmd"},
         {PMDModelType::NoAimingBullet,"Data/Model/Bullet/BlueBullet.pmd"},
-        {PMDModelType::ZigzagBullet,"Data/Model/Bullet/Zigzag.pmd"},
+        {PMDModelType::PlayerBullet,"Data/Model/Bullet/PlayerShot.pmd"},
         {PMDModelType::HitZigzagBullet,"Data/Model/Bullet/HitZigzag.pmd"},
         {PMDModelType::BulletShadow,"Data/Model/Bullet/BulletShadow.pmd"},
 

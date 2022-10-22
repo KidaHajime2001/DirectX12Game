@@ -10,7 +10,7 @@ public:
 	bool CheakTime();
 private:
 	clock_t m_startCount;
-	int LimitTime;
+	int m_limitTime;
 	bool m_nowCountFlag;
 
 };

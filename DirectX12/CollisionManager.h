@@ -15,7 +15,9 @@ public:
 	~CollisionManager();
 	void AddCollision(Collision* collider);
 	void RemoveCollision(Collision* collider);
+	void Update();
 	void CollisionUpdate();
+	void DestroyAll();
 	std::vector<collidePairs> pairsVec;//当たり判定が発生するActorのペア　タグで定義
 	std::unordered_map<CollisionTag, std::vector<class Collision*>> mColliders;
 private:

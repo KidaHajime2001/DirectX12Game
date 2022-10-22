@@ -1,5 +1,6 @@
 #include "CollisionManager.h"
-
+#include"EnumItr.h"
+#include"CollisionTag.h"
 using namespace std;
 CollisionManager::CollisionManager()
 {
@@ -7,10 +8,17 @@ CollisionManager::CollisionManager()
 	pairsVec.push_back(onepair);
 	 onepair = { CollisionTag::PlayerBullet,CollisionTag::Enemy };
 	pairsVec.push_back(onepair);
+	onepair = { CollisionTag::Enemy,CollisionTag::Enemy };
+	pairsVec.push_back(onepair);
+	onepair = { CollisionTag::Player,CollisionTag::EnemyBullet };
+	pairsVec.push_back(onepair);
 }
 
 CollisionManager::~CollisionManager()
 {
+	DestroyAll();
+	pairsVec.clear();
+	mColliders.clear();
 }
 
 void CollisionManager::AddCollision(Collision* collision)
@@ -31,21 +39,60 @@ void CollisionManager::RemoveCollision(Collision* collision)
 
 }
 
+void CollisionManager::Update()
+{
+	//  列挙型EnemyAttackOrbitTypeのイテレータを作成
+	typedef EnumIterator<CollisionTag, CollisionTag::Player, CollisionTag::End> typeItr;
+	for (auto itr : typeItr())
+	{
+		for (auto collision : mColliders[itr])
+		{
+			collision->Update();
+		}
+	}
+	CollisionUpdate();
+}
+
 void CollisionManager::CollisionUpdate()
 {
+	
+	bool isHit = false;
+
 	for (auto onePair : pairsVec)
 	{
 		for (auto obj : mColliders[onePair.pair1])
 		{
 			for (auto reactionObj : mColliders[onePair.pair2])
 			{
-				if (obj->Cheak(reactionObj))
+				
+				if (obj->Cheak(reactionObj)&& obj!= reactionObj)
 				{
-					reactionObj->GetParent()->OnCollisionEnter(obj);
-					obj->GetParent()->OnCollisionEnter(reactionObj);
+					CollisionTag u = obj->GetTag();
+					CollisionTag o = obj->GetTag();
+					reactionObj->Hit(obj);
+					obj->Hit(reactionObj);
+					isHit = true;
 				}
 			}
 		}
 
 	}
+	
+}
+
+void CollisionManager::DestroyAll()
+{
+	//  列挙型EnemyAttackOrbitTypeのイテレータを作成
+	typedef EnumIterator<CollisionTag, CollisionTag::Player, CollisionTag::End> typeItr;
+	for (auto itr : typeItr())
+	{
+		for (auto collision : mColliders[itr])
+		{
+			if (collision)
+			{
+				delete collision;
+			}
+		}
+	}
+	mColliders.clear();
 }

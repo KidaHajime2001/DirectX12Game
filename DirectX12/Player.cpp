@@ -20,6 +20,7 @@ Player::Player(CollisionTag _tag, bool _alive)
     , m_isAlive(_alive)
     , m_shotDirector(new PlayerShotDirector())
     ,Actor(_tag)
+    ,m_cubeRotate(45)
 {
     Init();
     m_camera.SetPlayerPosition(GetPosition());
@@ -34,7 +35,6 @@ Player::~Player()
 void Player::Update()
 {
     m_shotDirector->Update(IsShotFlag(),GetPosition(),GetShotDirection(),GetShotSpeed());
-    m_param.mCollision->Update();
     m_camera.SetPlayerPosition(GetPosition());
     m_camera.Update();
     
@@ -46,6 +46,11 @@ void Player::Update()
             m_sound.Play(SoundType::ShootSE,false,true);
             m_shotStatus.shotFlag= true;
             m_shotStatus.shotInterval = SHOT_COOL_FLAME;
+            m_cubeRotate+=30;
+            if (m_cubeRotate>=360)
+            {
+                m_cubeRotate = 0;
+            }
         }
     }
     if (m_shotStatus.shotInterval!=0)//ショットフラグがたっているとき
@@ -80,15 +85,13 @@ void Player::Update()
 
 void Player::Draw()
 {
-    
-   
-
     if (m_isAlive)
     {
         m_shotDirector->Draw();
-        m_model.Draw(GetPosition(),m_shotStatus.cosDirection, PMDModelType::Player);
+        m_model.Draw(GetPosition(), m_shotStatus.cosDirection, PMDModelType::Player);
+        m_model.Draw(XMF3Math::AddXMFLOAT3(GetPosition(),XMF3Math::SetMagnitude(m_shotStatus.shotDirection,-1)), XMF3Math::DegreeForRadian(m_cubeRotate), PMDModelType::PlayerCube);
+
     }
-    
 }
 
 void Player::Init()
@@ -98,8 +101,8 @@ void Player::Init()
 
     //  取得したデータを元に初
     SetPotision(posData);
-   m_param.mCollision = new Collision(this, radiusData);
-   m_isAlive = true;
+    m_param.mCollision->m_data.radius=radiusData;
+    m_isAlive = true;
 }
 
 void Player::OnCollisionEnter(Collision* otherCollision)
@@ -128,6 +131,35 @@ void Player::Move()
 
     //コントローラーの入力と統合
     XMFLOAT2 inputScalar = m_controller.GetLeftStickInput();
+
+    // ある程度の入力はデッドゾーンとして切り捨てる
+    //マイナス入力に対応するために絶対値計算
+    if (abs(inputScalar.x)<=DEADZONE)
+    {
+        inputScalar.x = 0;
+    }
+    if (abs(inputScalar.y)<= DEADZONE)
+    {
+        inputScalar.y = 0;
+    }
+    //コントローラー未接続用移動処理
+    if (m_controller.GetControllerButtonState(ButtonName::GAMEPAD_UP))
+    {
+        inputScalar.y += 1;
+    }
+    if (m_controller.GetControllerButtonState(ButtonName::GAMEPAD_DOWN))
+    {
+        inputScalar.y -= 1;
+    }
+    if (m_controller.GetControllerButtonState(ButtonName::GAMEPAD_RIGHT))
+    {
+        inputScalar.x += 1;
+    }
+    if (m_controller.GetControllerButtonState(ButtonName::GAMEPAD_LEFT))
+    {
+        inputScalar.x -= 1;
+    }
+
 
     inputVec    =XMF3Math::AddXMFLOAT3(inputVec ,XMF3Math::ScalarXMFLOAT3(Forward, inputScalar.y));
     inputVec = XMF3Math::AddXMFLOAT3(inputVec, XMF3Math::ScalarXMFLOAT3(RIGHT, inputScalar.x));
@@ -165,6 +197,5 @@ void Player::TakeAim()
     m_shotStatus.cosDirection = atan2(inputVec.x, inputVec.z);
 
     m_shotStatus.shotDirection = inputVec;
-    m_shotStatus.TmpShotDirection = m_shotStatus.shotDirection;
 }
 

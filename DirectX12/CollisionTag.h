@@ -5,10 +5,10 @@
 enum class CollisionTag
 {
 
-	Player,
+	Player=0,
 	BackGround,
 	Enemy,
 	PlayerBullet,
-	EmemyBullet,
-
+	EnemyBullet,
+	End,
 };

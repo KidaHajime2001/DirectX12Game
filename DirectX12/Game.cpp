@@ -8,9 +8,12 @@
 #include"Camera.h"
 #include"Bullet.h"
 #include"BulletPool.h"
-
+#include"LesserEnemy.h"
 #include"Sound.h"
 #include"SoundType.h"
+#include"StraightShotEnemy.h"
+#include"EnemyManager.h"
+#include"EnemyPool.h"
 Game::Game(SceneTag _sceneTag)
 	:SceneBase(_sceneTag)
 	, m_controller(Singleton<Controller>::GetInstance())
@@ -22,29 +25,27 @@ Game::Game(SceneTag _sceneTag)
 	, m_sound(Singleton<Sound>::GetInstance())
 
 	, m_player(new Player(CollisionTag::Player, true))
-	, m_Enemy(new Enemy(CollisionTag::Enemy, true))
-	, m_collisionManager(new CollisionManager())
+	, m_collisionManager(Singleton<CollisionManager>::GetInstance())
 	, m_time(new Time())
 	, m_ground(new Ground(CollisionTag::BackGround))
 	, m_distanceMoved(0)
 	, m_debugFlag(false)
 	, m_gameOverFlag(false)
+	,m_enemyManager(new EnemyManager())
 {
-
-	m_collisionManager->AddCollision(m_player->GetCollision());
-
-	
+	backGroundMagnitude[0] = 0.01f;
+	backGroundMagnitude[1] = 1.0f;
 	BGMHandle = m_sound.Play(SoundType::GameSceneBGM,true,true);
 
 }
 
 Game::~Game()
 {
+	m_collisionManager.DestroyAll();
 	delete m_player;
-	delete m_Enemy;
 	delete m_time;
-	delete m_collisionManager;
 	delete m_ground;
+	delete m_enemyManager;
 }
 
 void Game::Update()
@@ -53,11 +54,8 @@ void Game::Update()
 	{
 		m_player->Update();
 
-		
-		
-
-		m_collisionManager->CollisionUpdate();
-		
+		m_enemyManager->Update(m_player->GetPosition());
+		m_collisionManager.Update();
 		if (m_controller.IsPushEnter(ButtonName::GAMEPAD_BACK))
 		{
 			m_debugFlag = !m_debugFlag;
@@ -83,7 +81,7 @@ void Game::Draw()
 
 	m_player->Draw();
 	m_ground->Draw();
-	m_Enemy->Draw();
+	m_enemyManager->Draw();
 	if (m_gameOverFlag)
 	{
 		m_sprite.Draw(SpriteType::ResultBack,XMFLOAT2(0,0));
@@ -97,9 +95,10 @@ void Game::DrawString()
 
 			m_controller.ShowControllerState();
 			m_drawer.DrawStringBlackAndYellowForFewNumber(m_time->GetNowCount(), XMFLOAT2(0,300), 0.5f);
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetInputVec().x, XMFLOAT2(0, 350), 0.5f);
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetInputVec().y,XMFLOAT2(0,400),0.5f);
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetInputVec().z, XMFLOAT2(0, 450), 0.5f);
+			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetPosition().x, XMFLOAT2(0, 350), 0.5f);
+			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetPosition().y,XMFLOAT2(0,400),0.5f);
+			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetPosition().z, XMFLOAT2(0, 450), 0.5f);
+
 		}
 		
 		if (!m_gameOverFlag)
@@ -113,5 +112,26 @@ void Game::DrawString()
 
 void Game::DrawBackGround()
 {
-	m_sprite.Draw(SpriteType::GameBackGround , XMFLOAT2(0, 0));
+	if (backGroundMagnitude[0]>=10.0f)
+	{
+		backGroundMagnitude[0] = 0.01f;
+	}
+	if (backGroundMagnitude[1] >= 10.0f)
+	{
+		backGroundMagnitude[1] = 0.01f;
+	}
+	backGroundcode = 0.1f;
+	backGroundMagnitude[0] += backGroundcode;
+	backGroundMagnitude[1] += backGroundcode;
+	m_sprite.Draw(SpriteType::GameBackGround, XMFLOAT2(0, 0));
+
+	auto width = WINDOW_WIDTH / 2 - (WINDOW_WIDTH * backGroundMagnitude[0]) / 2;
+	auto height = WINDOW_HEIGHT / 2 - (WINDOW_HEIGHT * backGroundMagnitude[0]) / 2;
+	m_sprite.Draw(SpriteType::GameBackGroundCirCle, XMFLOAT2(width, height), backGroundMagnitude[0]);
+
+	width = WINDOW_WIDTH / 2 - (WINDOW_WIDTH * backGroundMagnitude[1]) / 2;
+	height = WINDOW_HEIGHT / 2 - (WINDOW_HEIGHT * backGroundMagnitude[1]) / 2;
+	m_sprite.Draw(SpriteType::GameBackGroundCirCle, XMFLOAT2(width, height), backGroundMagnitude[1]);
+
+	
 }

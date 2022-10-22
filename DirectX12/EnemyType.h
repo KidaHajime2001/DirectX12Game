@@ -1,6 +1,9 @@
 #pragma once
 enum class EnemyType
 {
-	NoShotEnemy = 0,
+	LesserEnemy = 0,
+	SpreadShotEnemy,
+	StraightShotEnemy,
+
 	AimShotEnemy,
 };

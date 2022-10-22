@@ -31,13 +31,12 @@ private:
 		XMFLOAT3 shotDirection = {0,0,1};
 		float shotSpeed=4.0f;
 		float cosDirection=0.0f;
-		XMFLOAT3 TmpShotDirection=shotDirection;
 	};
 	ShotStatus m_shotStatus;
 	class PlayerShotDirector* m_shotDirector;
 
 	const int SHOT_COOL_FLAME = 3;
-
+	const float DEADZONE = 0.3f;
 	struct JumpStatus
 	{
 		float JumpPower = 2.0f;
@@ -61,5 +60,6 @@ private:
 	class SupportJson& m_json;
 	int RADIUS_NUM = 1;
 	bool m_isAlive;
+	int m_cubeRotate;
 };
 

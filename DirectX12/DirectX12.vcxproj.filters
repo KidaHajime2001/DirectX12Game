@@ -28,17 +28,11 @@
     <Filter Include="ソース ファイル\Actor\Object">
       <UniqueIdentifier>{95acf846-a09c-4cf7-8134-496aaf5ba2d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Actor\Player">
-      <UniqueIdentifier>{6dd11c7a-5a80-46ad-86ca-bbbcd8dc1e0f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Collision">
       <UniqueIdentifier>{932ab982-7213-4b80-9305-9911eef19d30}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\System\Effekseer">
       <UniqueIdentifier>{53bc803b-7515-4bd7-8957-82aa3e614c33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Actor\Player\bullet">
-      <UniqueIdentifier>{7eeb2b40-00af-4d6d-bfb5-df1d71c8ecdb}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Actor\Pool">
       <UniqueIdentifier>{78296da9-a90b-4e6a-8162-4d72d36a77a1}</UniqueIdentifier>
@@ -100,6 +94,33 @@
     <Filter Include="ソース ファイル\Actor\Object\Enemy\EnemyAttack">
       <UniqueIdentifier>{5551666a-9e44-49e8-ad10-8d5e3f4de459}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\EnemyAttack\EnemyAttackBase">
+      <UniqueIdentifier>{94971ee8-76fe-4563-b649-4661984cd100}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy">
+      <UniqueIdentifier>{26e26a9d-f1cb-4c8c-9d8f-b0401b7d1542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy\EnemyBase">
+      <UniqueIdentifier>{d68e4e87-a555-4a15-9fab-deff62b8d64d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy\Lessar">
+      <UniqueIdentifier>{3859d140-746c-42bf-88e0-432be6c49aa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy\StraightShot">
+      <UniqueIdentifier>{4f7aed0e-23cc-4505-a064-928b400ac730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy\SpreadShot">
+      <UniqueIdentifier>{5a83bfa5-293c-4fde-8079-fedb38239a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Player">
+      <UniqueIdentifier>{6dd11c7a-5a80-46ad-86ca-bbbcd8dc1e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Player\bullet">
+      <UniqueIdentifier>{7eeb2b40-00af-4d6d-bfb5-df1d71c8ecdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Item">
+      <UniqueIdentifier>{b7736ca7-827d-4f82-b20d-e567770a2649}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -139,7 +160,7 @@
       <Filter>ソース ファイル\System\Json\Input</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\Actor\Player</Filter>
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player</Filter>
     </ClCompile>
     <ClCompile Include="SceneBase.cpp">
       <Filter>ソース ファイル\SceneBase</Filter>
@@ -169,25 +190,19 @@
       <Filter>ソース ファイル\System\UI</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>ソース ファイル\Actor\Player\bullet</Filter>
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player\bullet</Filter>
     </ClCompile>
     <ClCompile Include="BulletPool.cpp">
-      <Filter>ソース ファイル\Actor\Player\bullet</Filter>
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player\bullet</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>ソース ファイル\Actor\Camera</Filter>
     </ClCompile>
     <ClCompile Include="PlayerShotDirector.cpp">
-      <Filter>ソース ファイル\Actor\Player\bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player\bullet</Filter>
     </ClCompile>
     <ClCompile Include="CheckError.cpp">
       <Filter>ソース ファイル\System\Error</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>ソース ファイル\Actor\Object</Filter>
     </ClCompile>
     <ClCompile Include="XMF3Math.cpp">
       <Filter>ソース ファイル\System\Math</Filter>
@@ -210,23 +225,41 @@
     <ClCompile Include="EnemyShotDirector.cpp">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBulletBase.cpp">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyBulletPool.cpp">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyPool.cpp">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="ShotType.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="HormingAimAttack.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="StraightAttack.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
     </ClCompile>
     <ClCompile Include="EnemyAttackBase.cpp">
-      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack\EnemyAttackBase</Filter>
     </ClCompile>
-    <ClCompile Include="HomingAimShot.cpp">
-      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
+    <ClCompile Include="EnemyAttackPool.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack\EnemyAttackBase</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBase.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\EnemyBase</Filter>
+    </ClCompile>
+    <ClCompile Include="LesserEnemy.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\Lessar</Filter>
+    </ClCompile>
+    <ClCompile Include="StraightShotEnemy.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\StraightShot</Filter>
+    </ClCompile>
+    <ClCompile Include="SpreadShotEnemy.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\SpreadShot</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreItem.cpp">
+      <Filter>ソース ファイル\Actor\Object\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -255,7 +288,7 @@
       <Filter>ソース ファイル\System\Json\Input</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>ソース ファイル\Actor\Player</Filter>
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player</Filter>
     </ClInclude>
     <ClInclude Include="SceneBase.h">
       <Filter>ソース ファイル\SceneBase</Filter>
@@ -303,10 +336,10 @@
       <Filter>ソース ファイル\System\UI</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>ソース ファイル\Actor\Player\bullet</Filter>
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player\bullet</Filter>
     </ClInclude>
     <ClInclude Include="BulletPool.h">
-      <Filter>ソース ファイル\Actor\Player\bullet</Filter>
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player\bullet</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>ソース ファイル\Actor\Camera</Filter>
@@ -315,13 +348,7 @@
       <Filter>ソース ファイル\Actor</Filter>
     </ClInclude>
     <ClInclude Include="PlayerShotDirector.h">
-      <Filter>ソース ファイル\Actor\Player\bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>ソース ファイル\Actor\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player\bullet</Filter>
     </ClInclude>
     <ClInclude Include="CheckError.h">
       <Filter>ソース ファイル\System\Error</Filter>
@@ -383,23 +410,50 @@
     <ClInclude Include="EnemyShotDirector.h">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBulletPool.h">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyBulletBase.h">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyPool.h">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EnemyType.h">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyAttackBase.h">
+    <ClInclude Include="HormingAimAttack.h">
       <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
     </ClInclude>
-    <ClInclude Include="HomingAimShot.h">
+    <ClInclude Include="StraightAttack.h">
       <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAttackBase.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack\EnemyAttackBase</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAttackPool.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack\EnemyAttackBase</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAttackType.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack\EnemyAttackBase</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBase.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\EnemyBase</Filter>
+    </ClInclude>
+    <ClInclude Include="LesserEnemy.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\Lessar</Filter>
+    </ClInclude>
+    <ClInclude Include="StraightShotEnemy.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\StraightShot</Filter>
+    </ClInclude>
+    <ClInclude Include="SpreadShotEnemy.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\SpreadShot</Filter>
+    </ClInclude>
+    <ClInclude Include="ヘッダー.h">
+      <Filter>ソース ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreItem.h">
+      <Filter>ソース ファイル\Actor\Object\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

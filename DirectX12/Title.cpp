@@ -16,6 +16,7 @@ Title::Title(SceneTag _sceneTag)
 	, m_sound(Singleton<Sound>::GetInstance())
 	,m_time(new Time())
 	,m_decisionFlag(false)
+	,m_buttonState(ButtonState::startButton)
 {
 	m_alfaValue = 1.0f;
 	BGMHandle= m_sound.Play(SoundType::TitleBGM,true,true);
@@ -27,14 +28,46 @@ Title::~Title()
 
 void Title::Update()
 {
+	if (m_controller.IsPushEnter(ButtonName::GAMEPAD_UP))
+	{
+		if (ButtonState::startButton == m_buttonState)
+		{
+			
+		}
+		else if (ButtonState::OptionButton == m_buttonState)
+		{
+			m_buttonState = ButtonState::startButton;
+		}
+	}
+	if (m_controller.IsPushEnter(ButtonName::GAMEPAD_DOWN))
+	{
+		if (ButtonState::startButton == m_buttonState)
+		{
+			m_buttonState = ButtonState::OptionButton;
+		}
+		else if (ButtonState::OptionButton == m_buttonState)
+		{
+			
+		}
+	}
+
+
 	if (m_controller.IsPushEnter(ButtonName::GAMEPAD_A))
 	{
-		m_time->SetTimer(1);
-		m_sound.Stop(SoundType::TitleBGM,BGMHandle);
-		m_sound.Play(SoundType::SelectSE,false,true);
-		m_decisionFlag = true;
-		Code = 10.0f;
-		m_alfaValue = 0;
+		if (ButtonState::startButton == m_buttonState)
+		{
+			m_time->SetTimer(1);
+			m_sound.Stop(SoundType::TitleBGM, BGMHandle);
+			m_sound.Play(SoundType::SelectSE, false, true);
+			m_decisionFlag = true;
+			Code = 10.0f;
+			m_alfaValue = 0;
+		}
+		else if (ButtonState::OptionButton == m_buttonState)
+		{
+
+		}
+		
 		
 	}
 	if (m_time->CheakTime()&& m_decisionFlag)
@@ -50,9 +83,22 @@ void Title::Draw()
 	//  NOTE: âÊñ ÇÃÉTÉCÉYÇ…çáÇÌÇπÇƒçÏÇ¡ÇƒÇ¢ÇÈÇÃÇ≈ç¿ïWÇÕ0
 	XMFLOAT2 pos = { 0,0 };
 	//  îwåiï`âÊ
-	m_sprite.Draw(SpriteType::TitleBack, pos);
-	m_sprite.Draw(SpriteType::TitleText, pos);
-	m_sprite.Draw(SpriteType::TitleStart,pos, 1.0f, m_sprite.GetColorWithAlfa(m_alfaValue));
+	m_sprite.Draw(SpriteType::TitleBack, pos);/*
+	m_sprite.Draw(SpriteType::TitleText, pos);*/
+	
+	
+	
+	
+	if (ButtonState::startButton == m_buttonState)
+	{
+		m_sprite.Draw(SpriteType::TitleOptionFalse, pos);
+		m_sprite.Draw(SpriteType::TitleStart, pos, 1.0f, m_sprite.GetColorWithAlfa(m_alfaValue));
+	}
+	else if (ButtonState::OptionButton == m_buttonState)
+	{
+		m_sprite.Draw(SpriteType::TitleStartFalse, pos);
+		m_sprite.Draw(SpriteType::TitleOption, pos, 1.0f, m_sprite.GetColorWithAlfa(m_alfaValue));
+	}
 	
 }
 

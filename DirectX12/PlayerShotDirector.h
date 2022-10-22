@@ -5,7 +5,7 @@ class PlayerShotDirector
 public:
 	PlayerShotDirector();
 	~PlayerShotDirector();
-	void Update(const bool _isShot,const DirectX::XMFLOAT3 _pos, const DirectX::XMFLOAT3 _direction,const float _speed);
+	void Update(const bool& _isShot,const DirectX::XMFLOAT3& _pos, const DirectX::XMFLOAT3& _direction,const float& _speed);
 	void Draw();
 private:
 	//ÉvÉåÉCÉÑÅ[
