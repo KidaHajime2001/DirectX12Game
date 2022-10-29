@@ -18,9 +18,7 @@ namespace SpriteData
         { SpriteType::TitleStartFalse ,L"Data/Img/Title/STARTFALSE.png" },
         { SpriteType::TitleOption,L"Data/Img/Title/OPTIONTRUE.png" },
         { SpriteType::TitleOptionFalse,L"Data/Img/Title/OPTIONFALSE.png" },
-        
-        { SpriteType::GameBackGround,L"Data/Img/back.png" },
-        { SpriteType::GameBackGroundCirCle,L"Data/Img/CIRCLE2.png" },
+         { SpriteType::GameBackGround,L"Data/Img/GameScene/backgroundColor.png" },
         
         { SpriteType::Gauge,L"Data/Img/GameScene/Gauge.png" },
         { SpriteType::GaugeFrame,L"Data/Img/GameScene/GaugeFrame.png" },

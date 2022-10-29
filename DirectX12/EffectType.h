@@ -6,6 +6,7 @@ enum class EffectType {
     AppearancePlayer = 0,    //  登場
     DamagePlayer,            //  ダメージ
     DefeatPlayer,            //  撃破
+    PlayerMove,
 
     //  エネミー
     AppearanceEnemy,    //  登場

@@ -37,7 +37,7 @@ Application::Application()
 }
 Application::~Application()
 {
-    delete m_sceneBase;
+
 }
 
 void Application::Run()
@@ -84,14 +84,21 @@ void Application::Run()
         m_sceneBase->DrawBackGround();
         //pmd
         {
+            
             //  PipelineStateをPMD用に合わせる
-            m_device.dx12->GetCommandList()->SetPipelineState(m_device.pmdRenderer->GetPipelineState());
+            m_device.dx12->GetCommandList()->SetPipelineState(m_device.pmdRenderer->GetLinePipelineState());
             //  RootSignatureもPMD用に合わせる
             m_device.dx12->GetCommandList()->SetGraphicsRootSignature(m_device.pmdRenderer->GetRootSignature());
-            m_device.dx12->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-            m_device.dx12->SetScene(); 
+            m_device.dx12->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
+            
+            m_device.dx12->SetScene();
             //  PMDモデルクラスの更新
             model.Update();
+            m_sceneBase->LineDraw();
+            m_device.dx12->GetCommandList()->SetPipelineState(m_device.pmdRenderer->GetPipelineState());
+            m_device.dx12->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+            m_device.dx12->SetScene(); 
+            
             m_sceneBase->Draw();
         }
 
@@ -136,7 +143,7 @@ void Application::Run()
             delete beforeScene;//仮置きしておいたメモリを開放
         }
     }
-    
+    delete m_sceneBase;
     //  ゲーム終了処理
     m_device.Finalize();
     SingletonFinalizer::Finalize();

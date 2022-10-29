@@ -15,6 +15,9 @@ PMDRenderer::PMDRenderer(DirectXManager& _dx12) :m_dx12(_dx12)
     assert(SUCCEEDED(CreateRootSignature()));
     //  グラフィックスパイプライン生成
     assert(SUCCEEDED(CreateGraphicsPipelineForPMD()));
+
+    //  グラフィックスパイプライン生成
+    assert(SUCCEEDED(CreateGraphicsPipelineForLinePMD()));
     //  白テクスチャ生成
     m_whiteTex = CreateWhiteTexture();
     //  黒テクスチャ生成
@@ -139,6 +142,14 @@ HRESULT PMDRenderer::CreateGraphicsPipelineForPMD()
     gpipeline.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;    //  中身は0xffffffff
 
     gpipeline.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+    gpipeline.BlendState.RenderTarget[0].BlendEnable = true;//今のところfalse
+    gpipeline.BlendState.RenderTarget[0].BlendOp = D3D12_BLEND_OP_ADD;
+    gpipeline.BlendState.RenderTarget[0].BlendOpAlpha = D3D12_BLEND_OP_ADD;
+    //SrcBlend=SRC_ALPHAというのはSrc*αということ
+    gpipeline.BlendState.RenderTarget[0].SrcBlend = D3D12_BLEND_SRC_ALPHA;
+    gpipeline.BlendState.RenderTarget[0].DestBlend = D3D12_BLEND_SRC_ALPHA;
+    gpipeline.BlendState.RenderTarget[0].SrcBlendAlpha = D3D12_BLEND_SRC_ALPHA;
+    gpipeline.BlendState.RenderTarget[0].DestBlendAlpha = D3D12_BLEND_SRC_ALPHA;
 
     gpipeline.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
     gpipeline.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;    //  カリングしない
@@ -163,6 +174,82 @@ HRESULT PMDRenderer::CreateGraphicsPipelineForPMD()
 
     //  グラフィックスパイプラインステートの生成
     result = m_dx12.GetDevice()->CreateGraphicsPipelineState(&gpipeline, IID_PPV_ARGS(m_pipeline.ReleaseAndGetAddressOf()));
+    if (FAILED(result)) {
+        assert(SUCCEEDED(result));
+    }
+    return result;
+}
+
+HRESULT PMDRenderer::CreateGraphicsPipelineForLinePMD()
+{
+    //  シェーダーの設定
+     //　バイナリデータ構造体
+    ComPtr<ID3DBlob> vsBlob = nullptr;
+    ComPtr<ID3DBlob> psBlob = nullptr;
+    ComPtr<ID3DBlob> errorBlob = nullptr;
+
+    //  シェーダーをコンパイル
+    //　BasicShader.hlslが頂点シェーダー
+    auto result = D3DCompileFromFile(L"BasicShader.hlsl",
+        nullptr, nullptr,
+        "BasicVS", "vs_5_0",
+        D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
+        0, &vsBlob, &errorBlob);
+    if (!CheckShaderCompileResult(result, errorBlob.Get())) {
+        assert(0);
+        return result;
+    }
+
+    //  シェーダーをコンパイル
+   //　BasicShader.hlslがピクセルシェーダー
+    result = D3DCompileFromFile(L"BasicShader.hlsl",
+        nullptr, nullptr,
+        "BasicPS", "ps_5_0",
+        D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
+        0, &psBlob, &errorBlob);
+    if (!CheckShaderCompileResult(result, errorBlob.Get())) {
+        assert(0);
+        return result;
+    }
+    D3D12_INPUT_ELEMENT_DESC inputLayout[] = {
+        { "POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+        { "NORMAL",0,DXGI_FORMAT_R32G32B32_FLOAT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+        { "TEXCOORD",0,DXGI_FORMAT_R32G32_FLOAT,0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+    };
+
+    //  グラフィックスパイプラインステートの設定
+    D3D12_GRAPHICS_PIPELINE_STATE_DESC gpipeline = {};
+    gpipeline.pRootSignature = m_rootSignature.Get();
+    gpipeline.VS = CD3DX12_SHADER_BYTECODE(vsBlob.Get());
+    gpipeline.PS = CD3DX12_SHADER_BYTECODE(psBlob.Get());
+
+    gpipeline.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;    //  中身は0xffffffff
+
+    gpipeline.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+
+    gpipeline.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
+    gpipeline.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;    //  カリングしない
+
+    gpipeline.DepthStencilState.DepthEnable = true;    //  深度バッファを使う
+    gpipeline.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;    //  全て書き込み
+    gpipeline.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS;        //  小さい方を採用
+    gpipeline.DSVFormat = DXGI_FORMAT_D32_FLOAT;
+    gpipeline.DepthStencilState.StencilEnable = false;
+
+    gpipeline.InputLayout.pInputElementDescs = inputLayout;       //  レイアウト先頭アドレス
+    gpipeline.InputLayout.NumElements = _countof(inputLayout);    //  レイアウト配列数
+
+    gpipeline.IBStripCutValue = D3D12_INDEX_BUFFER_STRIP_CUT_VALUE_DISABLED;     //  ストリップ時のカットなし
+    gpipeline.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE;    //  三角形で構成
+
+    gpipeline.NumRenderTargets = 1;    //  今は１つのみ
+    gpipeline.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;    //  0～1に正規化されたRGBA
+
+    gpipeline.SampleDesc.Count = 1;        //  サンプリングは1ピクセルにつき１
+    gpipeline.SampleDesc.Quality = 0;      //  クオリティは最低
+
+    //  グラフィックスパイプラインステートの生成
+    result = m_dx12.GetDevice()->CreateGraphicsPipelineState(&gpipeline, IID_PPV_ARGS(m_lineDrawerPipeline.ReleaseAndGetAddressOf()));
     if (FAILED(result)) {
         assert(SUCCEEDED(result));
     }

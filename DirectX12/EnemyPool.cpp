@@ -107,7 +107,12 @@ void EnemyPool::DestroyAll()
     {
         for (auto enemy : m_enemyPool[itr])
         {
-            delete enemy;
+            if (enemy)
+            {
+                delete enemy;
+
+            }
+            
         };
         m_enemyPool[itr].clear();
         m_enemyPool[itr].shrink_to_fit();

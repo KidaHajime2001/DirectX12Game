@@ -16,6 +16,7 @@ public:
 
     //  ゲッター
     ID3D12PipelineState* GetPipelineState()const { return m_pipeline.Get(); }            //  パイプラインステート
+    ID3D12PipelineState* GetLinePipelineState()const { return m_lineDrawerPipeline.Get(); }            //  パイプラインステート
     ID3D12RootSignature* GetRootSignature()const { return m_rootSignature.Get(); }       //  ルートシグネチャ
 
 private:
@@ -25,6 +26,8 @@ private:
 
     //  PMD用パイプライン
     ComPtr<ID3D12PipelineState> m_pipeline = nullptr;
+    //  PMD用パイプライン
+    ComPtr<ID3D12PipelineState> m_lineDrawerPipeline = nullptr;
     //  PMD用ルートシグネチャ
     ComPtr<ID3D12RootSignature> m_rootSignature = nullptr;    
 
@@ -41,6 +44,9 @@ private:
 
     //  PMD用のパイプラインの生成
     HRESULT CreateGraphicsPipelineForPMD();
+    //  PMD用のパイプラインの生成
+    HRESULT CreateGraphicsPipelineForLinePMD();
+    
     //  ルートシグネチャの生成
     HRESULT CreateRootSignature();
 

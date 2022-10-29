@@ -147,5 +147,12 @@ private:
 	void CreateTextureLoaderTable();
 	//  テクスチャ名からテクスチャバッファ作成、中身をコピー
 	ID3D12Resource* CreateTextureFromFile(const char* _texpath);
+
+	XMFLOAT3 m_nowCode;
+	const XMFLOAT3 END_COLOR = { 0.296f,0.028f,0.332f };
+	const XMFLOAT3 START_COLOR = { 0.296f,0.028f,0.332f };
+	const XMFLOAT3 CODE_COLOR = { 0.0296f,0.0028f,0.0332f };
+	int m_backGroundCount=0;
+
 };
 

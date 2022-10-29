@@ -32,15 +32,17 @@ Game::Game(SceneTag _sceneTag)
 	, m_debugFlag(false)
 	, m_gameOverFlag(false)
 	,m_enemyManager(new EnemyManager())
+
 {
-	backGroundMagnitude[0] = 0.01f;
-	backGroundMagnitude[1] = 1.0f;
+	m_backGroundCode = 0;
 	BGMHandle = m_sound.Play(SoundType::GameSceneBGM,true,true);
 
 }
 
 Game::~Game()
 {
+
+	
 	m_collisionManager.DestroyAll();
 	delete m_player;
 	delete m_time;
@@ -78,10 +80,8 @@ void Game::Update()
 
 void Game::Draw()
 {
-
-	m_player->Draw();
 	m_ground->Draw();
-	m_enemyManager->Draw();
+	m_player->Draw();
 	if (m_gameOverFlag)
 	{
 		m_sprite.Draw(SpriteType::ResultBack,XMFLOAT2(0,0));
@@ -95,9 +95,8 @@ void Game::DrawString()
 
 			m_controller.ShowControllerState();
 			m_drawer.DrawStringBlackAndYellowForFewNumber(m_time->GetNowCount(), XMFLOAT2(0,300), 0.5f);
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetPosition().x, XMFLOAT2(0, 350), 0.5f);
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetPosition().y,XMFLOAT2(0,400),0.5f);
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetPosition().z, XMFLOAT2(0, 450), 0.5f);
+			m_drawer.DrawStringBlackAndYellowForFewNumber(m_ground->GetSecondPosition().y,XMFLOAT2(0,400),0.5f);
+			m_drawer.DrawStringBlackAndYellowForFewNumber(m_ground->GetSecondPosition().z, XMFLOAT2(0, 450), 0.5f);
 
 		}
 		
@@ -110,28 +109,24 @@ void Game::DrawString()
 	
 }
 
+void Game::LineDraw()
+{
+	m_ground->DrawBackCircle();
+	m_enemyManager->Draw();
+}
+
 void Game::DrawBackGround()
 {
-	if (backGroundMagnitude[0]>=10.0f)
-	{
-		backGroundMagnitude[0] = 0.01f;
-	}
-	if (backGroundMagnitude[1] >= 10.0f)
-	{
-		backGroundMagnitude[1] = 0.01f;
-	}
-	backGroundcode = 0.1f;
-	backGroundMagnitude[0] += backGroundcode;
-	backGroundMagnitude[1] += backGroundcode;
-	m_sprite.Draw(SpriteType::GameBackGround, XMFLOAT2(0, 0));
-
-	auto width = WINDOW_WIDTH / 2 - (WINDOW_WIDTH * backGroundMagnitude[0]) / 2;
-	auto height = WINDOW_HEIGHT / 2 - (WINDOW_HEIGHT * backGroundMagnitude[0]) / 2;
-	m_sprite.Draw(SpriteType::GameBackGroundCirCle, XMFLOAT2(width, height), backGroundMagnitude[0]);
-
-	width = WINDOW_WIDTH / 2 - (WINDOW_WIDTH * backGroundMagnitude[1]) / 2;
-	height = WINDOW_HEIGHT / 2 - (WINDOW_HEIGHT * backGroundMagnitude[1]) / 2;
-	m_sprite.Draw(SpriteType::GameBackGroundCirCle, XMFLOAT2(width, height), backGroundMagnitude[1]);
-
 	
+	if (m_alphaValue>=1.0f)
+	{
+		m_backGroundCode = -0.01f;
+	}
+	else if (m_alphaValue <= 0.0f)
+	{
+		m_backGroundCode = 0.01f;
+	}
+	m_alphaValue += m_backGroundCode;
+
+	m_sprite.Draw(SpriteType::GameBackGround, XMFLOAT2(0, 0),1.0f,m_sprite.GetColorWithAlfa(m_alphaValue));
 }

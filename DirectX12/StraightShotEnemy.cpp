@@ -52,7 +52,7 @@ void StraightShotEnemy::CollisionOriginal(Collision* otherCollision)
 {
 	if (otherCollision->GetTag() == CollisionTag::PlayerBullet)
 	{
-		m_effect.PlayEffect(EffectType::DefeatYellowEnemy , GetPosition(), false);
+		m_effect.PlayEffect(EffectType::DefeatRedEnemy, GetPosition(), false);
 		m_param.mCollision->m_isValidity = false;
 		m_isAlive = false;
 	}
@@ -73,7 +73,7 @@ void StraightShotEnemy::AttackUpdate(const DirectX::XMFLOAT3 _targetPos)
 {
 	auto diff = XMF3Math::SubXMFLOAT3(_targetPos, m_param.pos);
 	m_nowDirection = diff;
-	m_timer->SetTimer(1);
+	m_timer->SetTimer(0.25f);
 
 	if (m_timer->CheakTime())
 	{

@@ -22,8 +22,8 @@ public:
 private:
 	//移動系の処理updateの中で動いてほしいのでプライベート
 	void Move();
-	void TakeAim();
-	
+	void TakeAim( );
+	void MoveEffect(const float _inputSize);
 	struct ShotStatus 
 	{
 		bool shotFlag		=false;
@@ -61,5 +61,9 @@ private:
 	int RADIUS_NUM = 1;
 	bool m_isAlive;
 	int m_cubeRotate;
+
+	int m_inputFlameCount;
+	bool m_inputFlameFlag;
+	const float EFFECT_INTERVAL=30;
 };
 

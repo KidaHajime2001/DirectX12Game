@@ -24,6 +24,7 @@ EnemyManager::~EnemyManager()
 
 
 
+
 void EnemyManager::Update(const DirectX::XMFLOAT3& _targetPos)
 {
     CallEnemy();

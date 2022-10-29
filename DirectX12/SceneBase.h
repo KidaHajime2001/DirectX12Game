@@ -15,6 +15,7 @@ public:
 
 	virtual void Update();
 	virtual void Draw();
+	virtual void LineDraw();
 	virtual void DrawString();
 	virtual void DrawBackGround();
 	bool GetNextSceneFlag() { return m_nextSceneFlag; };

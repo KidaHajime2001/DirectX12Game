@@ -10,6 +10,7 @@ public:
 	void Update()override;
 	void Draw()override;
 	void DrawString()override;
+	void LineDraw()override;
 	void DrawBackGround()override;
 private:
 	
@@ -39,8 +40,7 @@ private:
 
 
 
-
-	float backGroundMagnitude[2] = {};
-	float backGroundcode;
+	float m_alphaValue = 0.0f;
+	float m_backGroundCode;
 };
 

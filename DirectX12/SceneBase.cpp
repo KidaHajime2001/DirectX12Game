@@ -19,6 +19,10 @@ void SceneBase::Draw()
 {
 }
 
+void SceneBase::LineDraw()
+{
+}
+
 void SceneBase::DrawString()
 {
 }

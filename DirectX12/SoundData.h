@@ -8,9 +8,9 @@ namespace SoundData
     //  ファイルへのパス
     std::unordered_map<SoundType, const wchar_t*> PATH_MAP =
     {
-        {SoundType::TitleBGM,L"Data/Sound/BGM/TitleBGM2.wav"},
+        {SoundType::TitleBGM,L"Data/Sound/BGM/pick.wav"},
         {SoundType::SelectSE,L"Data/Sound/SE/button36.wav"},
-        {SoundType::GameSceneBGM,L"Data/Sound/BGM/k003.wav"},
+        {SoundType::GameSceneBGM,L"Data/Sound/BGM/buttle.wav"},
 
         {SoundType::ResultBGM,L"Data/Sound/BGM/ResultBGM.wav"},
   

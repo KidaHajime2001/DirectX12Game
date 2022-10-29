@@ -12,7 +12,7 @@
 #include "D12Device.h"
 
 //  画面上に一度に表示する最大エフェクト数
-static const int DISPLAY_EFFECT_NUM_MAX = 1000;
+static const int DISPLAY_EFFECT_NUM_MAX = 2000;
 
 //  画面上に一度に表示する最大パーティクル数
 static const int DESPLAY_PARTICLE_NUM_MAX = 10000;
@@ -44,7 +44,7 @@ void EffekseerManager::Init()
         2,                                   //  バックバッファーの数
         bbFormats,                           //  レンダーターゲットフォーマット
         1,                                   //  レンダーターゲット数
-        DXGI_FORMAT_UNKNOWN,                 //  デプスはなし
+        DXGI_FORMAT_D32_FLOAT,                 //  デプスはなし
         false,                               //  反対デプスはなし
         DESPLAY_PARTICLE_NUM_MAX);                              //  最大パーティクルの数
 

@@ -16,7 +16,6 @@ CollisionManager::CollisionManager()
 
 CollisionManager::~CollisionManager()
 {
-	DestroyAll();
 	pairsVec.clear();
 	mColliders.clear();
 }
@@ -83,16 +82,19 @@ void CollisionManager::CollisionUpdate()
 void CollisionManager::DestroyAll()
 {
 	//  列挙型EnemyAttackOrbitTypeのイテレータを作成
-	typedef EnumIterator<CollisionTag, CollisionTag::Player, CollisionTag::End> typeItr;
+	typedef EnumIterator<CollisionTag, CollisionTag::Player, CollisionTag::EnemyBullet> typeItr;
 	for (auto itr : typeItr())
 	{
-		for (auto collision : mColliders[itr])
+		for (auto collision :mColliders[itr])
 		{
 			if (collision)
 			{
 				delete collision;
 			}
 		}
+		mColliders[itr].clear();
+		mColliders[itr].shrink_to_fit();
 	}
-	mColliders.clear();
+
+	
 }

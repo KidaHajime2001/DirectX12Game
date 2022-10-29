@@ -603,7 +603,7 @@ void DirectXManager::BeginDraw()
 
 
     //  画面クリア
-    float clearColor[] = { 1.0f,1.0f,1.0f,1.0f };    //  白色
+    float clearColor[] = { 0.0f,0.0f,0.0f,1.0f };    //  白色
     m_cmdList->ClearRenderTargetView(rtvH, clearColor, 0, nullptr);
 
     //  Viewport、ScissorRectのセット

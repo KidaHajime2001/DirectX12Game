@@ -57,7 +57,7 @@ void LesserEnemy::CollisionOriginal(Collision* otherCollision)
 {
 	if (otherCollision->GetTag()==CollisionTag::PlayerBullet)
 	{
-		m_effect.PlayEffect(EffectType::DefeatRedEnemy, GetPosition(), false);
+		m_effect.PlayEffect(EffectType::DefeatBlueEnemy, GetPosition(), false);
 		m_param.mCollision->m_isValidity = false;
 		m_isAlive = false;
 	}

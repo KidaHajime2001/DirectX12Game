@@ -16,10 +16,22 @@ int Time::GetNowCount()
 	return (int)GetTickCount64();
 }
 
+void Time::SetTimer(int _Limit)
+{
+	if (m_nowCountFlag)
+	{
+		/*OutputDebugString("AllReady Set.\n");*/
+		return;
+	}
+	m_limitTime = _Limit;
+	m_startCount = clock();
+	m_nowCountFlag = true;
+}
+
 bool Time::CheakTime()
 {
 	auto nowTime = clock();
-	int time = (int)(nowTime - m_startCount) / (int)CLOCKS_PER_SEC;
+	float time = (float)(nowTime - m_startCount) / (float)CLOCKS_PER_SEC;
 	if (time>=m_limitTime)
 	{
 		m_nowCountFlag = false;
@@ -28,7 +40,7 @@ bool Time::CheakTime()
 	return false;
 }
 
-void Time::SetTimer(int _Limit)
+void Time::SetTimer(float _Limit)
 {
 	if (m_nowCountFlag)
 	{

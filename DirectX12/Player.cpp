@@ -21,6 +21,8 @@ Player::Player(CollisionTag _tag, bool _alive)
     , m_shotDirector(new PlayerShotDirector())
     ,Actor(_tag)
     ,m_cubeRotate(45)
+    ,m_inputFlameCount(0)
+    ,m_inputFlameFlag(false)
 {
     Init();
     m_camera.SetPlayerPosition(GetPosition());
@@ -89,7 +91,7 @@ void Player::Draw()
     {
         m_shotDirector->Draw();
         m_model.Draw(GetPosition(), m_shotStatus.cosDirection, PMDModelType::Player);
-        m_model.Draw(XMF3Math::AddXMFLOAT3(GetPosition(),XMF3Math::SetMagnitude(m_shotStatus.shotDirection,-1)), XMF3Math::DegreeForRadian(m_cubeRotate), PMDModelType::PlayerCube);
+        m_model.Draw(XMF3Math::AddXMFLOAT3(GetPosition(),XMF3Math::SetMagnitude(m_shotStatus.shotDirection,-1)),XMF3Math::DegreeForRadian(m_cubeRotate), PMDModelType::PlayerCube);
 
     }
 }
@@ -103,16 +105,17 @@ void Player::Init()
     SetPotision(posData);
     m_param.mCollision->m_data.radius=radiusData;
     m_isAlive = true;
+    m_param.mCollision->m_isValidity = false;
 }
 
 void Player::OnCollisionEnter(Collision* otherCollision)
 {
     OutputDebugString("HitEnemy.\n");
-    m_effect.PlayEffect(EffectType::DefeatRedEnemy,GetPosition(), false);
-    
     m_isAlive = false;
     
 }
+
+
 
 void Player::Move()
 {
@@ -159,11 +162,11 @@ void Player::Move()
     {
         inputScalar.x -= 1;
     }
-
-
+   
     inputVec    =XMF3Math::AddXMFLOAT3(inputVec ,XMF3Math::ScalarXMFLOAT3(Forward, inputScalar.y));
     inputVec = XMF3Math::AddXMFLOAT3(inputVec, XMF3Math::ScalarXMFLOAT3(RIGHT, inputScalar.x));
-    
+    MoveEffect(XMF3Math::LengthXMFLOAT3(inputVec));
+
     m_param.pos = XMF3Math::AddXMFLOAT3(m_param.pos,inputVec);
 }
 
@@ -197,5 +200,14 @@ void Player::TakeAim()
     m_shotStatus.cosDirection = atan2(inputVec.x, inputVec.z);
 
     m_shotStatus.shotDirection = inputVec;
+}
+
+void Player::MoveEffect(const float _inputSize)
+{
+    m_inputFlameCount++;
+    if (_inputSize>= 0.4f&&(m_inputFlameCount%10)==0)
+    {
+        m_effect.PlayEffect(EffectType::PlayerMove,GetPosition(),false);
+    }
 }
 

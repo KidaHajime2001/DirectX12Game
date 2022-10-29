@@ -17,8 +17,6 @@ enum SpriteType
     Gauge,        //  ゲージ本体
     GaugeFrame,   //  ゲージの枠
 
-    GameBackGroundCirCle,
-
     //  リザルト
     ResultBack,        //  背景
     ResultText,        //  リザルト
