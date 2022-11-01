@@ -10,7 +10,7 @@ public:
 	void Update()override;
 	void Draw()override;
 	void DrawString()override;
-	void LineDraw()override;
+	void DrawLine()override;
 	void DrawBackGround()override;
 private:
 	

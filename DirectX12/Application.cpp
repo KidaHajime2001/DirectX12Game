@@ -94,7 +94,7 @@ void Application::Run()
             m_device.dx12->SetScene();
             //  PMDモデルクラスの更新
             model.Update();
-            m_sceneBase->LineDraw();
+            m_sceneBase->DrawLine();
             m_device.dx12->GetCommandList()->SetPipelineState(m_device.pmdRenderer->GetPipelineState());
             m_device.dx12->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
             m_device.dx12->SetScene(); 

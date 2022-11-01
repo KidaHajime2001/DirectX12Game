@@ -37,7 +37,7 @@ namespace PMDModelData
         {PMDModelType::YellowEnemyDefeater,"Data/Model/Obstacle/YellowObstacle.pmd"},
 
         //  ínñ 
-        {PMDModelType::Ground,"Data/Model/Others/groundA.pmd"},
+        {PMDModelType::Ground,"Data/Model/Others/AUnderGround.pmd"},
 
         //  îwåi
         {PMDModelType::BackGround,"Data/Model/Others/wall.pmd"}

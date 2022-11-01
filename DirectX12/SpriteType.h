@@ -12,11 +12,22 @@ enum SpriteType
     TitleStartFalse,
     TitleOption,
     TitleOptionFalse,
+    TitleView,
     //  ゲームシーン
+    GameScoreTest,
     GameBackGround,
     Gauge,        //  ゲージ本体
     GaugeFrame,   //  ゲージの枠
-
+    Font0,
+    Font1,
+    Font2,
+    Font3,
+    Font4,
+    Font5,
+    Font6,
+    Font7,
+    Font8,
+    Font9,
     //  リザルト
     ResultBack,        //  背景
     ResultText,        //  リザルト

@@ -261,6 +261,9 @@
     <ClCompile Include="ScoreItem.cpp">
       <Filter>ソース ファイル\Actor\Object\Item</Filter>
     </ClCompile>
+    <ClCompile Include="TitlePlayer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PmdLoader.h">
@@ -454,6 +457,9 @@
     </ClInclude>
     <ClInclude Include="ScoreItem.h">
       <Filter>ソース ファイル\Actor\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="TitlePlayer.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

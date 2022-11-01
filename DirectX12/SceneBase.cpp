@@ -19,7 +19,7 @@ void SceneBase::Draw()
 {
 }
 
-void SceneBase::LineDraw()
+void SceneBase::DrawLine()
 {
 }
 

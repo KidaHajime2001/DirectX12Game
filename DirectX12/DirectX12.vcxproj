@@ -209,6 +209,7 @@
     <ClInclude Include="StringDrawer.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="TitlePlayer.h" />
     <ClInclude Include="XMF3Math.h" />
     <ClInclude Include="ヘッダー.h" />
   </ItemGroup>
@@ -258,6 +259,7 @@
     <ClCompile Include="SupportJSON.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="TitlePlayer.cpp" />
     <ClCompile Include="XMF3Math.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@ public:
 	~Player()override;
 	//XV
 	void Update();
+	void RestrictionsPosition();
 	//•`‰æ
 	void Draw();
 	//‰Šú‰»
@@ -65,5 +66,11 @@ private:
 	int m_inputFlameCount;
 	bool m_inputFlameFlag;
 	const float EFFECT_INTERVAL=30;
+
+
+	//float RotateAngle;
+	//float UpAngle;
+	//float Length = 100;
+	//float CameraSpeed = 2;
 };
 

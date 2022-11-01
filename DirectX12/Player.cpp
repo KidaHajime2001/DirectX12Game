@@ -26,7 +26,8 @@ Player::Player(CollisionTag _tag, bool _alive)
 {
     Init();
     m_camera.SetPlayerPosition(GetPosition());
-    
+  /*  RotateAngle = XMF3Math::DegreeForRadian(-90.0f);
+    UpAngle = XMF3Math::DegreeForRadian(45.0f);*/
 }
 
 Player::~Player()
@@ -82,8 +83,31 @@ void Player::Update()
 
     Move();
     TakeAim();
-
+    RestrictionsPosition();
 }
+
+void Player::RestrictionsPosition()
+{
+    float x=GetPosition().x;
+    float z = GetPosition().z;
+    if (x<=-100)
+    {
+        m_param.pos=XMFLOAT3(-100, GetPosition().y, GetPosition().z);
+    }
+    if (x >= 100)
+    {
+        m_param.pos = XMFLOAT3(100, GetPosition().y, GetPosition().z);
+    }
+    if (z <= -100)
+    {
+        m_param.pos = XMFLOAT3(GetPosition().x, GetPosition().y, -100);
+    }
+    if (z >= 100)
+    {
+        m_param.pos = XMFLOAT3(GetPosition().x, GetPosition().y, 100);
+    }
+}
+
 
 void Player::Draw()
 {

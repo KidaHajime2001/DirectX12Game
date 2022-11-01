@@ -67,7 +67,15 @@ void PMDModel::Draw(const XMFLOAT3& _pos, const float _angle, const PMDModelType
     //  次の描画用に番号を加算
     m_drawClassIndexNumber++;
 }
-
+void PMDModel::Draw(const XMFLOAT3& _pos, const XMFLOAT3 _angle, const PMDModelType _type)
+{ //  座標変換用の情報を作成
+    PMDShifter* temp = m_shifter[m_drawClassIndexNumber];
+    temp->Update(_pos, _angle);
+    //  描画用の情報を作成
+    m_drawer[m_drawClassIndexNumber]->Draw(*m_drawData[_type], temp->GetTransformHeap());
+    //  次の描画用に番号を加算
+    m_drawClassIndexNumber++;
+}
 //  拡大率と座標を変更して描画
 void PMDModel::DrawChangePosAndScale(const XMFLOAT3& _pos, const float _scale, const PMDModelType _type)
 {

@@ -5,7 +5,10 @@
 Camera::Camera()
 	:m_device(Singleton<D12Device>::GetInstance())
 	, m_controller(Singleton<Controller>::GetInstance())
-	,m_state(CameraState::MiddletoNear)
+	, m_state(CameraState::MiddletoNear)
+	, m_up(XMFLOAT3(0, 1, 0))
+	,m_titleCameraPosition(XMFLOAT3(0, 20, 0))
+	,m_titleTargetPosition(XMFLOAT3(0, 0, 0))
 {
 	
 }
@@ -26,6 +29,11 @@ void Camera::Update()
 
 
 	m_beforeState = m_state;
+}
+
+void Camera::TitleSetting()
+{
+	m_device.UpdateCameraPos(m_titleCameraPosition, m_titleTargetPosition, m_up);
 }
 
 void Camera::SetPlayerPosition(const XMFLOAT3& _playerPos)
@@ -54,7 +62,6 @@ void Camera::ChangeState()
 
 void Camera::AdjustPosition()
 {
-	XMFLOAT3 up(0, 1, 0);
 	m_cameraPosition=m_targetPosition;
 	switch (m_state)
 	{
@@ -75,5 +82,5 @@ void Camera::AdjustPosition()
 		m_cameraPosition.z += CAMERA_ADJUST_Z_FAR;
 		break;
 	}
-	m_device.UpdateCameraPos(m_cameraPosition,m_targetPosition,up);
+	m_device.UpdateCameraPos(m_cameraPosition,m_targetPosition,m_up);
 }

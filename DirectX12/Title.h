@@ -8,8 +8,12 @@ public:
 
 	void Update()override;
 	void Draw()override;
+	void DrawLine()override;
+	void DrawString()override;
+	void DrawBackGround()override;
 	void ChangeImageAlfa();
 private:
+	class TitlePlayer* m_player;
 	const float DefaultAlfaMax=1.0f;
 	const float DefaultAlfaMin = 0.3f;
 	const float ChangedAlfaMin = 0.0f;

@@ -16,6 +16,7 @@ public:
     //  TODO: 同じ関数名にせず、処理ごとに関数名を変更
     void Update(const XMFLOAT3& _pos) { m_mappedTransform->world = XMMatrixTranslation(_pos.x, _pos.y, _pos.z); }
     void Update(const XMFLOAT3& _pos, const float _angle) { m_mappedTransform->world = XMMatrixRotationY(_angle) * XMMatrixTranslation(_pos.x, _pos.y, _pos.z); }
+    void Update(const XMFLOAT3& _pos, const XMFLOAT3 _angle) { m_mappedTransform->world = XMMatrixRotationX(_angle.x)* XMMatrixRotationY(_angle.y)* XMMatrixRotationZ(_angle.z) * XMMatrixTranslation(_pos.x, _pos.y, _pos.z); }
 
     //  座標と拡大率の更新
     void UpdatePosAndScale(const XMFLOAT3& _pos, const float _scale) { m_mappedTransform->world = XMMatrixScaling(_scale, _scale, _scale) * XMMatrixTranslation(_pos.x, _pos.y, _pos.z); }

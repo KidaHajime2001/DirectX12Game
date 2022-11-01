@@ -20,6 +20,7 @@ public:
     //  TODO: 同じ関数名にせず、処理ごとに関数名を変更
     void Draw(const XMFLOAT3& _pos, const PMDModelType _type);
     void Draw(const XMFLOAT3& _pos, const float _angle, const PMDModelType _type);
+    void Draw(const XMFLOAT3& _pos, const XMFLOAT3 _angle, const PMDModelType _type);
     void DrawSurface(const XMFLOAT3& _pos, const float _angle, const float& width, const float& height);
     //  拡大率と座標を変更して描画
     void DrawChangePosAndScale(const XMFLOAT3& _pos, const float _scale, const PMDModelType _type);

@@ -5,6 +5,7 @@
 #include"Sound.h"
 #include"SoundType.h"
 #include"Time.h"
+#include"TitlePlayer.h"
 Title::Title(SceneTag _sceneTag)
 	:SceneBase(_sceneTag)
 	, m_controller(Singleton<Controller>::GetInstance())
@@ -17,6 +18,7 @@ Title::Title(SceneTag _sceneTag)
 	,m_time(new Time())
 	,m_decisionFlag(false)
 	,m_buttonState(ButtonState::startButton)
+	,m_player(new TitlePlayer())
 {
 	m_alfaValue = 1.0f;
 	BGMHandle= m_sound.Play(SoundType::TitleBGM,true,true);
@@ -24,10 +26,13 @@ Title::Title(SceneTag _sceneTag)
 
 Title::~Title()
 {
+	delete m_player;
 }
 
 void Title::Update()
 {
+	m_player->Update();
+	
 	if (m_controller.IsPushEnter(ButtonName::GAMEPAD_UP))
 	{
 		if (ButtonState::startButton == m_buttonState)
@@ -78,17 +83,33 @@ void Title::Update()
 }
 
 void Title::Draw()
+{
+
+	m_player->Draw();
+}
+
+void Title::DrawLine()
+{
+}
+
+void Title::DrawString()
 {/*
+	m_player->DrawString();*/
+}
+
+void Title::DrawBackGround()
+{
+	/*
 	m_model.Draw(XMFLOAT3(0, 0, 0), 0, PMDModelType::Ground);*/
 	//  NOTE: âÊñ ÇÃÉTÉCÉYÇ…çáÇÌÇπÇƒçÏÇ¡ÇƒÇ¢ÇÈÇÃÇ≈ç¿ïWÇÕ0
 	XMFLOAT2 pos = { 0,0 };
 	//  îwåiï`âÊ
 	m_sprite.Draw(SpriteType::TitleBack, pos);/*
-	m_sprite.Draw(SpriteType::TitleText, pos);*/
-	
-	
-	
-	
+	m_sprite.Draw(SpriteType::TitleView, pos);*/
+
+
+
+
 	if (ButtonState::startButton == m_buttonState)
 	{
 		m_sprite.Draw(SpriteType::TitleOptionFalse, pos);
@@ -99,7 +120,6 @@ void Title::Draw()
 		m_sprite.Draw(SpriteType::TitleStartFalse, pos);
 		m_sprite.Draw(SpriteType::TitleOption, pos, 1.0f, m_sprite.GetColorWithAlfa(m_alfaValue));
 	}
-	
 }
 
 void Title::ChangeImageAlfa()

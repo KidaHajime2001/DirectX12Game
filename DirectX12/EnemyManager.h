@@ -21,12 +21,13 @@ private:
 	float m_seriousDegree = 1.0f;
 	const float DEFAULT_CALL_TIME = 10.0f;
 	const float SERIOUS_COEFFICIENT = 7.0f;
+	
 	DirectX::XMFLOAT3 ADVENT_POSITION[4]=
 	{
-		DirectX::XMFLOAT3(  0,  0,-80),
-		DirectX::XMFLOAT3(  0,  0, 80),
-		DirectX::XMFLOAT3(-80,  0,  0),
-		DirectX::XMFLOAT3( 80,  0,  0),
+		DirectX::XMFLOAT3(  0,  0,-120),
+		DirectX::XMFLOAT3(  0,  0, 120),
+		DirectX::XMFLOAT3(-120,  0,  0),
+		DirectX::XMFLOAT3( 120,  0,  0),
 	};
 };
 

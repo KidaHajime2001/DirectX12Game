@@ -86,6 +86,7 @@ void Game::Draw()
 	{
 		m_sprite.Draw(SpriteType::ResultBack,XMFLOAT2(0,0));
 	}
+	m_sprite.Draw(SpriteType::GameScoreTest , XMFLOAT2(0, 0));
 }
 
 void Game::DrawString()
@@ -95,7 +96,7 @@ void Game::DrawString()
 
 			m_controller.ShowControllerState();
 			m_drawer.DrawStringBlackAndYellowForFewNumber(m_time->GetNowCount(), XMFLOAT2(0,300), 0.5f);
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_ground->GetSecondPosition().y,XMFLOAT2(0,400),0.5f);
+			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetPosition().x,XMFLOAT2(0,400),0.5f);
 			m_drawer.DrawStringBlackAndYellowForFewNumber(m_ground->GetSecondPosition().z, XMFLOAT2(0, 450), 0.5f);
 
 		}
@@ -109,7 +110,7 @@ void Game::DrawString()
 	
 }
 
-void Game::LineDraw()
+void Game::DrawLine()
 {
 	m_ground->DrawBackCircle();
 	m_enemyManager->Draw();
@@ -128,5 +129,5 @@ void Game::DrawBackGround()
 	}
 	m_alphaValue += m_backGroundCode;
 
-	m_sprite.Draw(SpriteType::GameBackGround, XMFLOAT2(0, 0),1.0f,m_sprite.GetColorWithAlfa(m_alphaValue));
+	/*m_sprite.Draw(SpriteType::GameBackGround, XMFLOAT2(0, 0),1.0f,m_sprite.GetColorWithAlfa(m_alphaValue));*/
 }
