@@ -6,4 +6,5 @@ enum class SceneTag
 	Title,
 	GameMain,
 	GameClear,
+	GameCredit,
 };

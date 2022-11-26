@@ -65,6 +65,7 @@ public:
 	//カメラのFOV変更
 	void SetFov(float fov);
 
+	void SetBackGroundColor(const DirectX::XMFLOAT3& _colors);
 	//  ゲッター
 	XMMATRIX GetViewMatrix()const { return m_mappedSceneData->view; }    //  ビュー行列
 	XMMATRIX GetProjMatrix()const { return m_mappedSceneData->proj; }    //  プロジェクション行列
@@ -148,10 +149,11 @@ private:
 	//  テクスチャ名からテクスチャバッファ作成、中身をコピー
 	ID3D12Resource* CreateTextureFromFile(const char* _texpath);
 
-	XMFLOAT3 m_nowCode;
+	XMFLOAT3 m_nowBackGroundColorCode;
 	const XMFLOAT3 END_COLOR = { 0.296f,0.028f,0.332f };
 	const XMFLOAT3 START_COLOR = { 0.296f,0.028f,0.332f };
 	const XMFLOAT3 CODE_COLOR = { 0.0296f,0.0028f,0.0332f };
+	
 	int m_backGroundCount=0;
 
 };

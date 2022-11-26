@@ -21,6 +21,9 @@ public:
 
     //  停止する
     void Stop(const SoundType& _type, const int _index, const bool _immediate = true);
+    void StopAll();
+    void SetSoundVolume(const float _allVolume, const float _bgmVolume, const float _seVolume);
+    const DirectX::XMFLOAT3 GetSonudVolume() { return DirectX::XMFLOAT3(m_volumeMagnification*10.0f, m_bgmVolumeMagnification * 10.0f, m_seVolumeMagnification * 10.0f); };
 private:
     //  サウンドキューの作成
     void PushSoundQue(const SoundType& _type, const bool _isLoop);
@@ -35,6 +38,8 @@ private:
     std::unordered_map<SoundType, std::unique_ptr<SoundEffect>> m_soundEffect;    //  サウンドエフェクト
     std::unordered_map<SoundType, std::vector<std::shared_ptr<SoundEffectInstance>>> m_soundQue;        //  サウンドキュー
     //  音量の倍率
+    float m_bgmVolumeMagnification;
+    float m_seVolumeMagnification;
     float m_volumeMagnification;
 
 };

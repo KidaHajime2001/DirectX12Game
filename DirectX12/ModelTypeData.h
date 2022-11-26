@@ -30,7 +30,7 @@ enum class PMDModelType
 
     //  ínñ 
     Ground,
-
+    GroundCube,
     //  îwåi
     BackGround
 };

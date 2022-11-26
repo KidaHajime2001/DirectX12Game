@@ -105,6 +105,7 @@ namespace {
     }
 }
 DirectXManager::DirectXManager(HWND _hwnd)
+    :m_nowBackGroundColorCode(XMFLOAT3(0,0,0))
 {
 #ifdef _DEBUG
     //  デバッグレイヤーをオンに
@@ -320,6 +321,10 @@ void DirectXManager::SetFov(float fov)
         0.1f,    //  近い方
         1000.0f    //  遠い方
     );
+}
+void DirectXManager::SetBackGroundColor(const DirectX::XMFLOAT3& _colors)
+{
+    m_nowBackGroundColorCode = _colors;
 }
 HRESULT DirectXManager::CreateRenderTargets()
 {
@@ -603,7 +608,9 @@ void DirectXManager::BeginDraw()
 
 
     //  画面クリア
-    float clearColor[] = { 0.0f,0.0f,0.0f,1.0f };    //  白色
+
+
+    float clearColor[] = {m_nowBackGroundColorCode.x/255,m_nowBackGroundColorCode.y / 255,m_nowBackGroundColorCode.z / 255,1.0f };    //  白色
     m_cmdList->ClearRenderTargetView(rtvH, clearColor, 0, nullptr);
 
     //  Viewport、ScissorRectのセット

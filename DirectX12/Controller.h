@@ -53,16 +53,19 @@ public:
 	void Update();
 	void ShowControllerState();
 	XINPUT_STATE GetContorollerState() { return padState; };
-	bool CheckSubInput(ButtonName bN);
-	bool GetControllerButtonState(ButtonName bN);
-	bool IsPushEnter(ButtonName bN);
-	bool IsPress(ButtonName bN);
-	bool IsRelease(ButtonName bN);
+	const bool CheckSubInput(ButtonName bN);
+	const bool GetControllerButtonState(ButtonName bN);
+	const bool IsPushEnter(ButtonName bN);
+	const bool IsPress(ButtonName bN);
+	const bool IsRelease(ButtonName bN);
 	////右のスティック入力を0.0f～1.0fで受け取れる(x,y)
 	const DirectX::XMFLOAT2 GetRightStickInput();
 
 	////右のスティック入力を0.0f～1.0fで受け取れる(x,y)
 	const DirectX::XMFLOAT2 GetLeftStickInput();
+	////右のスティック入力を0.0f～1.0fで受け取れる(x,y)
+	const DirectX::XMFLOAT2 GetTiggerInput();
 	const float INPUT_MAX = 32767.0f;
+	const float TRIGGER_INPUT_MAX = 255.0f;
 };
 

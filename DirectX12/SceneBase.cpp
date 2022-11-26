@@ -1,5 +1,5 @@
 #include "SceneBase.h"
-
+#include"GameLevel.h"
 SceneBase::SceneBase(SceneTag _tag)
 	:m_nextSceneFlag(false)
 	
@@ -8,6 +8,10 @@ SceneBase::SceneBase(SceneTag _tag)
 }
 
 SceneBase::~SceneBase()
+{
+}
+
+void SceneBase::Init()
 {
 }
 
@@ -29,4 +33,9 @@ void SceneBase::DrawString()
 
 void SceneBase::DrawBackGround()
 {
+}
+
+void SceneBase::SetGameLevelClass(GameLevel* _gamelevel)
+{
+	m_gameLevel = _gamelevel;
 }

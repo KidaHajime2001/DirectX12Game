@@ -16,6 +16,7 @@
 #include"DirectXManager.h"
 #include"StringDrawer.h"
 #include"Fps.h"
+#include"GameLevel.h"
 Application::Application()
     :m_device(Singleton<D12Device>::GetInstance())
     , m_error(Singleton<Error>::GetInstance())
@@ -23,6 +24,7 @@ Application::Application()
     , m_controller(Singleton<Controller>::GetInstance())
     , m_drawer(Singleton<StringDrawer>::GetInstance())
     , m_fps(Singleton<Fps>::GetInstance())
+    ,m_gamelevel(new GameLevel())
     /*, m_dxmng(Singleton<DirectXManager>::GetInstance)*/
 {
     if (!m_device.Init())
@@ -34,10 +36,12 @@ Application::Application()
     m_sceneManager = new SceneManager();
     //  Effekseer関連初期化
     m_effect.Init();
+    m_sceneBase->SetGameLevelClass(m_gamelevel);
 }
 Application::~Application()
 {
-
+    delete m_sceneManager;
+    delete m_gamelevel;
 }
 
 void Application::Run()
@@ -69,14 +73,6 @@ void Application::Run()
         m_controller.Update();
         m_sceneBase->Update();
         m_fps.Update();
-        /*if (m_controller.GetControllerButtonState(ButtonName::GAMEPAD_LEFT))
-        {
-            m_fps.SetFPS(15);
-        }
-        if (m_controller.GetControllerButtonState(ButtonName::GAMEPAD_RIGHT))
-        {
-            m_fps.SetFPS(60);
-        }*/
 
 
         //  全体の描画準備
@@ -139,7 +135,8 @@ void Application::Run()
                 OutputDebugString("ScenePasserError");//出力にそう書く
                 return;
             }
-
+            m_sceneBase->SetGameLevelClass(m_gamelevel);
+            m_sceneBase->Init();
             delete beforeScene;//仮置きしておいたメモリを開放
         }
     }

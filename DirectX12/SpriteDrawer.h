@@ -24,7 +24,7 @@ public:
     void Draw(const SpriteType _handle, const XMFLOAT2& _pos
         , const float _topMagnification, const float _leftMagnification, const float _bottomMagnification, const float _rightMagnification
         , const float _magnification = 1.0f, const XMVECTOR& _color = Colors::White);
-    XMVECTORF32 GetColorWithAlfa(const float _alfa);
+    XMVECTORF32 GetColorWithalpha(const float _alpha);
 private:
     //  ÉçÅ[Éh
     int Load();

@@ -26,7 +26,8 @@ private:
 	class Controller&			m_controller;
 	class SceneBase*			m_sceneBase;
 	class SceneManager*			m_sceneManager;
-	class StringDrawer& m_drawer;
+	class StringDrawer&			m_drawer;
+	class GameLevel* m_gamelevel;
 	/*class DirectXManager&		m_dxmng;*/
 	float x, y, z;
 	float fov = 45;

@@ -70,8 +70,6 @@ const DirectX::XMFLOAT3 XMF3Math::RotateVec2_XZ(const DirectX::XMFLOAT3& a, cons
 	return vec;
 }
 
-
-
 const float XMF3Math::DegreeForRadian(const float& degree)
 {
 	return degree * (PI/180);

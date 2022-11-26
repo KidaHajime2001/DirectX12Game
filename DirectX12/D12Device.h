@@ -35,6 +35,7 @@ public:
     //  カメラの座標を更新
     void UpdateCameraPos(const XMFLOAT3& _eye, const XMFLOAT3& _target, const XMFLOAT3& _up);
     void SetFov(float fov);
+    void SetBackGroundColor(const DirectX::XMFLOAT3& _colors);
     //  フォント用ヒープ
     ComPtr<ID3D12DescriptorHeap> heapForSpriteFont;
 

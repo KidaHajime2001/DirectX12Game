@@ -1,4 +1,5 @@
 #include "D12Device.h"
+#include <d3dx12.h>
 
 //  ウィンドウ定数
 const unsigned int WINDOW_WIDTH = 1920;
@@ -59,7 +60,16 @@ bool D12Device::Init()
         RenderTargetState rtState(
             DXGI_FORMAT_R8G8B8A8_UNORM,
             DXGI_FORMAT_D32_FLOAT);
+        
         SpriteBatchPipelineStateDescription pd(rtState);
+        pd.blendDesc=CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+        pd.blendDesc.RenderTarget->BlendEnable = true;//今のところfalse
+        pd.blendDesc.RenderTarget->BlendOp = D3D12_BLEND_OP_ADD;
+        pd.blendDesc.RenderTarget->BlendOpAlpha = D3D12_BLEND_OP_ADD;
+        pd.blendDesc.RenderTarget->SrcBlend = D3D12_BLEND_SRC_ALPHA;
+        pd.blendDesc.RenderTarget->DestBlend = D3D12_BLEND_INV_SRC_ALPHA;
+        pd.blendDesc.RenderTarget->SrcBlendAlpha = D3D12_BLEND_SRC_ALPHA;
+        pd.blendDesc.RenderTarget->DestBlendAlpha = D3D12_BLEND_INV_SRC_ALPHA;
         spriteBatch = new SpriteBatch(dx12->GetDevice().Get(), resUploadBatch, pd);
 
         //  SpriteFontオブジェクトの初期化
@@ -67,7 +77,7 @@ bool D12Device::Init()
         spriteFont = new SpriteFont(
             dx12->GetDevice().Get(),
             resUploadBatch,
-            L"Data/Font/fonttest.spritefont",
+            L"Data/Font/meiryo.spritefont",
             heapForSpriteFont->GetCPUDescriptorHandleForHeapStart(),
             heapForSpriteFont->GetGPUDescriptorHandleForHeapStart());
 
@@ -93,6 +103,11 @@ void D12Device::SetFov(float fov)
     dx12->SetFov(fov);
 }
 
+void D12Device::SetBackGroundColor(const DirectX::XMFLOAT3& _colors)
+{
+    dx12->SetBackGroundColor(_colors);
+}
+
 void D12Device::Finalize()
 {
     //  もうクラスは使わないから登録解除
@@ -114,10 +129,11 @@ void D12Device::CreateGameWindow()
 
     RECT wrc = { 0,0, WINDOW_WIDTH, WINDOW_HEIGHT };       //  ウィンドウサイズを決める
     AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);    //  ウィンドウのサイズはちょっと面倒なので関数を使って補正する
+    
     //  ウィンドウオブジェクトの生成
     hwnd = CreateWindow(m_windowClass.lpszClassName,    //  クラス名指定
         _T("Game"),    //  タイトルバーの文字
-        WS_OVERLAPPEDWINDOW,    //  タイトルバーと境界線があるウィンドウです
+        WS_POPUP | WS_BORDER,    //  タイトルバーと境界線があるウィンドウです
         CW_USEDEFAULT,    //  表示X座標はOSにお任せします
         CW_USEDEFAULT,    //  表示Y座標はOSにお任せします
         wrc.right - wrc.left,    //  ウィンドウ幅
@@ -126,4 +142,5 @@ void D12Device::CreateGameWindow()
         nullptr,    //  メニューハンドル
         m_windowClass.hInstance,    //  呼び出しアプリケーションハンドルaa
         nullptr);    //  追加パラメータ
+    //SetMenu(hwnd, NULL);
 }

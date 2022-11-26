@@ -13,7 +13,7 @@ namespace EffectData
     {
         {EffectType::AppearancePlayer,L"Data/Effect/Player/Appearance.efk"},
         {EffectType::DamagePlayer,L"Data/Effect/Player/Damage.efk"},
-        {EffectType::DefeatPlayer,L"Data/Effect/Player/Defeat.efk"},
+        {EffectType::DefeatPlayer,L"Data/Effect/Player/diff.efk"},
         {EffectType::PlayerMove,L"Data/Effect/Player/move.efk"},
 
         {EffectType::AppearanceEnemy,L"Data/Effect/Enemy/Appearance.efk"},

@@ -38,27 +38,15 @@ private:
 
 	const int SHOT_COOL_FLAME = 3;
 	const float DEADZONE = 0.3f;
-	struct JumpStatus
-	{
-		float JumpPower = 2.0f;
-		float JumpPrev = 0;
-		float Gravity = 0.10f;;
-		bool JumpFlag = false;
-		void Init()
-		{
-			 JumpPower = 2.0f;
-			 JumpPrev = 0;
-			 Gravity = 0.10f;
-			JumpFlag = false;
-		}
-	};
-	JumpStatus m_jumpStatus;
+
 	//ÉÇÉfÉã
 	class PMDModel& m_model;            //  PMDÉÇÉfÉãÇÃä«óù
 	class Controller& m_controller;
 	class Camera& m_camera;
 	class Sound& m_sound;
 	class SupportJson& m_json;
+	class Fps& m_fps;
+	class Time* m_timer;
 	int RADIUS_NUM = 1;
 	bool m_isAlive;
 	int m_cubeRotate;
@@ -66,7 +54,7 @@ private:
 	int m_inputFlameCount;
 	bool m_inputFlameFlag;
 	const float EFFECT_INTERVAL=30;
-
+	bool m_hitStopFlag;
 
 	//float RotateAngle;
 	//float UpAngle;

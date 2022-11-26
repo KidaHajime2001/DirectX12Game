@@ -5,12 +5,14 @@
 #include"EnumItr.h"
 #include"EnemyType.h"
 #include"EnemyAttackPool.h"
+#include"ScoreData.h"
+
 EnemyManager::EnemyManager()
     :m_enemyPool(Singleton<EnemyPool>::GetInstance())
     ,m_enemyAttackPool(Singleton<EnemyAttackPool>::GetInstance())
     ,m_timer(new Time())
 {
-    m_seriousDegree = 1.1f;
+    m_seriousDegree = 1.0f;
     m_enemyPool.CreateAll();
 }
 
@@ -33,6 +35,10 @@ void EnemyManager::Update(const DirectX::XMFLOAT3& _targetPos)
         enemy->Update(_targetPos);
         if (!enemy->IsAlive())
         {
+            if (enemy->GetDefeatFlag())
+            {
+                AddScore(enemy->GetEnemyType());
+            }
             m_deleteList.emplace_back(enemy);
         }
     }
@@ -57,6 +63,67 @@ void EnemyManager::Draw()
     }
     m_enemyAttackPool.Draw();
 }
+//
+//const int EnemyManager::GetScore()
+//{
+//    
+//        m_defeatScore+=3;
+//        if (m_defeatScore >= m_maxScore)
+//        {
+//            m_defeatScore = m_maxScore;
+//        }
+//        return m_defeatScore;
+//}
+
+void EnemyManager::Advent90s()
+{
+    int i=0;
+    typedef EnumIterator<EnemyType, EnemyType::LesserEnemy, EnemyType::StraightShotEnemy> typeItr;
+    //  ƒ^ƒCƒv‚²‚Æ‚ÉƒGƒlƒ~[UŒ‚ƒNƒ‰ƒX‚ğƒv[ƒ‹‚É“o˜^
+    for (auto itr : typeItr())
+    {
+        i++;
+    }
+    int random = (rand() % (i - 1))+1;
+    //‘å•¨‚Ì“G‚ğ”­¶
+    EnemyType enemytype = (EnemyType)random;
+    int positionIndex = rand() % 4;
+    XMFLOAT3 position = ADVENT_EVENT_POSITION[positionIndex];
+    AddEnemy(enemytype, 1, position);
+}
+
+void EnemyManager::Advent60s()
+{
+    AddEnemy(EnemyType::StraightShotEnemy, 1, XMFLOAT3(100,0,100));
+    AddEnemy(EnemyType::StraightShotEnemy, 1, XMFLOAT3(-100, 0, -100));
+}
+
+void EnemyManager::Advent30s()
+{
+    AddEnemy(EnemyType::SpreadShotEnemy, 1, XMFLOAT3(100, 0, -100));
+    AddEnemy(EnemyType::SpreadShotEnemy, 1, XMFLOAT3(-100, 0, 100));
+}
+
+void EnemyManager::SetGameLevel(int _level)
+{
+    m_seriousDegree += _level*0.1f;
+}
+
+
+void EnemyManager::AddScore(const EnemyType _enemyType)
+{
+    
+
+        if (_enemyType==EnemyType::LesserEnemy)
+        {
+            m_lesserNumScore++;
+        }
+        else
+        {
+            m_higherNumScore++;
+        }
+    
+}
 
 void EnemyManager::CallEnemy()
 {
@@ -77,15 +144,26 @@ void EnemyManager::CallEnemy()
 
 
         int random=rand() % i;
-        XMFLOAT3 position = RandomPositionSelect();
+        int positionIndex = rand() % 4;
+        XMFLOAT3 position = ADVENT_POSITION[positionIndex];
+        if(positionIndex==1|| positionIndex == 0)
+        {
+            position.x = rand() % 200 - 100;
+        }
+        if (positionIndex == 2 || positionIndex == 3)
+        {
+            position.z = rand() % 200 - 100;
+        }
+        
         //‘å•¨‚Ì“G‚ğ”­¶
         EnemyType enemytype = (EnemyType)random;
-        AddEnemy(enemytype,1, position);
-        
-        //G‹›“G‚ğ“ïˆÕ“x•ª’²®‚µ‚Ä”­¶‚³‚¹‚é
-        int CreateLesser = 10 + (10 * m_seriousDegree);
 
+        //G‹›“G‚ğ“ïˆÕ“x•ª’²®‚µ‚Ä”­¶‚³‚¹‚é
+        int CreateLesser = 5 + (5 * m_seriousDegree);
+
+        AddEnemy(enemytype,1, position);
         AddEnemy(EnemyType::LesserEnemy, CreateLesser, position);
+
 
 
     }
@@ -107,14 +185,4 @@ void EnemyManager::AddEnemy(const EnemyType& _type, const int& _num,const Direct
         }
        
     }
-}
-
-const DirectX::XMFLOAT3 EnemyManager::RandomPositionSelect()
-{
-    int positionIndex = rand() % 4;
-    return ADVENT_POSITION[positionIndex];
-    
-    
-
-
 }

@@ -106,20 +106,20 @@ HRESULT PMDRenderer::CreateGraphicsPipelineForPMD()
 
     //  シェーダーをコンパイル
     //　BasicShader.hlslが頂点シェーダー
-    auto result = D3DCompileFromFile(L"BasicShader.hlsl",
-        nullptr, nullptr,
+    auto result = D3DCompileFromFile(L"VertexShader.hlsl",
+        nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "BasicVS", "vs_5_0",
         D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
         0, &vsBlob, &errorBlob);
-    if (!CheckShaderCompileResult(result, errorBlob.Get())) {
-        assert(0);
-        return result;
-    }
+    
+
+
+
 
     //  シェーダーをコンパイル
    //　BasicShader.hlslがピクセルシェーダー
-    result = D3DCompileFromFile(L"BasicShader.hlsl",
-        nullptr, nullptr,
+    result = D3DCompileFromFile(L"PixelShader.hlsl",
+        nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "BasicPS", "ps_5_0",
         D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
         0, &psBlob, &errorBlob);
@@ -190,8 +190,8 @@ HRESULT PMDRenderer::CreateGraphicsPipelineForLinePMD()
 
     //  シェーダーをコンパイル
     //　BasicShader.hlslが頂点シェーダー
-    auto result = D3DCompileFromFile(L"BasicShader.hlsl",
-        nullptr, nullptr,
+    auto result = D3DCompileFromFile(L"VertexShader.hlsl",
+        nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "BasicVS", "vs_5_0",
         D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
         0, &vsBlob, &errorBlob);
@@ -202,8 +202,8 @@ HRESULT PMDRenderer::CreateGraphicsPipelineForLinePMD()
 
     //  シェーダーをコンパイル
    //　BasicShader.hlslがピクセルシェーダー
-    result = D3DCompileFromFile(L"BasicShader.hlsl",
-        nullptr, nullptr,
+    result = D3DCompileFromFile(L"PixelShader.hlsl",
+        nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "BasicPS", "ps_5_0",
         D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
         0, &psBlob, &errorBlob);

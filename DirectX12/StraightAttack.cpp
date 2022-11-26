@@ -36,7 +36,7 @@ void StraightAttack::Update(DirectX::XMFLOAT3 _targetPos)
 void StraightAttack::Shot(DirectX::XMFLOAT3 _pos, DirectX::XMFLOAT3 _targetPos, DirectX::XMFLOAT3 _aimVec)
 {
 	m_param.pos = _pos;
-	m_timer->SetTimer(3);
+	m_timer->SetTimer(5);
 	m_direction = _aimVec;
 	m_isAlive = true;
 	m_param.mCollision->m_isValidity = true;

@@ -4,6 +4,8 @@
 #include"Time.h"
 #include"XMF3Math.h"
 #include"ModelTypeData.h"
+#include"Sound.h"
+#include"SoundType.h"
 LesserEnemy::LesserEnemy(CollisionTag _tag, bool m_alive)
 	:EnemyBase(_tag,m_alive)
 	,m_timer(new Time())
@@ -13,7 +15,8 @@ LesserEnemy::LesserEnemy(CollisionTag _tag, bool m_alive)
 	m_modeltype = PMDModelType::LesserEnemy;
 	m_param.mCollision->m_isValidity = false;
 	m_speed = 0.3f;
-
+	m_enemyType = EnemyType::LesserEnemy;
+	
 }
 LesserEnemy::~LesserEnemy()
 {
@@ -59,6 +62,7 @@ void LesserEnemy::CollisionOriginal(Collision* otherCollision)
 	{
 		m_effect.PlayEffect(EffectType::DefeatBlueEnemy, GetPosition(), false);
 		m_param.mCollision->m_isValidity = false;
+		m_sound.Play(SoundType::DefeatLesserEnemySE,false,true);
 		m_isAlive = false;
 	}
 }

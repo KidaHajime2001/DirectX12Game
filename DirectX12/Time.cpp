@@ -13,7 +13,8 @@ Time::~Time()
 
 int Time::GetNowCount()
 {
-	return (int)GetTickCount64();
+	auto nowTime = clock();
+	return (float)(nowTime - m_startCount) / (float)CLOCKS_PER_SEC;
 }
 
 void Time::SetTimer(int _Limit)
@@ -30,6 +31,10 @@ void Time::SetTimer(int _Limit)
 
 bool Time::CheakTime()
 {
+	if (!m_nowCountFlag)
+	{
+		return false;
+	}
 	auto nowTime = clock();
 	float time = (float)(nowTime - m_startCount) / (float)CLOCKS_PER_SEC;
 	if (time>=m_limitTime)

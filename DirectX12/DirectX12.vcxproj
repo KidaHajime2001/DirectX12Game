@@ -158,6 +158,7 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CollisionTag.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Credit.h" />
     <ClInclude Include="D12Device.h" />
     <ClInclude Include="DirectXManager.h" />
     <ClInclude Include="DrawData.h" />
@@ -175,6 +176,9 @@
     <ClInclude Include="Error.h" />
     <ClInclude Include="Fps.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameLevel.h" />
+    <ClInclude Include="GameResultUI.h" />
+    <ClInclude Include="GameSceneWaveManager.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="HormingAimAttack.h" />
     <ClInclude Include="JsonDataType.h" />
@@ -189,7 +193,8 @@
     <ClInclude Include="PmdRenderer.h" />
     <ClInclude Include="PmdShifter.h" />
     <ClInclude Include="EnemyType.h" />
-    <ClInclude Include="ScoreItem.h" />
+    <ClInclude Include="Score.h" />
+    <ClInclude Include="ScoreData.h" />
     <ClInclude Include="SpreadShotEnemy.h" />
     <ClInclude Include="StraightAttack.h" />
     <ClInclude Include="StraightShotEnemy.h" />
@@ -223,6 +228,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Credit.cpp" />
     <ClCompile Include="D12Device.cpp" />
     <ClCompile Include="DirectXManager.cpp" />
     <ClCompile Include="EffekseerMng.cpp" />
@@ -234,6 +240,9 @@
     <ClCompile Include="EnemyShotDirector.cpp" />
     <ClCompile Include="Error.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameLevel.cpp" />
+    <ClCompile Include="GameResultUI.cpp" />
+    <ClCompile Include="GameSceneWaveManager.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="HormingAimAttack.cpp" />
     <ClCompile Include="LesserEnemy.cpp" />
@@ -247,7 +256,7 @@
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PlayerShotDirector.cpp" />
-    <ClCompile Include="ScoreItem.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="SingletonFinalizer.cpp" />
     <ClCompile Include="Sound.cpp" />
@@ -263,8 +272,34 @@
     <ClCompile Include="XMF3Math.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BasicShader.hlsl" />
+    <FxCompile Include="PixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BasicPS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BasicPS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <DisableOptimizations Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DisableOptimizations>
+      <DisableOptimizations Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DisableOptimizations>
+    </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BasicVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BasicVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <DisableOptimizations Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DisableOptimizations>
+      <DisableOptimizations Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DisableOptimizations>
+    </FxCompile>
     <None Include="Data\Param\EnemyData.json" />
+    <None Include="OutPut.hlsli">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

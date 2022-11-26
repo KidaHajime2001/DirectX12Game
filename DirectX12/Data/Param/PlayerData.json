@@ -1,5 +1,5 @@
 {
-	"Position":{"x":0.0,"y":0.0,"z":-70.0},
+	"Position":{"x":0.0,"y":0.0,"z":0.0},
     "Radius":2,
     "JumpPower":2,
     "Gravity":0.1,

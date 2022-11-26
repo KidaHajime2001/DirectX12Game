@@ -11,21 +11,25 @@
 #include"SoundType.h"
 #include"SupportJSON.h"
 #include"PlayerShotDirector.h"
+#include"Fps.h"
+#include"Time.h"
 Player::Player(CollisionTag _tag, bool _alive)
     :m_model(Singleton<PMDModel>::GetInstance())
+    , m_fps(Singleton<Fps>::GetInstance())
     , m_controller(Singleton<Controller>::GetInstance())
     , m_camera(Singleton<Camera>::GetInstance())
     , m_sound(Singleton<Sound>::GetInstance())
     , m_json(Singleton<SupportJson>::GetInstance())
     , m_isAlive(_alive)
     , m_shotDirector(new PlayerShotDirector())
-    ,Actor(_tag)
-    ,m_cubeRotate(45)
-    ,m_inputFlameCount(0)
-    ,m_inputFlameFlag(false)
+    , Actor(_tag)
+    , m_cubeRotate(45)
+    , m_inputFlameCount(0)
+    , m_inputFlameFlag(false)
+    , m_timer(new Time())
 {
-    Init();
-    m_camera.SetPlayerPosition(GetPosition());
+    Init();/*
+    m_camera.SetPlayerPosition(GetPosition());*/
   /*  RotateAngle = XMF3Math::DegreeForRadian(-90.0f);
     UpAngle = XMF3Math::DegreeForRadian(45.0f);*/
 }
@@ -37,6 +41,13 @@ Player::~Player()
 
 void Player::Update()
 {
+    //ヒットストップおわり
+    if (m_timer->CheakTime())
+    {
+        m_hitStopFlag = true;
+        m_fps.SetFPS(60);
+        m_isAlive = false;
+    }
     m_shotDirector->Update(IsShotFlag(),GetPosition(),GetShotDirection(),GetShotSpeed());
     m_camera.SetPlayerPosition(GetPosition());
     m_camera.Update();
@@ -62,22 +73,6 @@ void Player::Update()
         if (m_shotStatus.shotInterval < 0)
         {
             m_shotStatus.shotInterval = 0;
-        }
-    }
-
-    if (m_controller.IsPushEnter(ButtonName::GAMEPAD_B)&& !m_jumpStatus.JumpFlag)
-    {
-        m_jumpStatus.JumpFlag = true;
-        m_param.pos.y = m_jumpStatus.JumpPower;
-    }
-    if (m_jumpStatus.JumpFlag)
-    {
-        m_param.pos.y += m_jumpStatus.JumpPower;
-        m_jumpStatus.JumpPower -= m_jumpStatus.Gravity;
-        if (m_param.pos.y<0)
-        {
-            m_jumpStatus.Init();
-            m_param.pos.y = 0;
         }
     }
 
@@ -129,14 +124,19 @@ void Player::Init()
     SetPotision(posData);
     m_param.mCollision->m_data.radius=radiusData;
     m_isAlive = true;
-    m_param.mCollision->m_isValidity = false;
 }
 
 void Player::OnCollisionEnter(Collision* otherCollision)
 {
     OutputDebugString("HitEnemy.\n");
-    m_isAlive = false;
-    
+    m_effect.PlayEffect(EffectType::DefeatPlayer , GetPosition(), false);
+    m_sound.Play(SoundType::DefeatEnemySE,false,true);
+
+    //HitStopみたいな動き
+    m_fps.SetFPS(15);
+    m_timer->SetTimer(0.3f);
+
+    m_param.mCollision->m_isValidity = false;
 }
 
 
@@ -169,24 +169,6 @@ void Player::Move()
     {
         inputScalar.y = 0;
     }
-    //コントローラー未接続用移動処理
-    if (m_controller.GetControllerButtonState(ButtonName::GAMEPAD_UP))
-    {
-        inputScalar.y += 1;
-    }
-    if (m_controller.GetControllerButtonState(ButtonName::GAMEPAD_DOWN))
-    {
-        inputScalar.y -= 1;
-    }
-    if (m_controller.GetControllerButtonState(ButtonName::GAMEPAD_RIGHT))
-    {
-        inputScalar.x += 1;
-    }
-    if (m_controller.GetControllerButtonState(ButtonName::GAMEPAD_LEFT))
-    {
-        inputScalar.x -= 1;
-    }
-   
     inputVec    =XMF3Math::AddXMFLOAT3(inputVec ,XMF3Math::ScalarXMFLOAT3(Forward, inputScalar.y));
     inputVec = XMF3Math::AddXMFLOAT3(inputVec, XMF3Math::ScalarXMFLOAT3(RIGHT, inputScalar.x));
     MoveEffect(XMF3Math::LengthXMFLOAT3(inputVec));

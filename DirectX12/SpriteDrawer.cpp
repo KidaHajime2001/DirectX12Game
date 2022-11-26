@@ -86,7 +86,7 @@ int SpriteDrawer::Load()
     m_spriteBatch = std::make_unique<SpriteBatch>(m_device.dx12->GetDevice().Get(), resourceUpload, pd);
 
     //  列挙型SpriteTypeのイテレータを作成
-    typedef EnumIterator<SpriteType, SpriteType::TitleBack, SpriteType::Return> typeItr;
+    typedef EnumIterator<SpriteType, SpriteType::TitleBack, SpriteType::ResultLine> typeItr;
 
     for (auto itr : typeItr())
     {
@@ -122,7 +122,7 @@ int SpriteDrawer::Load()
 
 //  色を指定する時に呼び出す関数
 //  ColorTypeとアルファ値を指定
-XMVECTORF32 SpriteDrawer::GetColorWithAlfa(const float _alfa)
+XMVECTORF32 SpriteDrawer::GetColorWithalpha(const float _alpha)
 {
-    return { Colors::White.f[0],Colors::White.f[1],Colors::White.f[2],_alfa };
+    return { Colors::White.f[0],Colors::White.f[1],Colors::White.f[2],_alpha };
 }

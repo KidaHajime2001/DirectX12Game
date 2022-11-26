@@ -14,7 +14,9 @@ static const float CHANGE_VOLUME_MAGNIFICATION = 0.2;
 
 Sound::Sound()
     :m_error(Singleton<CheckError>::GetInstance())
-    , m_volumeMagnification(1)
+    , m_bgmVolumeMagnification(0.9f)
+    , m_seVolumeMagnification(0.9f)
+   , m_volumeMagnification(0.9f)
 {
     //  初期化
     Init();
@@ -83,6 +85,7 @@ int Sound::Play(const SoundType& _type, const bool _isLoop, const bool _isFromBe
     //  指定されたタイプのサウンドキューを検索
     for (auto itr : m_soundQue[_type])
     {
+
         //  停止中のキューがあればそのキューを再生に変更
         if (itr->GetState() == SoundState::STOPPED)
         {
@@ -103,14 +106,70 @@ void Sound::Stop(const SoundType& _type, const int _index, const bool _immediate
     m_soundQue[_type][_index]->Stop(_immediate);
 }
 
+void Sound::StopAll()
+{
+    typedef EnumIterator<SoundType, SoundType::TitleBGM, SoundType::ShootSE> typeItr;
+    for (auto itr : typeItr())
+    {
+        int j = 0;
+        for (auto i : m_soundQue[itr])
+        {
+            m_soundQue[itr][j]->Stop(true);
+            j++;
+        }
+        j = 0;
+    }
+}
+
+void Sound::SetSoundVolume(const float _allVolume, const float _bgmVolume, const float _seVolume)
+{
+    m_volumeMagnification = _allVolume * 0.1f;
+    m_seVolumeMagnification = _seVolume * 0.1f;
+    m_bgmVolumeMagnification = _bgmVolume * 0.1f;
+
+    typedef EnumIterator<SoundType, SoundType::TitleBGM, SoundType::ShootSE> typeItr;
+    for (auto itr : typeItr())
+    {
+        for (auto sinstance :m_soundQue[itr])
+        {
+            //  指定されたタイプのサウンドのインスタンスを生成
+            std::shared_ptr<SoundEffectInstance> instance = sinstance;
+            float vol = 1.0f;
+            switch (SoundData::VOLUME_TYPE[itr])
+            {
+            case SoundVolumeType::BGM:
+                vol = m_bgmVolumeMagnification;
+                break;
+            case SoundVolumeType::SE:
+                vol = m_seVolumeMagnification;
+                break;
+            }
+            //  ボリュームを現在のボリュームに合わせて設定
+            instance->SetVolume(SoundData::FIRST_VOLUME[itr] * m_volumeMagnification * vol);
+        }
+        
+    }
+
+}
+
 
 //  サウンドキューを作成
 void Sound::PushSoundQue(const SoundType& _type, const bool _isLoop)
 {
     //  指定されたタイプのサウンドのインスタンスを生成
     std::shared_ptr<SoundEffectInstance> instance = m_soundEffect[_type]->CreateInstance();
+    float vol = 1.0f;
+    switch (SoundData::VOLUME_TYPE[_type])
+    {
+    case SoundVolumeType::BGM:
+        vol = m_bgmVolumeMagnification;
+        break;
+    case SoundVolumeType::SE:
+        vol = m_seVolumeMagnification;
+        break;
+    }
     //  ボリュームを現在のボリュームに合わせて設定
-    instance->SetVolume(SoundData::FIRST_VOLUME[_type] * m_volumeMagnification);
+    instance->SetVolume(SoundData::FIRST_VOLUME[_type] * m_volumeMagnification * vol);
     //  サウンドキュー内にインスタンスを格納
     m_soundQue[_type].emplace_back(instance);
     //  再生

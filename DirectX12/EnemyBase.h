@@ -1,10 +1,10 @@
 #pragma once
 #include"Actor.h"
 #include"ModelTypeData.h"
-
+#include"EnemyType.h"
 enum class EnemyType;
 
-class EnemyBase:public Actor
+class EnemyBase :public Actor
 {
 public:
 	EnemyBase(CollisionTag _tag, bool m_alive);
@@ -14,7 +14,7 @@ public:
 	virtual void Update(const DirectX::XMFLOAT3 _targetPos);
 	//描画
 	void Draw();
-	
+
 	//データのロード
 	void LoadData(const EnemyType _enemyType);
 
@@ -24,6 +24,8 @@ public:
 	//当たり判定処理
 	void OnCollisionEnter(class Collision* otherCollision)override;
 	virtual void CollisionOriginal(class Collision* otherCollision);
+	const EnemyType GetEnemyType() { return m_enemyType; };
+	const bool GetDefeatFlag() { return m_defeatPlayerBullet; };
 protected:
 
 	virtual void WaitUpdate(const DirectX::XMFLOAT3 _targetPos);
@@ -46,7 +48,7 @@ protected:
 	//生存フラグ
 	bool m_isAlive;
 
-
+	bool m_defeatPlayerBullet;
 
 	//簡易AI用ステート
 	enum class EnemyState

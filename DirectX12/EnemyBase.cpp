@@ -14,6 +14,7 @@ EnemyBase::EnemyBase(CollisionTag _tag, bool _alive)
 	, m_model(Singleton<PMDModel>::GetInstance())
 	, m_effect(Singleton<EffekseerManager>::GetInstance())
 	, m_sound(Singleton<Sound>::GetInstance())
+	,m_defeatPlayerBullet(false)
 {
 
 	m_param.mCollision->m_data.radius = m_radiusData;
@@ -29,6 +30,7 @@ void EnemyBase::Init()
 {
 	m_isAlive = true;
 	m_param.mCollision->m_isValidity = true;
+	m_defeatPlayerBullet = false;
 }
 
 
@@ -89,6 +91,10 @@ void EnemyBase::OnCollisionEnter(Collision* otherCollision)
 		awayVec = XMF3Math::SetMagnitude(otherToMe, awayRange);
 		m_param.pos = XMF3Math::AddXMFLOAT3(enemyPos, awayVec);
 
+	}
+	if (otherCollision->GetTag() == CollisionTag::PlayerBullet)
+	{
+		m_defeatPlayerBullet = true;
 	}
 	CollisionOriginal(otherCollision);
 }

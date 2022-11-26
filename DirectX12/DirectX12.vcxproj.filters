@@ -106,9 +106,6 @@
     <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy\Lessar">
       <UniqueIdentifier>{3859d140-746c-42bf-88e0-432be6c49aa2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy\StraightShot">
-      <UniqueIdentifier>{4f7aed0e-23cc-4505-a064-928b400ac730}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy\SpreadShot">
       <UniqueIdentifier>{5a83bfa5-293c-4fde-8079-fedb38239a9a}</UniqueIdentifier>
     </Filter>
@@ -118,7 +115,13 @@
     <Filter Include="ソース ファイル\Actor\Object\Enemy\Player\bullet">
       <UniqueIdentifier>{7eeb2b40-00af-4d6d-bfb5-df1d71c8ecdb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Actor\Object\Item">
+    <Filter Include="ソース ファイル\System\GameResultUI">
+      <UniqueIdentifier>{6433dbab-4bd9-42ce-a618-ffb1e7d27d19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy\StraightShot">
+      <UniqueIdentifier>{4f7aed0e-23cc-4505-a064-928b400ac730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Item">
       <UniqueIdentifier>{b7736ca7-827d-4f82-b20d-e567770a2649}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -228,9 +231,6 @@
     <ClCompile Include="EnemyPool.cpp">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="HormingAimAttack.cpp">
-      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
-    </ClCompile>
     <ClCompile Include="StraightAttack.cpp">
       <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
     </ClCompile>
@@ -258,11 +258,26 @@
     <ClCompile Include="EnemyManager.cpp">
       <Filter>ソース ファイル\Actor\Object\Enemy\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreItem.cpp">
-      <Filter>ソース ファイル\Actor\Object\Item</Filter>
+    <ClCompile Include="Score.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
     </ClCompile>
     <ClCompile Include="TitlePlayer.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevel.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="GameResultUI.cpp">
+      <Filter>ソース ファイル\System\GameResultUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSceneWaveManager.cpp">
+      <Filter>ソース ファイル\SceneBase\Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Credit.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="HormingAimAttack.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -419,9 +434,6 @@
     <ClInclude Include="EnemyType.h">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="HormingAimAttack.h">
-      <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
-    </ClInclude>
     <ClInclude Include="StraightAttack.h">
       <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
     </ClInclude>
@@ -455,19 +467,45 @@
     <ClInclude Include="EnemyManager.h">
       <Filter>ソース ファイル\Actor\Object\Enemy\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreItem.h">
-      <Filter>ソース ファイル\Actor\Object\Item</Filter>
+    <ClInclude Include="Score.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
     </ClInclude>
     <ClInclude Include="TitlePlayer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="GameLevel.h">
+      <Filter>ソース ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="GameResultUI.h">
+      <Filter>ソース ファイル\System\GameResultUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSceneWaveManager.h">
+      <Filter>ソース ファイル\SceneBase\Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreData.h">
+      <Filter>ソース ファイル\SceneBase\Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Credit.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="HormingAimAttack.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BasicShader.hlsl">
-      <Filter>shader</Filter>
-    </None>
     <None Include="Data\Param\EnemyData.json">
       <Filter>リソース ファイル</Filter>
     </None>
+    <None Include="OutPut.hlsli">
+      <Filter>shader</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

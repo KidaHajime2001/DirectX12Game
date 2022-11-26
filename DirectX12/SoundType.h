@@ -16,10 +16,16 @@ enum class SoundType {
 
     //  エネミー
     DefeatEnemySE,      //  撃破
-
+    DefeatLesserEnemySE,
+    ScoreSE,
     //  弾
     ShootSE,        //  発射
 
     //  enumのラスト
     EndSound
+};
+enum class SoundVolumeType
+{
+    BGM,
+    SE,
 };

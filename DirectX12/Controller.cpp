@@ -54,36 +54,36 @@ void Controller::Update()
 
 void Controller::ShowControllerState()
 {
-	m_drawer.DrawStringBlackAndYellow("sThumbLX", XMFLOAT2(0, 0)		, 0.5f);
-	m_drawer.DrawStringBlackAndYellow("sThumbLY", XMFLOAT2(0, 50)		, 0.5f);
-	m_drawer.DrawStringBlackAndYellow("sThumbRX", XMFLOAT2(0, 100)		, 0.5f);
-	m_drawer.DrawStringBlackAndYellow("sThumbRY", XMFLOAT2(0, 150)		, 0.5f);
-	m_drawer.DrawStringBlackAndYellow("bLeftTrigger", XMFLOAT2(0, 200)	, 0.5f);
-	m_drawer.DrawStringBlackAndYellow("bRightTrigges", XMFLOAT2(0, 250)	, 0.5f);
+	m_drawer.DrawStringBlackAndWhite("sThumbLX", XMFLOAT2(0, 0)		, 0.5f);
+	m_drawer.DrawStringBlackAndWhite("sThumbLY", XMFLOAT2(0, 50)		, 0.5f);
+	m_drawer.DrawStringBlackAndWhite("sThumbRX", XMFLOAT2(0, 100)		, 0.5f);
+	m_drawer.DrawStringBlackAndWhite("sThumbRY", XMFLOAT2(0, 150)		, 0.5f);
+	m_drawer.DrawStringBlackAndWhite("bLeftTrigger", XMFLOAT2(0, 200)	, 0.5f);
+	m_drawer.DrawStringBlackAndWhite("bRightTrigges", XMFLOAT2(0, 250)	, 0.5f);
 
-	m_drawer.DrawStringBlackAndYellowForFewNumber(GetLeftStickInput().x, XMFLOAT2(300, 0), 0.5f);
-	m_drawer.DrawStringBlackAndYellowForFewNumber(GetLeftStickInput().y, XMFLOAT2(300, 50), 0.5f);
-	m_drawer.DrawStringBlackAndYellowForFewNumber(GetContorollerState().Gamepad.sThumbRX, XMFLOAT2(300, 100), 0.5f);
-	m_drawer.DrawStringBlackAndYellowForFewNumber(GetContorollerState().Gamepad.sThumbRY, XMFLOAT2(300, 150), 0.5f);
-	m_drawer.DrawStringBlackAndYellowForFewNumber(GetContorollerState().Gamepad.bLeftTrigger, XMFLOAT2(300, 200), 0.5f);
-	m_drawer.DrawStringBlackAndYellowForFewNumber(GetContorollerState().Gamepad.bRightTrigger, XMFLOAT2(300, 250), 0.5f);
+	m_drawer.DrawStringBlackAndWhiteForFewNumber(GetLeftStickInput().x, XMFLOAT2(300, 0), 0.5f);
+	m_drawer.DrawStringBlackAndWhiteForFewNumber(GetLeftStickInput().y, XMFLOAT2(300, 50), 0.5f);
+	m_drawer.DrawStringBlackAndWhiteForFewNumber(GetContorollerState().Gamepad.sThumbRX, XMFLOAT2(300, 100), 0.5f);
+	m_drawer.DrawStringBlackAndWhiteForFewNumber(GetContorollerState().Gamepad.sThumbRY, XMFLOAT2(300, 150), 0.5f);
+	m_drawer.DrawStringBlackAndWhiteForFewNumber(GetContorollerState().Gamepad.bLeftTrigger, XMFLOAT2(300, 200), 0.5f);
+	m_drawer.DrawStringBlackAndWhiteForFewNumber(GetContorollerState().Gamepad.bRightTrigger, XMFLOAT2(300, 250), 0.5f);
 	//  列挙型PMDModelTypeのイテレータを作成
 	typedef EnumIterator<ButtonName, ButtonName::GAMEPAD_UP, ButtonName::GAMEPAD_Y> typeItr;
 
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_UP",				XMFLOAT2(600,0),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_DOWN",			XMFLOAT2(600,50),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_LEFT",			XMFLOAT2(600,100),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_RIGHT",			XMFLOAT2(600,150),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_START",			XMFLOAT2(600,200),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_BACK",			XMFLOAT2(600,250),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_LEFT_THUMB",		XMFLOAT2(600,300),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_RIGHT_THUMB",	XMFLOAT2(600,350),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_LEFT_SHOULDER",	XMFLOAT2(600,400),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_RIGHT_SHOULDER",	XMFLOAT2(600,450),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_A",				XMFLOAT2(600,500),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_B",				XMFLOAT2(600,550),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_X",				XMFLOAT2(600,600),0.5f);
-	m_drawer.DrawStringBlackAndYellow("GAMEPAD_Y",				XMFLOAT2(600,650),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_UP",				XMFLOAT2(600,0),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_DOWN",			XMFLOAT2(600,50),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_LEFT",			XMFLOAT2(600,100),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_RIGHT",			XMFLOAT2(600,150),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_START",			XMFLOAT2(600,200),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_BACK",			XMFLOAT2(600,250),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_LEFT_THUMB",		XMFLOAT2(600,300),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_RIGHT_THUMB",	XMFLOAT2(600,350),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_LEFT_SHOULDER",	XMFLOAT2(600,400),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_RIGHT_SHOULDER",	XMFLOAT2(600,450),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_A",				XMFLOAT2(600,500),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_B",				XMFLOAT2(600,550),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_X",				XMFLOAT2(600,600),0.5f);
+	m_drawer.DrawStringBlackAndWhite("GAMEPAD_Y",				XMFLOAT2(600,650),0.5f);
 
 	int i = 0;
 	for (auto itr : typeItr())	
@@ -104,20 +104,20 @@ void Controller::ShowControllerState()
 			StatusNum = 3;
 			break;
 		}
-		m_drawer.DrawStringBlackAndYellowForFewNumber(StatusNum, XMFLOAT2(900, 0+(i*50)), 0.5f);
+		m_drawer.DrawStringBlackAndWhiteForFewNumber(StatusNum, XMFLOAT2(900, 0+(i*50)), 0.5f);
 		i++;
 	}
 
 }
 
-bool Controller::CheckSubInput(ButtonName bN)
+const bool Controller::CheckSubInput(ButtonName bN)
 {
 	
 	
 	return (GetKeyState(SubInputKeyBord[static_cast<int>(bN)]) & 0x8000);
 }
 
-bool Controller::GetControllerButtonState(ButtonName bN)
+const bool Controller::GetControllerButtonState(ButtonName bN)
 {
 
 	if (padState.Gamepad.wButtons & button[static_cast<int>(bN)].Data|| CheckSubInput(bN))
@@ -127,7 +127,7 @@ bool Controller::GetControllerButtonState(ButtonName bN)
 	return false;
 }
 
-bool Controller::IsPushEnter(ButtonName bN)
+const bool Controller::IsPushEnter(ButtonName bN)
 {
 	if (button[static_cast<int>(bN)].State == InputState::PushEnter)
 	{
@@ -136,7 +136,7 @@ bool Controller::IsPushEnter(ButtonName bN)
 	return false;
 }
 
-bool Controller::IsPress(ButtonName bN)
+const bool Controller::IsPress(ButtonName bN)
 {
 	if (button[static_cast<int>(bN)].State == InputState::Press)
 	{
@@ -145,7 +145,7 @@ bool Controller::IsPress(ButtonName bN)
 	return false;
 }
 
-bool Controller::IsRelease(ButtonName bN)
+const bool Controller::IsRelease(ButtonName bN)
 {
 	if (button[static_cast<int>(bN)].State==InputState::PushExit)
 	{
@@ -166,6 +166,13 @@ const DirectX::XMFLOAT2 Controller::GetLeftStickInput()
 	float x = (float)(padState.Gamepad.sThumbLX / INPUT_MAX);
 	float y = (float)(padState.Gamepad.sThumbLY / INPUT_MAX);
 	return DirectX::XMFLOAT2(x, y);
+}
+
+const DirectX::XMFLOAT2 Controller::GetTiggerInput()
+{
+	float x = (float)(padState.Gamepad.bLeftTrigger/ TRIGGER_INPUT_MAX);
+	float y = (float)(padState.Gamepad.bRightTrigger / TRIGGER_INPUT_MAX);
+	return DirectX::XMFLOAT2(x,y);
 }
 
 
@@ -214,6 +221,7 @@ Controller::Controller()
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_RIGHT)]			= VK_RIGHT;
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_START)]			= VK_TAB;
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_A)]				= VK_RETURN;
+	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_START)]			= VK_ESCAPE;
 		/*
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_BACK)]				= ;*/
 	/*SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_LEFT_THUMB)]		= ;

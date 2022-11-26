@@ -5,6 +5,8 @@
 #include"XMF3Math.h"
 #include"ModelTypeData.h"
 #include"EnemyShotDirector.h"
+#include"Sound.h"
+#include"SoundType.h"
 StraightShotEnemy::StraightShotEnemy(CollisionTag _tag, bool m_alive)
 	:EnemyBase(_tag, m_alive)
 	, m_timer(new Time())
@@ -16,6 +18,7 @@ StraightShotEnemy::StraightShotEnemy(CollisionTag _tag, bool m_alive)
 	m_enemyShotDirector = new EnemyShotDirector();
 	m_modeltype = PMDModelType::StraightEnemy;
 	m_speed = 0.1f;
+	m_enemyType=EnemyType::StraightShotEnemy;
 }
 
 StraightShotEnemy::~StraightShotEnemy()
@@ -54,6 +57,7 @@ void StraightShotEnemy::CollisionOriginal(Collision* otherCollision)
 	{
 		m_effect.PlayEffect(EffectType::DefeatRedEnemy, GetPosition(), false);
 		m_param.mCollision->m_isValidity = false;
+		m_sound.Play(SoundType::DefeatEnemySE, false, true);
 		m_isAlive = false;
 	}
 }

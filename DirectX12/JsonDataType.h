@@ -5,5 +5,5 @@ enum class JsonDataType
 	AdventPoint,
 	Enemy,
 	Ground,
-
+	Level,
 };

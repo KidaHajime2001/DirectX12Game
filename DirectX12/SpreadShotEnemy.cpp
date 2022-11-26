@@ -5,6 +5,8 @@
 #include"XMF3Math.h"
 #include"ModelTypeData.h"
 #include"EnemyShotDirector.h"
+#include"Sound.h"
+#include"SoundType.h"
 SpreadShotEnemy::SpreadShotEnemy(CollisionTag _tag, bool m_alive)
 	:EnemyBase(_tag, m_alive)
 	, m_timer(new Time())
@@ -17,6 +19,7 @@ SpreadShotEnemy::SpreadShotEnemy(CollisionTag _tag, bool m_alive)
 	m_param.mCollision->m_isValidity = false;
 	m_enemyShotDirector = new EnemyShotDirector();
 	m_speed = 0.1f;
+	m_enemyType = EnemyType::SpreadShotEnemy;
 }
 
 SpreadShotEnemy::~SpreadShotEnemy()
@@ -57,6 +60,7 @@ void SpreadShotEnemy::OnCollisionEnter(Collision* otherCollision)
 	{
 		m_effect.PlayEffect(EffectType::DefeatRedEnemy, GetPosition(), false);
 		m_param.mCollision->m_isValidity = false;
+		m_sound.Play(SoundType::DefeatEnemySE, false, true);
 		m_isAlive = false;
 	}/*
 	OutputDebugString("SpreadShotEnemy‚Å‚·");*/

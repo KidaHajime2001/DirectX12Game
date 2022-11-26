@@ -7,31 +7,32 @@ enum SpriteType
 {
     //  タイトル
     TitleBack = 0,    //  背景
-    TitleText,        //  タイトル
-    TitleStart,            //  スタートの文字
-    TitleStartFalse,
-    TitleOption,
-    TitleOptionFalse,
-    TitleView,
+
+
+    Credit,
     //  ゲームシーン
     GameScoreTest,
     GameBackGround,
-    Gauge,        //  ゲージ本体
-    GaugeFrame,   //  ゲージの枠
-    Font0,
-    Font1,
-    Font2,
-    Font3,
-    Font4,
-    Font5,
-    Font6,
-    Font7,
-    Font8,
-    Font9,
+    Wave1Start,
+    ControllTitle,
+    ControllGame,
+    ControllResult,
+    ControllCredit,
+    count1,
+    count2,
+    count3,
+    count4,
+    count5,
+    count6,
+    count7,
+    count8,
+    count9,
+    count10,
+
     //  リザルト
     ResultBack,        //  背景
     ResultText,        //  リザルト
-    Return,            //  スタートの文字
+    ResultLine,
 
     //  enumのラスト
     EndDescriptors

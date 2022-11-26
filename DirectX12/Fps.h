@@ -38,8 +38,9 @@ public:
 		return true;
 	}
 	const int GetFPS() { return mFps; };
+	const int GetMaxFps() { return FPS; };
 	void Draw() {
-		m_drawer.DrawStringBlackAndYellowForFewNumber(mFps,XMFLOAT2(1500,0));
+		m_drawer.DrawStringBlackAndWhiteForFewNumber(mFps,XMFLOAT2(1500,0));
 	}
 
 	void Wait() {

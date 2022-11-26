@@ -79,6 +79,10 @@ namespace XMF3Math
 	/// <param name="_degree">回転させる角度（実角度degree）</param>
 	/// <returns>回転させたベクトル</returns>
 	const DirectX::XMFLOAT3 RotateVec2_XZ(const DirectX::XMFLOAT3& a,const float& _degree);
+
+	
+
+
 	//180->3.14
 	const float DegreeForRadian(const float& degree);
 

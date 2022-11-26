@@ -14,6 +14,11 @@
 #include"StraightShotEnemy.h"
 #include"EnemyManager.h"
 #include"EnemyPool.h"
+#include"Score.h"
+#include"GameLevel.h"
+#include"GameResultUI.h"
+#include"GameSceneWaveManager.h"
+#include "ScoreData.h"
 Game::Game(SceneTag _sceneTag)
 	:SceneBase(_sceneTag)
 	, m_controller(Singleton<Controller>::GetInstance())
@@ -28,14 +33,16 @@ Game::Game(SceneTag _sceneTag)
 	, m_collisionManager(Singleton<CollisionManager>::GetInstance())
 	, m_time(new Time())
 	, m_ground(new Ground(CollisionTag::BackGround))
-	, m_distanceMoved(0)
 	, m_debugFlag(false)
 	, m_gameOverFlag(false)
-	,m_enemyManager(new EnemyManager())
+	, m_enemyManager(new EnemyManager())
+	, m_score(new ScoreUI())
+	, m_gameResultUI(new GameResultUI())
+	, m_gameSceneWaveManager(new GameSceneWaveManager())
+
 
 {
 	m_backGroundCode = 0;
-	BGMHandle = m_sound.Play(SoundType::GameSceneBGM,true,true);
 
 }
 
@@ -44,19 +51,37 @@ Game::~Game()
 
 	
 	m_collisionManager.DestroyAll();
+	delete m_score;
 	delete m_player;
 	delete m_time;
 	delete m_ground;
 	delete m_enemyManager;
+	delete m_gameResultUI;
+	delete m_gameSceneWaveManager;
 }
 
 void Game::Update()
 {
-	if (!m_gameOverFlag)
+	m_gameSceneWaveManager->Update(m_player->IsAlive());
+	if (m_gameSceneWaveManager->GetNowGameWave()==GameSceneWaveManager::GameWave::Wave)
 	{
 		m_player->Update();
-
+		
 		m_enemyManager->Update(m_player->GetPosition());
+		if (m_gameSceneWaveManager->Is90s())
+		{
+			m_enemyManager->Advent90s();
+		}
+		if (m_gameSceneWaveManager->Is60s())
+		{
+			m_enemyManager->Advent60s();
+		}
+		if (m_gameSceneWaveManager->Is30s())
+		{
+			m_enemyManager->Advent30s();
+		}
+		CountScore(m_enemyManager->GetEnemyDefeatScore().x, m_enemyManager->GetEnemyDefeatScore().y);
+
 		m_collisionManager.Update();
 		if (m_controller.IsPushEnter(ButtonName::GAMEPAD_BACK))
 		{
@@ -67,12 +92,13 @@ void Game::Update()
 			m_gameOverFlag = true;
 		}
 	}
-	else
+	else if(m_gameSceneWaveManager->GetNowGameWave() == GameSceneWaveManager::GameWave::Result)
 	{
 		if (m_controller.IsPushEnter(ButtonName::GAMEPAD_A))
 		{
 			m_sound.Stop(SoundType::GameSceneBGM,BGMHandle);
 			m_nextSceneFlag = true;
+			m_sound.StopAll();
 		}
 	}
 
@@ -86,26 +112,58 @@ void Game::Draw()
 	{
 		m_sprite.Draw(SpriteType::ResultBack,XMFLOAT2(0,0));
 	}
-	m_sprite.Draw(SpriteType::GameScoreTest , XMFLOAT2(0, 0));
+	m_score->DrawSprite();
+	m_gameSceneWaveManager->Draw(); 
+	if (m_gameSceneWaveManager->GetNowGameWave() == GameSceneWaveManager::GameWave::Wave)
+	{
+		m_sprite.Draw(SpriteType::ControllGame, XMFLOAT2(0, 0));
+	}
+	if (m_gameSceneWaveManager->GetNowGameWave() == GameSceneWaveManager::GameWave::Result)
+	{
+		m_sprite.Draw(SpriteType::ControllResult, XMFLOAT2(0, 0));
+	}
 }
 
 void Game::DrawString()
 {
-		if (m_debugFlag)
-		{
+	
 
-			m_controller.ShowControllerState();
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_time->GetNowCount(), XMFLOAT2(0,300), 0.5f);
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_player->GetPosition().x,XMFLOAT2(0,400),0.5f);
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_ground->GetSecondPosition().z, XMFLOAT2(0, 450), 0.5f);
+	
+	if (m_debugFlag)
+	{
+		m_score->DrawString();
+		m_controller.ShowControllerState();
+		m_drawer.DrawStringBlackAndWhiteForFewNumber(m_time->GetNowCount(), XMFLOAT2(0,300), 0.5f);
+		m_drawer.DrawStringBlackAndWhiteForFewNumber(m_player->GetPosition().x,XMFLOAT2(0,400),0.5f);
+		m_drawer.DrawStringBlackAndWhiteForFewNumber(m_ground->GetSecondPosition().z, XMFLOAT2(0, 450), 0.5f);
 
-		}
+		m_drawer.DrawStringBlackAndWhiteForFewNumber(m_fps.GetFPS(), XMFLOAT2(1800, 50), 0.5f);
+
+	}
 		
-		if (!m_gameOverFlag)
+	if (m_gameSceneWaveManager->GetNowGameWave() == GameSceneWaveManager::GameWave::Wave)
+	{
+		m_drawer.DrawStringBlackAndWhite("SCORE : ", XMFLOAT2(80, 30));
+		m_drawer.DrawStringBlackAndWhiteForNumber(m_defeatScore, XMFLOAT2(300, 30), 1.0f);
+		m_drawer.DrawStringBlackAndWhite("TIME  : ", XMFLOAT2(106, 85));
+		m_drawer.DrawStringBlackAndWhiteForNumber(m_gameSceneWaveManager->GetNowCountTime(), XMFLOAT2(300, 85), 1.0f);
+		m_gameSceneWaveManager->DrawString();
+	}
+	else if(m_gameSceneWaveManager->GetNowGameWave() == GameSceneWaveManager::GameWave::Result)
+	{
+		float gameClearScore;
+		if (!m_player->IsAlive())
 		{
-			
-			m_drawer.DrawStringBlackAndYellowForFewNumber(m_fps.GetFPS(), XMFLOAT2(1800, 50), 0.5f);
+			gameClearScore = 0;
 		}
+		else
+		{
+			gameClearScore = 1000;
+		}
+		GameResultUI::ScoreData score = { m_gameSceneWaveManager->GetNowOverTime(),m_enemyManager->GetEnemyDefeatScore().x,m_enemyManager->GetEnemyDefeatScore().y,gameClearScore ,m_defeatScore };
+		m_gameResultUI->Draw(score);
+
+	}
 		
 	
 }
@@ -129,5 +187,22 @@ void Game::DrawBackGround()
 	}
 	m_alphaValue += m_backGroundCode;
 
-	/*m_sprite.Draw(SpriteType::GameBackGround, XMFLOAT2(0, 0),1.0f,m_sprite.GetColorWithAlfa(m_alphaValue));*/
+	m_sprite.Draw(SpriteType::GameBackGround, XMFLOAT2(0, 0),1.0f,m_sprite.GetColorWithalpha(m_alphaValue));
+}
+
+void Game::Init()
+{
+	m_enemyManager->SetGameLevel(m_gameLevel->GetGameLevel());
+	BGMHandle = m_sound.Play(SoundType::GameSceneBGM, true, true);
+}
+
+void Game::CountScore(const int _defeatLesserEnemyScore, const int _defeathigherEnemyScore)
+{
+	
+	m_maxScore = (DEFEAT_LESSER * _defeatLesserEnemyScore) + (DEFEAT_HIGHER * _defeathigherEnemyScore);
+	m_defeatScore += 3;
+	if (m_defeatScore >= m_maxScore)
+	{
+		m_defeatScore = m_maxScore;
+	}
 }
