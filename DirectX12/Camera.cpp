@@ -7,13 +7,10 @@
 Camera::Camera()
 	:m_device(Singleton<D12Device>::GetInstance())
 	, m_controller(Singleton<Controller>::GetInstance())
-	, m_state(CameraState::MiddletoNear)
-	, m_up(XMFLOAT3(0, 1, 0))
 	, m_titleCameraPosition(XMFLOAT3(0, 20, 0))
 	, m_titleTargetPosition(XMFLOAT3(0, 0, 0))
-	, m_moveStartCameraComplete(false)
+	, m_isMoveComplete(false)
 	, m_code(0,0.9f,0.0f)
-	,m_shakePosition(0,0,0)
 	,m_startCount(0)
 {
 	
@@ -25,36 +22,42 @@ Camera::~Camera()
 
 void Camera::Update()
 {
+	//ターゲット+補正位置＝カメラポジション
 	m_cameraPosition = m_targetPosition;
-	m_cameraPosition =XMF3Math::AddXMFLOAT3(m_cameraPosition, m_shakePosition);
+	m_cameraPosition.y += CAMERA_ADJUST_POSITION_Y;
+	m_cameraPosition.z += CAMERA_ADJUST_POSITION_Z;
 
-	m_cameraPosition.y += CAMERA_ADJUST_Y_FAR;
-	m_cameraPosition.z += CAMERA_ADJUST_Z_FAR;
+	//カメラ位置の更新
 	m_device.UpdateCameraPos(m_cameraPosition, m_targetPosition, m_up);
 }
 
 void Camera::TitleSetting()
 {
+	//タイトル用のカメラ位置に設定
 	m_device.UpdateCameraPos(m_titleCameraPosition, m_titleTargetPosition, m_up);
 }
 
-void Camera::MoveGameStartCamera()
+void Camera::MovementGameStart()
 {
+	//移動完了しているか
 	if (m_startCount>=STARTCOUNT)
 	{
-		m_moveStartCameraComplete = true;
-
+		//完了のフラグを立てて
+		m_isMoveComplete = true;
+		//これ以上の処理は不要
 		return;
 	}
+	//カメラを目標まで移動
 	m_cameraPosition = XMF3Math::AddXMFLOAT3(m_cameraPosition,m_code);
+	//カメラ更新
 	m_device.UpdateCameraPos(m_cameraPosition, m_targetPosition, m_up);
+	//カウントを増やす
 	m_startCount++;
-
-	
 }
 
 void Camera::SetPlayerPosition(const XMFLOAT3& _playerPos)
 {
+	//ターゲットを設定
 	m_targetPosition = _playerPos;
 }
 
@@ -63,26 +66,11 @@ void Camera::SetBackGroundColor(const XMFLOAT3& _colors)
 	m_device.SetBackGroundColor(_colors);
 }
 
-void Camera::SetShakeCameraPosition(const XMFLOAT3& _pos)
-{
-	m_shakePosition = _pos;
-}
-
-void Camera::AdjustPosition()
-{
-	/*if (45 + CAMERA_ADJUST_Z_FAR >= m_cameraPosition.z||
-		-45 + CAMERA_ADJUST_Z_FAR <= m_cameraPosition.z||
-		45 >= m_cameraPosition.x||
-		-45 <= m_cameraPosition.x)
-	{
-		return;
-	}*/
-	
-}
 
 void Camera::Reset()
 {
-	m_moveStartCameraComplete = false;
+	//設定の初期化
+	m_isMoveComplete = false;
 	m_startCount = 0;
 	m_cameraPosition = DefaultCameraPosition;
 	m_targetPosition = DefaultTargetPosition;;

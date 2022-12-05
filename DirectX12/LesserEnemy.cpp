@@ -10,10 +10,17 @@ LesserEnemy::LesserEnemy(CollisionTag _tag, bool m_alive)
 	:EnemyBase(_tag,m_alive)
 	,m_timer(new Time())
 {
+	//当たり判定
+	//外部データから持ってきたい
 	m_radiusData = 2;
 	m_param.mCollision->m_data.radius = m_radiusData;
+	//描画するデータ
 	m_modeltype = PMDModelType::LesserEnemy;
+	//オブジェクトプール登録して一旦当たり判定をOFF
 	m_param.mCollision->m_isValidity = false;
+	
+	//移動速度
+	//外部データから持ってきたい
 	m_speed = 0.3f;
 	m_enemyType = EnemyType::LesserEnemy;
 	
@@ -25,6 +32,11 @@ LesserEnemy::~LesserEnemy()
 
 void LesserEnemy::Init()
 {
+	//オブジェクトプール設計の為使いまわせるよう、基本的な設定を初期化する
+	//生存フラグをON
+	//当たり判定をON
+	//プレイヤーに当たっているかのフラグをOFF
+	//たくさん出現するのでこいつだけ特別な処理
 	m_param.mCollision->m_isValidity = true;
 	m_isAlive = true;
 	auto randPos=XMFLOAT3(rand()%10-10, 0, rand() % 10 - 10);
@@ -44,11 +56,6 @@ void LesserEnemy::Update(const DirectX::XMFLOAT3 _targetPos)
 		{
 			MoveUpdate(_targetPos);
 		}
-		//雑魚エネミーは突進のみ
-		/*if (m_enemyState == EnemyState::attack)
-		{
-			AttackUpdate(_targetPos);
-		}*/
 	}
 
 
@@ -60,9 +67,13 @@ void LesserEnemy::CollisionOriginal(Collision* otherCollision)
 {
 	if (otherCollision->GetTag()==CollisionTag::PlayerBullet)
 	{
-		m_effect.PlayEffect(EffectType::DefeatBlueEnemy, GetPosition(), false);
+		//死亡演出
+		m_effect.PlayEffect(EffectType::DefeatLesserEnemy, GetPosition(), false);
+		m_sound.Play(SoundType::DefeatLesserEnemySE, false, true);
+
+		//当たり判定OFF
 		m_param.mCollision->m_isValidity = false;
-		m_sound.Play(SoundType::DefeatLesserEnemySE,false,true);
+		//生存フラグOFF
 		m_isAlive = false;
 	}
 }
@@ -70,27 +81,27 @@ void LesserEnemy::CollisionOriginal(Collision* otherCollision)
 
 void LesserEnemy::WaitUpdate(const DirectX::XMFLOAT3 _targetPos)
 {
+	//待機時間二秒
 	m_timer->SetTimer(2);
+	//時間が来たら次状態に遷移
 	if (m_timer->CheakTime())
 	{
 		m_enemyState = EnemyState::move;
 	}
 }
 
-void LesserEnemy::AttackUpdate(const DirectX::XMFLOAT3 _targetPos)
-{
-
-}
-
 void LesserEnemy::MoveUpdate(const DirectX::XMFLOAT3 _targetPos)
 {
+	//プレイヤーと自分との距離を算出
 	auto diff = XMF3Math::SubXMFLOAT3(_targetPos,m_param.pos);
+	//向き
 	m_nowDirection = diff;
+	//移動ベクトル作成
 	diff = XMF3Math::SetMagnitude(diff,m_speed);
-
 	m_param.pos = XMF3Math::AddXMFLOAT3(m_param.pos,diff);
-
+	//五秒間移動
 	m_timer->SetTimer(5);
+	//待機状態に遷移
 	if (m_timer->CheakTime())
 	{
 		m_enemyState = EnemyState::wait;

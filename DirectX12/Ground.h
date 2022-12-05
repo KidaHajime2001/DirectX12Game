@@ -14,7 +14,9 @@ private:
 	class PMDModel& m_model;            //  PMDÉÇÉfÉãÇÃä«óù
 	XMFLOAT3 m_secondGround;
 	XMFLOAT3 m_thirdGround;
-	XMFLOAT3 m_rotate;
+	XMFLOAT3 m_rotateRing1;
+	XMFLOAT3 m_rotateRing2;
+	XMFLOAT3 m_rotateRing3;
 	float m_rotateRate;
 	float x, y,z;
 };

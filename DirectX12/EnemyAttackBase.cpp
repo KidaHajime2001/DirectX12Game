@@ -17,8 +17,8 @@ EnemyAttackBase::~EnemyAttackBase()
 
 void EnemyAttackBase::Init()
 {
+	//“–‚½‚è”»’è•”•ª‚Ì‰Šú‰»
 	m_param.mCollision->m_data.pos = m_param.pos;
-
 	m_param.mCollision->m_isValidity = false;
 	m_isAlive = false;
 
@@ -26,13 +26,10 @@ void EnemyAttackBase::Init()
 
 void EnemyAttackBase::Update(const DirectX::XMFLOAT3 _targetPos)
 {
-
-	
 }
 
 void EnemyAttackBase::Shot(const DirectX::XMFLOAT3 _position, const DirectX::XMFLOAT3 _targetPos, DirectX::XMFLOAT3 _aimVec )
 {
-	
 }
 
 void EnemyAttackBase::Draw()

@@ -10,8 +10,8 @@ enum class EffectType {
 
     //  エネミー
     AppearanceEnemy,    //  登場
-    DefeatRedEnemy,     //  各色ごとの撃破
-    DefeatBlueEnemy,
+    DefeatHigherEnemy,     //  各色ごとの撃破
+    DefeatLesserEnemy,
     DefeatYellowEnemy,
 
     //  弾

@@ -229,6 +229,7 @@ HRESULT PMDRenderer::CreateGraphicsPipelineForLinePMD()
 
     gpipeline.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
     gpipeline.RasterizerState.CullMode = D3D12_CULL_MODE_NONE;    //  カリングしない
+    gpipeline.RasterizerState.FillMode = D3D12_FILL_MODE_WIREFRAME;
 
     gpipeline.DepthStencilState.DepthEnable = true;    //  深度バッファを使う
     gpipeline.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;    //  全て書き込み

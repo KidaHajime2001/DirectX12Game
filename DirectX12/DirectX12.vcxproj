@@ -215,8 +215,10 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="TitlePlayer.h" />
+    <ClInclude Include="UIHeader.h" />
+    <ClInclude Include="UITextData.h" />
     <ClInclude Include="XMF3Math.h" />
-    <ClInclude Include="ヘッダー.h" />
+    <ClInclude Include="UITextParts.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
@@ -269,6 +271,8 @@
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="TitlePlayer.cpp" />
+    <ClCompile Include="UIHeader.cpp" />
+    <ClCompile Include="UITextParts.cpp" />
     <ClCompile Include="XMF3Math.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -66,7 +66,7 @@ void Game::Update()
 	if (m_gameSceneWaveManager->GetNowGameWave()==GameSceneWaveManager::GameWave::Wave)
 	{
 		m_player->Update();
-		
+		m_ground->Update();
 		m_enemyManager->Update(m_player->GetPosition());
 		if (m_gameSceneWaveManager->Is90s())
 		{

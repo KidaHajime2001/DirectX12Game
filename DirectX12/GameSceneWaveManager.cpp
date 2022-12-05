@@ -50,7 +50,7 @@ void GameSceneWaveManager::Update(const bool _IsAlive)
 		if(m_revers&& m_reversSize<=-1.0f)
 		{
 			m_timer->SetTimer(1);
-			m_camera.MoveGameStartCamera();
+			m_camera.MovementGameStart();
 			if (m_timer->CheakTime()&&m_camera.GetCompleteFlag())
 			{
 				m_revers = false;

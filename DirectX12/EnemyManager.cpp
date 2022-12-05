@@ -12,94 +12,87 @@ EnemyManager::EnemyManager()
     ,m_enemyAttackPool(Singleton<EnemyAttackPool>::GetInstance())
     ,m_timer(new Time())
 {
+    //難易度初期化
     m_seriousDegree = 1.0f;
+    //エネミープールの中身を作成
     m_enemyPool.CreateAll();
 }
 
 EnemyManager::~EnemyManager()
 {
+    //エネミープールの中身を削除
     m_enemyPool.DestroyAll();
     delete m_timer;
 }
 
-
-
-
-
-
 void EnemyManager::Update(const DirectX::XMFLOAT3& _targetPos)
 {
+    //敵を呼び出す
     CallEnemy();
+
+    //現在生きているリストに入っている敵の更新
     for (auto enemy : m_nowAliveEnemyList)
     {
         enemy->Update(_targetPos);
+        //生存フラグがOFFになったら
         if (!enemy->IsAlive())
         {
-            if (enemy->GetDefeatFlag())
-            {
-                AddScore(enemy->GetEnemyType());
-            }
+            //スコア用の数値加算
+            AddScore(enemy->GetEnemyType());
+            //現在動いているリストから削除するためのリストへ
             m_deleteList.emplace_back(enemy);
         }
     }
+    //現在のリストから消去
     for (auto enemy : m_deleteList)
     {
         m_nowAliveEnemyList.remove(enemy);
     }
     m_deleteList.clear();
-
+    //弾の更新
     m_enemyAttackPool.Update(_targetPos);
 }
 
 void EnemyManager::Draw()
 {
+    //生存している敵描画
     for (auto enemy : m_nowAliveEnemyList)
     {
-        if (enemy->IsAlive())
-        {
-            enemy->Draw();
-            
-        }
+        enemy->Draw();
     }
     m_enemyAttackPool.Draw();
 }
-//
-//const int EnemyManager::GetScore()
-//{
-//    
-//        m_defeatScore+=3;
-//        if (m_defeatScore >= m_maxScore)
-//        {
-//            m_defeatScore = m_maxScore;
-//        }
-//        return m_defeatScore;
-//}
 
 void EnemyManager::Advent90s()
 {
     int i=0;
     typedef EnumIterator<EnemyType, EnemyType::LesserEnemy, EnemyType::StraightShotEnemy> typeItr;
-    //  タイプごとにエネミー攻撃クラスをプールに登録
+    //タイプの数をカウント
     for (auto itr : typeItr())
     {
         i++;
     }
+    //エネミーのタイプを決定したい
+    //雑魚を除外して計算
     int random = (rand() % (i - 1))+1;
-    //大物の敵を発生
     EnemyType enemytype = (EnemyType)random;
+    //ランダムポジションを作成
     int positionIndex = rand() % 4;
     XMFLOAT3 position = ADVENT_EVENT_POSITION[positionIndex];
+    //呼び出し
     AddEnemy(enemytype, 1, position);
 }
 
 void EnemyManager::Advent60s()
 {
+    //二か所から特定の敵を出現
     AddEnemy(EnemyType::StraightShotEnemy, 1, XMFLOAT3(100,0,100));
     AddEnemy(EnemyType::StraightShotEnemy, 1, XMFLOAT3(-100, 0, -100));
 }
 
 void EnemyManager::Advent30s()
 {
+    //二か所から特定の敵を出現
     AddEnemy(EnemyType::SpreadShotEnemy, 1, XMFLOAT3(100, 0, -100));
     AddEnemy(EnemyType::SpreadShotEnemy, 1, XMFLOAT3(-100, 0, 100));
 }
@@ -111,18 +104,15 @@ void EnemyManager::SetGameLevel(int _level)
 
 
 void EnemyManager::AddScore(const EnemyType _enemyType)
-{
-    
-
-        if (_enemyType==EnemyType::LesserEnemy)
-        {
-            m_lesserNumScore++;
-        }
-        else
-        {
-            m_higherNumScore++;
-        }
-    
+{   
+    if (_enemyType==EnemyType::LesserEnemy)
+    {
+        m_lesserNumScore++;
+    }
+    else
+    {
+        m_higherNumScore++;
+    }
 }
 
 void EnemyManager::CallEnemy()
@@ -136,16 +126,19 @@ void EnemyManager::CallEnemy()
         int i=0;
         //  列挙型EnemyAttackOrbitTypeのイテレータを作成
         typedef EnumIterator<EnemyType, EnemyType::LesserEnemy, EnemyType::StraightShotEnemy> typeItr;
-        //  タイプごとにエネミー攻撃クラスをプールに登録
+        //タイプをカウント
         for (auto itr : typeItr())
         {
             i++;
         }
 
-
+        //タイプをランダムに選ぶ
         int random=rand() % i;
+        //ランダムにポジションを選ぶ
         int positionIndex = rand() % 4;
         XMFLOAT3 position = ADVENT_POSITION[positionIndex];
+
+        //出現ポイントを散らす
         if(positionIndex==1|| positionIndex == 0)
         {
             position.x = rand() % 200 - 100;
@@ -155,7 +148,7 @@ void EnemyManager::CallEnemy()
             position.z = rand() % 200 - 100;
         }
         
-        //大物の敵を発生
+        //敵を発生
         EnemyType enemytype = (EnemyType)random;
 
         //雑魚敵を難易度分調整して発生させる
@@ -176,9 +169,10 @@ void EnemyManager::AddEnemy(const EnemyType& _type, const int& _num,const Direct
     for (int i = 0; i < _num; i++)
     {
         auto enemy = m_enemyPool.UnUsedEnemyAdvent(_type);
-        
+        //エネミープールから取得できている場合
         if (enemy)
         {
+            //出現に当たっての初期化
             m_nowAliveEnemyList.emplace_back(enemy);
             m_nowAliveEnemyList.back()->Init();
             m_nowAliveEnemyList.back()->Advent(_adventPosition);

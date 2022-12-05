@@ -6,6 +6,7 @@
 #include"HormingAimAttack.h"
 EnemyAttackPool::EnemyAttackPool()
 {
+    
 }
 
 EnemyAttackPool::~EnemyAttackPool()
@@ -15,8 +16,7 @@ EnemyAttackPool::~EnemyAttackPool()
 void EnemyAttackPool::Update(const DirectX::XMFLOAT3 _targetPos)
 {
     //  列挙型EnemyAttackOrbitTypeのイテレータを作成
-    typedef EnumIterator<EnemyAttackType, EnemyAttackType::StraightShot, EnemyAttackType::AimShot> typeItr;
-    //  タイプごとにエネミー攻撃クラスをプールに登録
+    typedef EnumIterator<EnemyAttackType, EnemyAttackType::StraightShot, EnemyAttackType::HormingShot> typeItr;
     for (auto itr : typeItr())
     {
         UpdateEnemyAttack(itr,_targetPos);
@@ -26,134 +26,69 @@ void EnemyAttackPool::Update(const DirectX::XMFLOAT3 _targetPos)
 void EnemyAttackPool::Draw()
 {
     //  列挙型EnemyAttackOrbitTypeのイテレータを作成
-    typedef EnumIterator<EnemyAttackType, EnemyAttackType::StraightShot, EnemyAttackType::AimShot> typeItr;
-    //  タイプごとにエネミー攻撃クラスをプールに登録
+    typedef EnumIterator<EnemyAttackType, EnemyAttackType::StraightShot, EnemyAttackType::HormingShot> typeItr;
     for (auto itr : typeItr())
     {
         DrawEnemyAttack(itr);
     }
 }
 
-void EnemyAttackPool::CreateAttackObj(const EnemyAttackType _type)
-{
-    //のちにJsonfileでデータを受け取るべき値
-    int STRIGHT_ATTACK_CREATE_NUM = 100;
-    int AIM_ATTACK_CREATE_NUM = 50;
-
-    switch (_type)
-    {
-    case EnemyAttackType::StraightShot:
-        for (int i = 0; i < STRIGHT_ATTACK_CREATE_NUM; i++)
-        {
-            m_StraightPool.emplace_back(new StraightAttack(_type, CollisionTag::EnemyBullet));
-        }
-        break;
-    case EnemyAttackType::AimShot:
-        for (int i = 0; i < AIM_ATTACK_CREATE_NUM; i++)
-        {
-            m_HormingPool.emplace_back(new HormingAimAttack(_type,CollisionTag::EnemyBullet));
-        }
-    default:
-        break;
-    }
-}
-
 EnemyAttackBase* EnemyAttackPool::GetUnUsedEnemyAttack(const EnemyAttackType _type)
 {
-    switch (_type)
+    //敵攻撃タイプの中で使っていないものを返す
+    //そうでなければNULLPOINTERを返す
+    for (auto shot:m_poolMap[_type])
     {
-    case EnemyAttackType::StraightShot:
-        for (auto shot : m_StraightPool)
+        if (!shot->IsAlive())
         {
-            if (!shot->IsAlive())
-            {
-
-                return shot;
-            }
+            return shot;
         }
-        break;
-    case EnemyAttackType::AimShot:
-        for (auto shot:m_HormingPool)
-        {
-            if (!shot->IsAlive())
-            {
-
-                return shot;
-            }
-        }
-        break;
-    default:
-        return nullptr;
-        break;
     }
     return nullptr;
 }
 
 void EnemyAttackPool::UpdateEnemyAttack(const EnemyAttackType _type, const DirectX::XMFLOAT3 _targetPos)
 {
-    switch (_type)
+    //敵攻撃タイプごとの更新
+    for (auto shot : m_poolMap[_type])
     {
-    case EnemyAttackType::StraightShot:
-        for (auto shot : m_StraightPool)
+        if (shot->IsAlive())
         {
-            if (shot->IsAlive())
-            {
-                shot->Update(_targetPos);
-            }
+            shot->Update(_targetPos);
         }
-        break;
-    case EnemyAttackType::AimShot:
-        for (auto shot : m_HormingPool)
-        {
-            if (shot->IsAlive())
-            {
-                shot->Update(_targetPos);
-            }
-        }
-        break;
-    default:
-        break;
     }
     return;
 }
 
 void EnemyAttackPool::DrawEnemyAttack(const EnemyAttackType _type)
 {
-    switch (_type)
+    //敵攻撃タイプごとの描画
+    for (auto shot : m_poolMap[_type])
     {
-    case EnemyAttackType::StraightShot:
-        for (auto shot : m_StraightPool)
+        if (shot->IsAlive())
         {
-            if (shot->IsAlive())
-            {
-                shot->Draw();
-            }
+            shot->Draw();
         }
-        break;
-    case EnemyAttackType::AimShot:
-        for (auto shot : m_HormingPool)
-        {
-            if (shot->IsAlive())
-            {
-                shot->Draw();
-            }
-        }
-        break;
-    default:
-        break;
     }
     return;
 }
 
 void EnemyAttackPool::CreateAll()
 {
-    //  列挙型EnemyAttackOrbitTypeのイテレータを作成
-    typedef EnumIterator<EnemyAttackType, EnemyAttackType::StraightShot, EnemyAttackType::AimShot> typeItr;
-    //  タイプごとにエネミー攻撃クラスをプールに登録
-    for (auto itr : typeItr())
+    //のちにJsonfileでデータを受け取るべき値
+    int STRIGHT_ATTACK_CREATE_NUM = 100;
+    int AIM_ATTACK_CREATE_NUM = 50;
+    for (int i = 0; i < STRIGHT_ATTACK_CREATE_NUM; i++)
     {
-        CreateAttackObj(itr);
+        m_StraightPool.emplace_back(new StraightAttack(EnemyAttackType::StraightShot, CollisionTag::EnemyBullet));
     }
+    for (int i = 0; i < AIM_ATTACK_CREATE_NUM; i++)
+    {
+        m_HormingPool.emplace_back(new HormingAimAttack(EnemyAttackType::HormingShot, CollisionTag::EnemyBullet));
+    }
+    //マップで紐づけしてイテレーターで使用できるように
+    m_poolMap[EnemyAttackType::StraightShot] = m_StraightPool;
+    m_poolMap[EnemyAttackType::HormingShot] = m_HormingPool;
 }
 
 void EnemyAttackPool::DestroyAll()

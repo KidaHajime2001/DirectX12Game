@@ -40,6 +40,6 @@ namespace PMDModelData
         {PMDModelType::Ground,"Data/Model/Others/testg.pmd"},
         {PMDModelType::GroundCube,"Data/Model/Others/BackGroundCube.pmd"},
         //  îwåi
-        {PMDModelType::BackGround,"Data/Model/Others/wall.pmd"}
+        {PMDModelType::BackGround,"Data/Model/Others/BackGroundCircle.pmd"}
     };
 };

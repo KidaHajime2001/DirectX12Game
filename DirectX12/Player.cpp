@@ -28,10 +28,7 @@ Player::Player(CollisionTag _tag, bool _alive)
     , m_inputFlameFlag(false)
     , m_timer(new Time())
 {
-    Init();/*
-    m_camera.SetPlayerPosition(GetPosition());*/
-  /*  RotateAngle = XMF3Math::DegreeForRadian(-90.0f);
-    UpAngle = XMF3Math::DegreeForRadian(45.0f);*/
+    Init();
 }
 
 Player::~Player()
@@ -41,25 +38,33 @@ Player::~Player()
 
 void Player::Update()
 {
-    //ヒットストップおわり
-    if (m_timer->CheakTime())
-    {
-        m_hitStopFlag = true;
-        m_fps.SetFPS(60);
-        m_isAlive = false;
-    }
-    m_shotDirector->Update(IsShotFlag(),GetPosition(),GetShotDirection(),GetShotSpeed());
+    
+    //射撃関連の更新
+    m_shotDirector->Update(
+       m_shotStatus.shotFlag,
+        m_param.pos,
+        m_shotStatus.shotDirection,
+        m_shotStatus.shotSpeed
+    );
+    //カメラにプレイヤーの位置を渡す
     m_camera.SetPlayerPosition(GetPosition());
+    //カメラ更新
     m_camera.Update();
     
+    //ショット関連
     m_shotStatus.shotFlag = false;
     if (m_controller.IsPress(ButtonName::GAMEPAD_RIGHT_SHOULDER))
     {
+        //インターバルが0なら
         if (!m_shotStatus.shotFlag &&m_shotStatus.shotInterval==0)
         {
+            //サウンドとフラグ周り
             m_sound.Play(SoundType::ShootSE,false,true);
+            //ショットフラグはShotdirector用
             m_shotStatus.shotFlag= true;
             m_shotStatus.shotInterval = SHOT_COOL_FLAME;
+            
+            //中心部分、弾発射時のみアニメーション
             m_cubeRotate+=30;
             if (m_cubeRotate>=360)
             {
@@ -67,23 +72,39 @@ void Player::Update()
             }
         }
     }
-    if (m_shotStatus.shotInterval!=0)//ショットフラグがたっているとき
+    //0でないなら
+    if (m_shotStatus.shotInterval!=0)
     {
-        --m_shotStatus.shotInterval;
-        if (m_shotStatus.shotInterval < 0)
+        //カウントを引く
+        m_shotStatus.shotInterval--;
+        if (m_shotStatus.shotInterval <= 0)
         {
             m_shotStatus.shotInterval = 0;
         }
     }
 
+    //移動関連
     Move();
+
+    //射撃の向き関連
     TakeAim();
+
+    //移動制限
     RestrictionsPosition();
+
+    //敵に当たった際の処理
+    //ヒットストップおわり
+    if (m_timer->CheakTime())
+    {
+        m_fps.SetFPS(60);
+        m_isAlive = false;
+    }
+    
 }
 
 void Player::RestrictionsPosition()
 {
-    float x=GetPosition().x;
+    float x = GetPosition().x;
     float z = GetPosition().z;
     if (x<=-100)
     {
@@ -120,7 +141,7 @@ void Player::Init()
     XMFLOAT3 posData=m_json.GetXMFLOAT3(JsonDataType::Player,"Position");
     int radiusData = m_json.GetInt(JsonDataType::Player, "Radius");
 
-    //  取得したデータを元に初
+    //  取得したデータを元に初期化
     SetPotision(posData);
     m_param.mCollision->m_data.radius=radiusData;
     m_isAlive = true;
@@ -211,7 +232,9 @@ void Player::TakeAim()
 void Player::MoveEffect(const float _inputSize)
 {
     m_inputFlameCount++;
-    if (_inputSize>= 0.4f&&(m_inputFlameCount%10)==0)
+    //エフェクト用移動カウントが10で割れる
+    //入力が一定以上でエフェクト
+    if (_inputSize>= DEADZONE&&(m_inputFlameCount%10)==0)
     {
         m_effect.PlayEffect(EffectType::PlayerMove,GetPosition(),false);
     }

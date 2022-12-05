@@ -3,28 +3,34 @@
 class Player:public Actor
 {
 public:
+	//コンストラクタ、デストラクタ
 	Player(CollisionTag _tag, const bool _alive);
 	~Player()override;
+
 	//更新
 	void Update();
+
+	//ゲーム内移動制限
 	void RestrictionsPosition();
+
 	//描画
 	void Draw();
+
 	//初期化
 	void Init()override;
+
 	//当たり判定処理
 	void OnCollisionEnter(class Collision* otherCollision)override;
-	
-	const bool IsShotFlag() { return m_shotStatus.shotFlag; };
-	const XMFLOAT3 GetShotDirection() { return m_shotStatus.shotDirection; };
-	const float GetShotSpeed() { return m_shotStatus.shotSpeed; };
-	const XMFLOAT3 GetInputVec() { return m_shotStatus.shotDirection; };
+
 	const bool IsAlive() { return m_isAlive; };
 private:
+	
 	//移動系の処理updateの中で動いてほしいのでプライベート
 	void Move();
 	void TakeAim( );
 	void MoveEffect(const float _inputSize);
+
+	//射撃関連の変数多いのでまとめる
 	struct ShotStatus 
 	{
 		bool shotFlag		=false;
@@ -35,30 +41,37 @@ private:
 	};
 	ShotStatus m_shotStatus;
 	class PlayerShotDirector* m_shotDirector;
-
+	//射撃のクールタイム
 	const int SHOT_COOL_FLAME = 3;
+
+	//入力のデッドゾーン
 	const float DEADZONE = 0.3f;
 
 	//モデル
-	class PMDModel& m_model;            //  PMDモデルの管理
+	class PMDModel& m_model;
+	//コントローラー
 	class Controller& m_controller;
+	//カメラ
 	class Camera& m_camera;
+	//サウンド
 	class Sound& m_sound;
+	//json読み込み
 	class SupportJson& m_json;
+	//フレーム管理
 	class Fps& m_fps;
+	//タイマー
 	class Time* m_timer;
+	//当たり判定半径
 	int RADIUS_NUM = 1;
+
+	//生存フラグ
 	bool m_isAlive;
+
+	//中心のキューブのアニメーション用
 	int m_cubeRotate;
 
+	//移動時のエフェクト用変数
 	int m_inputFlameCount;
 	bool m_inputFlameFlag;
-	const float EFFECT_INTERVAL=30;
-	bool m_hitStopFlag;
-
-	//float RotateAngle;
-	//float UpAngle;
-	//float Length = 100;
-	//float CameraSpeed = 2;
 };
 

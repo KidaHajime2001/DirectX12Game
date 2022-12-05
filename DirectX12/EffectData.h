@@ -17,8 +17,8 @@ namespace EffectData
         {EffectType::PlayerMove,L"Data/Effect/Player/move.efk"},
 
         {EffectType::AppearanceEnemy,L"Data/Effect/Enemy/Appearance.efk"},
-        {EffectType::DefeatRedEnemy, L"Data/Effect/Enemy/BossEffect.efk"},
-        {EffectType::DefeatBlueEnemy, L"Data/Effect/Enemy/EnemyDie.efk"},
+        {EffectType::DefeatHigherEnemy, L"Data/Effect/Enemy/BossEffect.efk"},
+        {EffectType::DefeatLesserEnemy, L"Data/Effect/Enemy/EnemyDie.efk"},
         {EffectType::DefeatYellowEnemy, L"Data/Effect/Enemy/Yellow.efk"},
 
         {EffectType::Bullet, L"Data/Effect/Bullet/Bullet.efk"},
@@ -49,8 +49,8 @@ namespace EffectData
         {EffectType::DefeatPlayer,L"Data/Effect/Player"},
         {EffectType::PlayerMove,L"Data/Effect/Enemy"},
         {EffectType::AppearanceEnemy,L"Data/Effect/Enemy"},
-        {EffectType::DefeatRedEnemy, L"Data/Effect/Enemy"},
-        {EffectType::DefeatBlueEnemy, L"Data/Effect/Enemy"},
+        {EffectType::DefeatHigherEnemy, L"Data/Effect/Enemy"},
+        {EffectType::DefeatLesserEnemy, L"Data/Effect/Enemy"},
         {EffectType::DefeatYellowEnemy, L"Data/Effect/Enemy"},
 
         {EffectType::Bullet, L"Data/Effect/Bullet"},
@@ -81,8 +81,8 @@ namespace EffectData
         {EffectType::DefeatPlayer, 1.0f},
         {EffectType::PlayerMove, 1.0f},
         {EffectType::AppearanceEnemy, 1.5f},
-        {EffectType::DefeatRedEnemy, 3.0f},
-        {EffectType::DefeatBlueEnemy, 3.0f},
+        {EffectType::DefeatHigherEnemy, 3.0f},
+        {EffectType::DefeatLesserEnemy, 3.0f},
         {EffectType::DefeatYellowEnemy, 3.0f},
 
         {EffectType::Bullet, 10.0f},

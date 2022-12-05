@@ -31,7 +31,7 @@ void EnemyShotDirector::Shot(const EnemyAttackType _type, const  DirectX::XMFLOA
 	case EnemyAttackType::StraightShot:
 		StraightShot(_pos, _targetPos, _aimVec);
 		break;
-	case EnemyAttackType::AimShot:
+	case EnemyAttackType::HormingShot:
 
 		AimShot(_pos, _targetPos);
 		break;
@@ -43,7 +43,7 @@ void EnemyShotDirector::Shot(const EnemyAttackType _type, const  DirectX::XMFLOA
 
 void EnemyShotDirector::AimShot(const DirectX::XMFLOAT3 _pos, const DirectX::XMFLOAT3 _targetPos, DirectX::XMFLOAT3 _aimVec)
 {
-	auto shot = m_enemyAttackPool.GetUnUsedEnemyAttack(EnemyAttackType::AimShot);
+	auto shot = m_enemyAttackPool.GetUnUsedEnemyAttack(EnemyAttackType::HormingShot);
 	if (!shot)
 	{
 

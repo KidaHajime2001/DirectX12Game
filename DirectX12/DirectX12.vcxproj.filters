@@ -124,6 +124,9 @@
     <Filter Include="ソース ファイル\Actor\Object\Enemy\Item">
       <UniqueIdentifier>{b7736ca7-827d-4f82-b20d-e567770a2649}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\UI">
+      <UniqueIdentifier>{71ffd41c-4673-4024-bbb9-c09339e479f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -278,6 +281,12 @@
     </ClCompile>
     <ClCompile Include="HormingAimAttack.cpp">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="UIHeader.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UITextParts.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -461,9 +470,6 @@
     <ClInclude Include="SpreadShotEnemy.h">
       <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\SpreadShot</Filter>
     </ClInclude>
-    <ClInclude Include="ヘッダー.h">
-      <Filter>ソース ファイル\Collision</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyManager.h">
       <Filter>ソース ファイル\Actor\Object\Enemy\Enemy</Filter>
     </ClInclude>
@@ -490,6 +496,15 @@
     </ClInclude>
     <ClInclude Include="HormingAimAttack.h">
       <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="UIHeader.h">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UITextParts.h">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UITextData.h">
+      <Filter>ソース ファイル\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
