@@ -17,6 +17,7 @@ SpriteDrawer::SpriteDrawer()
 {
     //  DescriptorHeapの初期化
     m_resourceDescriptors = std::make_unique<DescriptorHeap>(m_device.dx12->GetDevice().Get(), SpriteType::EndDescriptors);
+    D3D12_DESCRIPTOR_HEAP_DESC transformDescHeapDesc = {};
     //  ロード数の指定
     m_texture.resize(static_cast<int>(SpriteType::EndDescriptors));
     //  ロードする

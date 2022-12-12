@@ -1,6 +1,6 @@
 #include "D12Device.h"
 #include <d3dx12.h>
-
+#include"Fade.h"
 //  ウィンドウ定数
 const unsigned int WINDOW_WIDTH = 1920;
 const unsigned int WINDOW_HEIGHT = 1080;
@@ -46,7 +46,7 @@ bool D12Device::Init()
 
 
     pmdRenderer.reset(new PMDRenderer(*dx12));
-
+    m_fade = new Fade(*dx12);
     //font関連初期化
     {
         //  GraphicsMemoryオブジェクトの初期化

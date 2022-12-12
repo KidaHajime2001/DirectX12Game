@@ -288,6 +288,9 @@
     <ClCompile Include="UITextParts.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PmdLoader.h">
@@ -506,6 +509,9 @@
     <ClInclude Include="UITextData.h">
       <Filter>ソース ファイル\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Param\EnemyData.json">
@@ -520,6 +526,12 @@
       <Filter>shader</Filter>
     </FxCompile>
     <FxCompile Include="VertexShader.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="FadePixelShader.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="FadeVertexShader.hlsl">
       <Filter>shader</Filter>
     </FxCompile>
   </ItemGroup>

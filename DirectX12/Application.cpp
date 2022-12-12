@@ -17,6 +17,7 @@
 #include"StringDrawer.h"
 #include"Fps.h"
 #include"GameLevel.h"
+#include"Fade.h"
 Application::Application()
     :m_device(Singleton<D12Device>::GetInstance())
     , m_error(Singleton<Error>::GetInstance())
@@ -24,7 +25,7 @@ Application::Application()
     , m_controller(Singleton<Controller>::GetInstance())
     , m_drawer(Singleton<StringDrawer>::GetInstance())
     , m_fps(Singleton<Fps>::GetInstance())
-    ,m_gamelevel(new GameLevel())
+    , m_gamelevel(new GameLevel())
     /*, m_dxmng(Singleton<DirectXManager>::GetInstance)*/
 {
     if (!m_device.Init())
@@ -70,6 +71,8 @@ void Application::Run()
         {
             return;
         }
+
+       
         m_controller.Update();
         m_sceneBase->Update();
         m_fps.Update();
@@ -77,30 +80,32 @@ void Application::Run()
 
         //  全体の描画準備
         m_device.dx12->BeginDraw();
+
+        //  PMDモデルクラスの更新
+        
         m_sceneBase->DrawBackGround();
-        //pmd
+        //if (m_device.m_fade->GetState() != Fade::FadeState::Fadeing)
+            //pmd
         {
-            
-            //  PipelineStateをPMD用に合わせる
-            m_device.dx12->GetCommandList()->SetPipelineState(m_device.pmdRenderer->GetLinePipelineState());
-            //  RootSignatureもPMD用に合わせる
-            m_device.dx12->GetCommandList()->SetGraphicsRootSignature(m_device.pmdRenderer->GetRootSignature());
-            m_device.dx12->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
-            
-            m_device.dx12->SetScene();
-            //  PMDモデルクラスの更新
             model.Update();
-            m_sceneBase->DrawLine();
-            m_device.dx12->GetCommandList()->SetPipelineState(m_device.pmdRenderer->GetPipelineState());
-            m_device.dx12->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-            m_device.dx12->SetScene(); 
-            
-            m_sceneBase->Draw();
         }
+        //  PipelineStateをPMD用に合わせる
+        m_device.dx12->GetCommandList()->SetPipelineState(m_device.pmdRenderer->GetLinePipelineState());
+        //  RootSignatureもPMD用に合わせる
+        m_device.dx12->GetCommandList()->SetGraphicsRootSignature(m_device.pmdRenderer->GetRootSignature());
+        m_device.dx12->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_LINELIST);
+
+        m_device.dx12->SetScene();
+        m_sceneBase->DrawLine();
+        m_device.dx12->GetCommandList()->SetPipelineState(m_device.pmdRenderer->GetPipelineState());
+        m_device.dx12->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+        m_device.dx12->SetScene();
+
+        m_sceneBase->Draw();
 
         //文字
         {
-             //  文字の描画をするための前準備
+            //  文字の描画をするための前準備
             m_device.dx12->GetCommandList()->SetDescriptorHeaps(1, m_device.heapForSpriteFont.GetAddressOf());
             m_device.spriteBatch->Begin(m_device.dx12->GetCommandList().Get());
             //シーンの文字表示
@@ -116,6 +121,14 @@ void Application::Run()
             m_effect.SyncronizeEffekseerCamera();
             m_effect.Draw();
         }
+        Controller& controller = Singleton<Controller>::GetInstance();
+
+
+        
+        m_device.m_fade->Update();
+        m_device.m_fade->Draw();
+        
+
 
         //  描画の終了
         m_device.dx12->EndDraw();
@@ -125,19 +138,33 @@ void Application::Run()
             m_device.dx12->GetSwapchain()->Present(1, 0);
             m_device.gmemory->Commit(m_device.dx12->GetCmdQue());
         }
+        
         if (m_sceneBase->GetNextSceneFlag())
         {
-            //仮おき
-            SceneBase* beforeScene = m_sceneBase;
-            m_sceneBase = m_sceneManager->ScenePasser(m_sceneBase);
-            if (!m_sceneBase)//nullptrでエラー吐いたら終了
+            
+            if (m_device.m_fade->IsEnd())
             {
-                OutputDebugString("ScenePasserError");//出力にそう書く
-                return;
+                //仮おき
+                SceneBase* beforeScene = m_sceneBase;
+                m_sceneBase = m_sceneManager->ScenePasser(m_sceneBase);
+                if (!m_sceneBase)//nullptrでエラー吐いたら終了
+                {
+                    OutputDebugString("ScenePasserError");//出力にそう書く
+                    return;
+                }
+                m_sceneBase->SetGameLevelClass(m_gamelevel);
+                m_sceneBase->Init();
+                delete beforeScene;//仮置きしておいたメモリを開放
+
+                m_device.m_fade->FadeEnd();
             }
-            m_sceneBase->SetGameLevelClass(m_gamelevel);
-            m_sceneBase->Init();
-            delete beforeScene;//仮置きしておいたメモリを開放
+
+           
+
+            m_device.m_fade->FadeStart();
+
+
+            
         }
     }
     delete m_sceneBase;

@@ -15,4 +15,5 @@ struct PMDDrawData
     std::vector<struct Material> materials;
     //  マテリアルヒープ
     ComPtr<ID3D12DescriptorHeap> materialHeap;
+    float test;
 };

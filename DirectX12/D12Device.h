@@ -25,6 +25,8 @@ public:
 
     //  デバイス
     std::shared_ptr<DirectXManager> dx12;
+
+    class Fade* m_fade;
     //  レンダラー
     std::shared_ptr<PMDRenderer> pmdRenderer;
 
