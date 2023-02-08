@@ -59,6 +59,8 @@ private:
 	class Time* m_time;
 	class Camera& m_camera;
 	class SupportJson& m_json;
+	class MatrixEffectController* m_matEffectCon;
+
 	SelectState m_buttonState;
 	XMFLOAT2 m_testPos;
 	int m_levelNumber;

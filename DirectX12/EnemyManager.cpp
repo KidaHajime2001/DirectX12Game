@@ -6,10 +6,11 @@
 #include"EnemyType.h"
 #include"EnemyAttackPool.h"
 #include"ScoreData.h"
-
+#include"ItemManager.h"
 EnemyManager::EnemyManager()
     :m_enemyPool(Singleton<EnemyPool>::GetInstance())
-    ,m_enemyAttackPool(Singleton<EnemyAttackPool>::GetInstance())
+    , m_enemyAttackPool(Singleton<EnemyAttackPool>::GetInstance())
+    , m_itemManager(new ItemManager())
     ,m_timer(new Time())
 {
     //難易度初期化
@@ -22,6 +23,7 @@ EnemyManager::~EnemyManager()
 {
     //エネミープールの中身を削除
     m_enemyPool.DestroyAll();
+    delete m_itemManager;
     delete m_timer;
 }
 
@@ -37,12 +39,17 @@ void EnemyManager::Update(const DirectX::XMFLOAT3& _targetPos)
         //生存フラグがOFFになったら
         if (!enemy->IsAlive())
         {
+            m_itemManager->CreateDropItem(enemy->GetEnemyType(),enemy->GetPosition());
             //スコア用の数値加算
             AddScore(enemy->GetEnemyType());
+
             //現在動いているリストから削除するためのリストへ
             m_deleteList.emplace_back(enemy);
         }
+
     }
+    m_itemManager->Update();
+
     //現在のリストから消去
     for (auto enemy : m_deleteList)
     {
@@ -55,46 +62,56 @@ void EnemyManager::Update(const DirectX::XMFLOAT3& _targetPos)
 
 void EnemyManager::Draw()
 {
+    m_itemManager->Draw();
+}
+
+void EnemyManager::LineDraw()
+{
     //生存している敵描画
     for (auto enemy : m_nowAliveEnemyList)
     {
         enemy->Draw();
     }
+    
     m_enemyAttackPool.Draw();
 }
 
 void EnemyManager::Advent90s()
 {
-    int i=0;
-    typedef EnumIterator<EnemyType, EnemyType::LesserEnemy, EnemyType::StraightShotEnemy> typeItr;
-    //タイプの数をカウント
-    for (auto itr : typeItr())
-    {
-        i++;
-    }
-    //エネミーのタイプを決定したい
-    //雑魚を除外して計算
-    int random = (rand() % (i - 1))+1;
-    EnemyType enemytype = (EnemyType)random;
-    //ランダムポジションを作成
-    int positionIndex = rand() % 4;
-    XMFLOAT3 position = ADVENT_EVENT_POSITION[positionIndex];
-    //呼び出し
-    AddEnemy(enemytype, 1, position);
+    //int i=0;
+    //typedef EnumIterator<EnemyType, EnemyType::LesserEnemy, EnemyType::StraightShotEnemy> typeItr;
+    ////タイプの数をカウント
+    //for (auto itr : typeItr())
+    //{
+    //    i++;
+    //}
+    ////エネミーのタイプを決定したい
+    ////雑魚を除外して計算
+    //int random = (rand() % (i - 1))+1;
+    //EnemyType enemytype = (EnemyType)random;
+    ////ランダムポジションを作成
+    //int positionIndex = rand() % 4;
+    //XMFLOAT3 position = ADVENT_EVENT_POSITION[positionIndex];
+    ////呼び出し
+    //AddEnemy(enemytype, 1, position);
+
+
+   /* AddEnemy(EnemyType::SnakeEnemy, 1, XMFLOAT3(100, 0, -100));*/
 }
 
 void EnemyManager::Advent60s()
 {
-    //二か所から特定の敵を出現
-    AddEnemy(EnemyType::StraightShotEnemy, 1, XMFLOAT3(100,0,100));
-    AddEnemy(EnemyType::StraightShotEnemy, 1, XMFLOAT3(-100, 0, -100));
+    AddEnemy(EnemyType::LesserEnemy, 300, XMFLOAT3(100, 0, -100));
+    ////二か所から特定の敵を出現
+    //AddEnemy(EnemyType::StraightShotEnemy, 1, XMFLOAT3(100,0,100));
+    //AddEnemy(EnemyType::StraightShotEnemy, 1, XMFLOAT3(-100, 0, -100));
 }
 
 void EnemyManager::Advent30s()
 {
     //二か所から特定の敵を出現
-    AddEnemy(EnemyType::SpreadShotEnemy, 1, XMFLOAT3(100, 0, -100));
-    AddEnemy(EnemyType::SpreadShotEnemy, 1, XMFLOAT3(-100, 0, 100));
+    AddEnemy(EnemyType::LesserEnemy, 300, XMFLOAT3(100, 0, -100));/*
+    AddEnemy(EnemyType::SpreadShotEnemy, 1, XMFLOAT3(-100, 0, 100));*/
 }
 
 void EnemyManager::SetGameLevel(int _level)

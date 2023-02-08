@@ -18,22 +18,22 @@ namespace PMDModelData
         {PMDModelType::SpreadEnemy,"Data/Model/Enemy/Enemy_S.pmd"},
         {PMDModelType::LesserEnemy,"Data/Model/Enemy/Enemy_L.pmd"},
         {PMDModelType::BlueEnemy,"Data/Model/TestPMX/box.pmd"},
-        {PMDModelType::YellowEnemy,"Data/Model/Enemy/YellowEnemy.pmd"},
+        {PMDModelType::EnergyItem,"Data/Model/Others/ItemEnergy.pmd"},
 
         //  弾
         {PMDModelType::AimingBullet,"Data/Model/Bullet/bullet.pmd"},
         {PMDModelType::NoAimingBullet,"Data/Model/Bullet/BlueBullet.pmd"},
         {PMDModelType::PlayerBullet,"Data/Model/Bullet/PlayerShot.pmd"},
-        {PMDModelType::HitZigzagBullet,"Data/Model/Bullet/HitZigzag.pmd"},
-        {PMDModelType::BulletShadow,"Data/Model/Bullet/BulletShadow.pmd"},
+        {PMDModelType::Shield,"Data/Model/Others/shield.pmd"},
+        {PMDModelType::ShieldRing,"Data/Model/Others/ShieldRing.pmd"},
 
         //  エネミーを倒す塔
         //  TODO: 各ファイルの名称をObstacleからEnemyDefeaterに修正
         //  土台
         {PMDModelType::Pedestal,"Data/Model/Obstacle/Pedestal.pmd"},
         //  宙に浮いている立方体部分
-        {PMDModelType::RedEnemyDefeater,"Data/Model/Obstacle/RedObstacle.pmd"},
-        {PMDModelType::BlueEnemyDefeater,"Data/Model/Obstacle/BlueObstacle.pmd"},
+        {PMDModelType::PowerUpItemCore,"Data/Model/Others/PowerUpItemCore.pmd"},
+        {PMDModelType::PowerUpItemShell,"Data/Model/Others/PowerUpItemShell.pmd"},
         {PMDModelType::YellowEnemyDefeater,"Data/Model/Obstacle/YellowObstacle.pmd"},
 
         //  地面

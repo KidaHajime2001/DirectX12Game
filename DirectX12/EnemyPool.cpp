@@ -5,6 +5,7 @@
 #include"StraightShotEnemy.h"
 #include"SpreadShotEnemy.h"
 #include"CollisionManager.h"
+#include"SnakeEnemy.h"
 EnemyPool::EnemyPool()
 {
 }
@@ -59,7 +60,7 @@ EnemyPool::~EnemyPool()
  void EnemyPool::CreateAll()
  {
      //  列挙型EnemyAttackOrbitTypeのイテレータを作成
-     typedef EnumIterator<EnemyType, EnemyType::LesserEnemy, EnemyType::StraightShotEnemy> typeItr;
+     typedef EnumIterator<EnemyType, EnemyType::LesserEnemy, EnemyType::AimShotEnemy> typeItr;
      //  タイプごとにエネミー攻撃クラスをプールに登録
      for (auto itr : typeItr())
      {
@@ -91,7 +92,12 @@ EnemyPool::~EnemyPool()
             m_enemyPool[_type].emplace_back(new SpreadShotEnemy(CollisionTag::Enemy, false));
         }
         break;
-
+    case EnemyType::SnakeEnemy :
+        for (int i = 0; i < 1/*ADVENT_MAX*/; i++)
+        {
+            m_enemyPool[_type].emplace_back(new SnakeEnemy(CollisionTag::Enemy, false));
+        }
+        break;
     default:
         break;
     }

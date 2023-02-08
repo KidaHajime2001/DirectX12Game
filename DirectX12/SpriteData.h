@@ -33,6 +33,8 @@ namespace SpriteData
 
         { SpriteType::GameBackGround,L"Data/Img/GameScene/backgroundColor.png" },
         { SpriteType::GameScoreTest,L"Data/Img/GameScene/UI.png" },
+        { SpriteType::matrix0,L"Data/Img/Title/0s.png" },
+        { SpriteType::matrix1,L"Data/Img/Title/1s.png" },
 
         { SpriteType::ResultBack,L"Data/Img/GameScene/Gray.png" },
         { SpriteType::ResultText,L"Data/Img/GameScene/test5.png" },

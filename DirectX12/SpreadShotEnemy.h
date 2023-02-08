@@ -51,6 +51,6 @@ private:
     //ショット数
 	int m_shotNum;
     //攻撃回数の最大値
-	const int ATTACK_NUM_MAX = 5;
+	const int ATTACK_NUM_MAX = 1;
 };
 

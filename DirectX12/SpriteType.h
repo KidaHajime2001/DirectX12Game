@@ -29,6 +29,8 @@ enum SpriteType
     count9,
     count10,
 
+    matrix0,
+    matrix1,
     //  リザルト
     ResultBack,        //  背景
     ResultText,        //  リザルト

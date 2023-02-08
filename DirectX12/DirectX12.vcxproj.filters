@@ -127,6 +127,21 @@
     <Filter Include="ソース ファイル\UI">
       <UniqueIdentifier>{71ffd41c-4673-4024-bbb9-c09339e479f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\System\Fade">
+      <UniqueIdentifier>{75f4ae36-718d-497c-b67a-69ad16e51f60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\PostEffect">
+      <UniqueIdentifier>{6d63b4f1-d79d-4fc8-ac9f-7e5b43c08597}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System\PostEffect\Peera">
+      <UniqueIdentifier>{0f24d0f5-ea66-4db1-8a52-27aa4570b4b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy\SnakeEnemy">
+      <UniqueIdentifier>{0c0f94c5-60c6-4f60-af73-677616eba3b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Actor\Object\Enemy\Enemy\NewFilter1">
+      <UniqueIdentifier>{2784cfef-f08d-4569-a5b8-80da7326a8ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -228,12 +243,6 @@
     <ClCompile Include="SupportJSON.cpp">
       <Filter>ソース ファイル\System\Json</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyShotDirector.cpp">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyPool.cpp">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="StraightAttack.cpp">
       <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
     </ClCompile>
@@ -289,7 +298,52 @@
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="Fade.cpp">
+      <Filter>ソース ファイル\System\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetTexture.cpp">
+      <Filter>ソース ファイル\System\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="PostEffectPolygon.cpp">
+      <Filter>ソース ファイル\System\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="PeraRender.cpp">
+      <Filter>ソース ファイル\System\PostEffect\Peera</Filter>
+    </ClCompile>
+    <ClCompile Include="SnakeEnemy.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\SnakeEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SnakeTail.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\SnakeEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyPool.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyShotDirector.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemPool.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBase.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="EnergyItem.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpItem.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Shield.cpp">
       <Filter>ソース ファイル\Actor\Object\Enemy\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixEffect.cpp">
+      <Filter>ソース ファイル\SceneBase\Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixEffectController.cpp">
+      <Filter>ソース ファイル\SceneBase\Scene\Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -437,15 +491,6 @@
     <ClInclude Include="JsonDataType.h">
       <Filter>ソース ファイル\System\Json</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyShotDirector.h">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyPool.h">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyType.h">
-      <Filter>ソース ファイル\Actor\Object\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="StraightAttack.h">
       <Filter>ソース ファイル\Actor\Object\Enemy\EnemyAttack</Filter>
     </ClInclude>
@@ -510,7 +555,61 @@
       <Filter>ソース ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="Fade.h">
+      <Filter>ソース ファイル\System\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetTexture.h">
+      <Filter>ソース ファイル\System\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="PostEffectPolygon.h">
+      <Filter>ソース ファイル\System\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="PeraRender.h">
+      <Filter>ソース ファイル\System\PostEffect\Peera</Filter>
+    </ClInclude>
+    <ClInclude Include="SnakeEnemy.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\SnakeEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SnakeTail.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy\SnakeEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyPool.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyShotDirector.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyType.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemPool.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBase.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemTag.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EnergyItem.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpItem.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotStatus.h">
       <Filter>ソース ファイル\Actor\Object\Enemy\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Shield.h">
+      <Filter>ソース ファイル\Actor\Object\Enemy\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixEffect.h">
+      <Filter>ソース ファイル\SceneBase\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixEffectController.h">
+      <Filter>ソース ファイル\SceneBase\Scene\Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -518,6 +617,9 @@
       <Filter>リソース ファイル</Filter>
     </None>
     <None Include="OutPut.hlsli">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="TestHeader.hlsli">
       <Filter>shader</Filter>
     </None>
   </ItemGroup>

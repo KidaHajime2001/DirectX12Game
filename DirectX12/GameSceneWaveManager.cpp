@@ -75,6 +75,32 @@ void GameSceneWaveManager::Update(const bool _IsAlive)
 			m_gameOverTime = m_timer->GetNowCount();
 			m_gamewave = GameWave::Result;
 		}
+		if (GetNowCountTime() <= 90
+			&& GetNowCountTime() >= 60)
+		{
+			m_timer90s->SetTimer(1);
+		}
+		if (GetNowCountTime() <= 80)
+		{
+			m_timer60s->SetTimer(20);
+		}
+		if (GetNowCountTime() <= 45)
+		{
+
+			m_timer30s->SetTimer(15);
+		}
+		if (30 < GetNowCountTime() && GetNowCountTime() <= 60)
+		{
+			m_camera.SetBackGroundColor(XMFLOAT3(35, 0, 10));
+
+		}
+		else if (GetNowCountTime() <= 30)
+		{
+
+			m_camera.SetBackGroundColor(XMFLOAT3(92, 5, 26));
+		}
+
+
 		break;
 	case GameWave::Result:
 		break;
@@ -102,14 +128,11 @@ void GameSceneWaveManager::Draw()
 	
 	if (m_gamewave == GameWave::StartWave)
 	{
-		
 		m_sprite.Draw(SpriteType::Wave1Start, XMFLOAT2(0, 0), 1.0f, m_size, m_size, m_size, 1.0f, m_sprite.GetColorWithalpha(1.0f + m_reversSize));
-		
-
 	}
 	if (m_gamewave == GameWave::Wave)
 	{
-		if (GetNowCountTime() <= 90
+		/*if (GetNowCountTime() <= 90
 			&& GetNowCountTime() >= 60)
 		{
 			m_timer60s->SetTimer(15);
@@ -132,7 +155,7 @@ void GameSceneWaveManager::Draw()
 		{
 
 			m_camera.SetBackGroundColor(XMFLOAT3(92, 5, 26));
-		}
+		}*/
 		DrawCountDown();
 		
 	}

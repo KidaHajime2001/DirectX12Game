@@ -342,7 +342,6 @@ HRESULT DirectXManager::CreateRenderTargets()
         SUCCEEDED(result);
         return result;
     }
-
     //  SwapChain‚ÌÝ’è
     DXGI_SWAP_CHAIN_DESC swcDesc = {};
     result = m_swapchain->GetDesc(&swcDesc);

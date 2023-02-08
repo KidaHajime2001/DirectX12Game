@@ -53,6 +53,7 @@ public:
 
     //  ウィンドウのサイズのゲッター
     SIZE GetWindowSize()const;
+
 private:
     //  ウィンドウクラス周り
     WNDCLASSEX m_windowClass = {};

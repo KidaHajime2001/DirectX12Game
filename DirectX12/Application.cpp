@@ -18,6 +18,7 @@
 #include"Fps.h"
 #include"GameLevel.h"
 #include"Fade.h"
+#include"PeraRender.h"
 Application::Application()
     :m_device(Singleton<D12Device>::GetInstance())
     , m_error(Singleton<Error>::GetInstance())
@@ -47,10 +48,11 @@ Application::~Application()
 
 void Application::Run()
 {
-	//  メッセージ格納変数
+
+    PeraRender* pera = new PeraRender(*m_device.dx12);
+
+	    //  メッセージ格納変数
 	MSG msg = {};
-	//
-    // 
      //  PMDモデルクラスのシングルトンインスタンス生成
     PMDModel& model = Singleton<PMDModel>::GetInstance();
     //  モデルを描画するための設定
@@ -77,18 +79,21 @@ void Application::Run()
         m_sceneBase->Update();
         m_fps.Update();
 
+       
 
+
+       
         //  全体の描画準備
         m_device.dx12->BeginDraw();
 
+        /*pera->BeginDraw();
+        pera->Draw();
+        pera->AfterDraw();*/
+
         //  PMDモデルクラスの更新
-        
         m_sceneBase->DrawBackGround();
-        //if (m_device.m_fade->GetState() != Fade::FadeState::Fadeing)
-            //pmd
-        {
-            model.Update();
-        }
+
+        model.Update();
         //  PipelineStateをPMD用に合わせる
         m_device.dx12->GetCommandList()->SetPipelineState(m_device.pmdRenderer->GetLinePipelineState());
         //  RootSignatureもPMD用に合わせる
@@ -123,15 +128,19 @@ void Application::Run()
         }
         Controller& controller = Singleton<Controller>::GetInstance();
 
-
         
         m_device.m_fade->Update();
         m_device.m_fade->Draw();
+
+       
+       
+       
+
         
-
-
         //  描画の終了
         m_device.dx12->EndDraw();
+
+        
         m_fps.Wait();
         {
             //  フリップ

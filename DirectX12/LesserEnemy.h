@@ -42,4 +42,5 @@ private:
 
     //ŠÔ‚ğ}‚éƒNƒ‰ƒX
     class Time* m_timer;
+    int HP=1;
 };

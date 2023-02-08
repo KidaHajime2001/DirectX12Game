@@ -122,7 +122,8 @@ void SpreadShotEnemy::MoveUpdate(const DirectX::XMFLOAT3 _targetPos)
 
 void SpreadShotEnemy::CollisionOriginal(Collision* otherCollision)
 {
-	if (otherCollision->GetTag() == CollisionTag::PlayerBullet)
+	if (otherCollision->GetTag() == CollisionTag::PlayerBullet
+		)
 	{
 		//€–S‰‰o
 		m_effect.PlayEffect(EffectType::DefeatHigherEnemy, GetPosition(), false);

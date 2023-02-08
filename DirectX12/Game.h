@@ -15,6 +15,7 @@ public:
 	void Init()override;
 	
 private:
+	void FadeImageControll();
 	void CountScore(const int _defeatLesserEnemyScore, const int _defeathigherEnemyScore);
 	int m_maxScore = 0;
 	int m_defeatScore = 0;
@@ -48,6 +49,6 @@ private:
 	float m_alphaValue = 0.0f;
 	float m_backGroundCode;
 
-	
+	float m_controllerImageAlpha=1.0f;
 };
 

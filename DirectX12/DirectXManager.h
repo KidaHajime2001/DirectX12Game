@@ -70,8 +70,9 @@ public:
 	XMMATRIX GetViewMatrix()const { return m_mappedSceneData->view; }    //  ビュー行列
 	XMMATRIX GetProjMatrix()const { return m_mappedSceneData->proj; }    //  プロジェクション行列
 
-
-
+	ID3D12Resource* getbb() { return m_backBuffers[0]; };
+	D3D12_DESCRIPTOR_HEAP_DESC getrtv() { return m_rtvHeaps->GetDesc(); };
+	ComPtr<ID3D12DescriptorHeap> getdsv() { return m_dsvHeap; };
 private:
 	//windowSize
 	SIZE m_winSize;

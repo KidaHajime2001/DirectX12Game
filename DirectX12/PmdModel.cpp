@@ -68,7 +68,8 @@ void PMDModel::Draw(const XMFLOAT3& _pos, const float _angle, const PMDModelType
     m_drawClassIndexNumber++;
 }
 void PMDModel::Draw(const XMFLOAT3& _pos, const XMFLOAT3 _angle, const PMDModelType _type)
-{ //  座標変換用の情報を作成
+{ 
+    //  座標変換用の情報を作成
     PMDShifter* temp = m_shifter[m_drawClassIndexNumber];
     temp->Update(_pos, _angle);
     //  描画用の情報を作成
@@ -108,7 +109,7 @@ const PMDModelType PMDModel::GetModelType(const std::string _typename)
     }
     if (_typename == "YellowEnemy")
     {
-        return PMDModelType::YellowEnemy;
+        return PMDModelType::EnergyItem;
     }
 
     return PMDModelType::AimingBullet;

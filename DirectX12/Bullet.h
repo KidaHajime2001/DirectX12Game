@@ -25,6 +25,13 @@ public:
 	/// <param name="_newDirection">’e‚ÌŒü‚«</param>
 	/// <param name="_shotspeed">’e‚Ì‘¬“x</param>
 	void Shot(const XMFLOAT3& _setPosition,const XMFLOAT3& _newDirection,const float& _shotspeed);
+	/// <summary>
+	/// ŠgUƒVƒ‡ƒbƒg
+	/// </summary>
+	/// <param name="_setPosition">‰ŠúˆÊ’u</param>
+	/// <param name="_newDirection">’e‚ÌŒü‚«</param>
+	/// <param name="_shotspeed">’e‚Ì‘¬“x</param>
+	void SpreadShot(const XMFLOAT3& _setPosition, const XMFLOAT3& _newDirection, const float& _shotspeed);
 
 	const bool IsAlive() { return m_isAlive; };
 private:
@@ -33,7 +40,7 @@ private:
 	//“–‚½‚è”»’è‚Ì‘å‚«‚³
 	const int RADIUS_NUM = 1;
 	//’e‚Ì¶‘¶ŠÔ
-	const int ALIVE_TIME_MAX = 1;
+	float m_aliveTime = 1;
 	//
 	XMFLOAT3 m_directionVector = { 0,0,0 };
 

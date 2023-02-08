@@ -41,6 +41,7 @@ void LesserEnemy::Init()
 	m_isAlive = true;
 	auto randPos=XMFLOAT3(rand()%10-10, 0, rand() % 10 - 10);
 	m_param.pos = randPos;
+	HP = 1;
 }
 
 void LesserEnemy::Update(const DirectX::XMFLOAT3 _targetPos)
@@ -65,16 +66,22 @@ void LesserEnemy::Update(const DirectX::XMFLOAT3 _targetPos)
 
 void LesserEnemy::CollisionOriginal(Collision* otherCollision)
 {
-	if (otherCollision->GetTag()==CollisionTag::PlayerBullet)
+	if (otherCollision->GetTag()==CollisionTag::PlayerBullet
+		|| otherCollision->GetTag() == CollisionTag::Shield)
 	{
-		//死亡演出
-		m_effect.PlayEffect(EffectType::DefeatLesserEnemy, GetPosition(), false);
-		m_sound.Play(SoundType::DefeatLesserEnemySE, false, true);
+		HP--;
+		if (HP<=0)
+		{
+			//死亡演出
+			m_effect.PlayEffect(EffectType::DefeatLesserEnemy, GetPosition(), false);
+			m_sound.Play(SoundType::DefeatLesserEnemySE, false, true);
 
-		//当たり判定OFF
-		m_param.mCollision->m_isValidity = false;
-		//生存フラグOFF
-		m_isAlive = false;
+			//当たり判定OFF
+			m_param.mCollision->m_isValidity = false;
+			//生存フラグOFF
+			m_isAlive = false;
+		}
+		
 	}
 }
 
@@ -82,7 +89,7 @@ void LesserEnemy::CollisionOriginal(Collision* otherCollision)
 void LesserEnemy::WaitUpdate(const DirectX::XMFLOAT3 _targetPos)
 {
 	//待機時間二秒
-	m_timer->SetTimer(2);
+	m_timer->SetTimer(1);
 	//時間が来たら次状態に遷移
 	if (m_timer->CheakTime())
 	{

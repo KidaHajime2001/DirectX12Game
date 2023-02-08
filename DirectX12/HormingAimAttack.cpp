@@ -19,11 +19,13 @@ void HormingAimAttack::Update(DirectX::XMFLOAT3 _targetPos)
 {
 	if (m_isAlive)
 	{
-
+		//ターゲットまでの位置
 		XMFLOAT3 acc = XMF3Math::SubXMFLOAT3(_targetPos, m_param.pos);
 
+		//速度の制限
 		float speed = 3.0f;
 		acc = XMF3Math::SetMagnitude(acc,speed);
+
 		acc = XMF3Math::SubXMFLOAT3(acc, m_velocity);
 
 		if (XMF3Math::LengthXMFLOAT3(acc) > 0.01f)

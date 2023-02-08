@@ -40,9 +40,9 @@ void Ground::Draw()
 	/*
 	m_model.Draw(XMFLOAT3(x, y, z), 0, PMDModelType::GroundCube);*/
 	m_model.Draw(GetPosition(), 0, PMDModelType::Ground);
-	m_model.Draw(GetPosition(), m_rotateRing1, PMDModelType::BackGround);
+	m_model.Draw(XMF3Math::AddXMFLOAT3(GetPosition(),XMFLOAT3(0,100,0)), m_rotateRing1, PMDModelType::BackGround);
 	m_model.Draw(GetPosition(), m_rotateRing2, PMDModelType::BackGround);
-	m_model.Draw(GetPosition(), m_rotateRing3, PMDModelType::BackGround);
+	m_model.Draw(XMF3Math::AddXMFLOAT3(GetPosition(), XMFLOAT3(100, 0, 0)), m_rotateRing3, PMDModelType::BackGround);
 	/*m_model.Draw(GetPosition(), 0, PMDModelType::Ground);*/
 }
 

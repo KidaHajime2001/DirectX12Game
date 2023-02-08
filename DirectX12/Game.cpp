@@ -101,11 +101,12 @@ void Game::Update()
 			m_sound.StopAll();
 		}
 	}
-
+	FadeImageControll();
 }
 
 void Game::Draw()
 {
+	m_enemyManager->Draw();
 	m_ground->Draw();
 	m_player->Draw();
 	if (m_gameOverFlag)
@@ -116,7 +117,7 @@ void Game::Draw()
 	m_gameSceneWaveManager->Draw(); 
 	if (m_gameSceneWaveManager->GetNowGameWave() == GameSceneWaveManager::GameWave::Wave)
 	{
-		m_sprite.Draw(SpriteType::ControllGame, XMFLOAT2(0, 0));
+		m_sprite.Draw(SpriteType::ControllGame, XMFLOAT2(0, -30),1.0f,m_sprite.GetColorWithalpha(m_controllerImageAlpha));
 	}
 	if (m_gameSceneWaveManager->GetNowGameWave() == GameSceneWaveManager::GameWave::Result)
 	{
@@ -171,7 +172,7 @@ void Game::DrawString()
 void Game::DrawLine()
 {
 	m_ground->DrawBackCircle();
-	m_enemyManager->Draw();
+	m_enemyManager->LineDraw();
 }
 
 void Game::DrawBackGround()
@@ -194,6 +195,26 @@ void Game::Init()
 {
 	m_enemyManager->SetGameLevel(m_gameLevel->GetGameLevel());
 	BGMHandle = m_sound.Play(SoundType::GameSceneBGM, true, true);
+}
+
+void Game::FadeImageControll()
+{
+	if (m_controller.IsPress(ButtonName::GAMEPAD_RIGHT_SHOULDER)
+		|| m_controller.GetTiggerInputR()>=0.3f)
+	{
+		if (m_controllerImageAlpha>=0)
+		{
+			m_controllerImageAlpha -= 0.2f;
+			return;
+		}
+	}
+
+	m_controllerImageAlpha += 0.02f;
+	if (m_controllerImageAlpha > 1.0f)
+	{
+		m_controllerImageAlpha = 1.0f;
+	}
+	
 }
 
 void Game::CountScore(const int _defeatLesserEnemyScore, const int _defeathigherEnemyScore)

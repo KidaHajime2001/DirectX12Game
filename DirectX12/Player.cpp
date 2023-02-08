@@ -13,6 +13,7 @@
 #include"PlayerShotDirector.h"
 #include"Fps.h"
 #include"Time.h"
+#include"Shield.h"
 Player::Player(CollisionTag _tag, bool _alive)
     :m_model(Singleton<PMDModel>::GetInstance())
     , m_fps(Singleton<Fps>::GetInstance())
@@ -27,6 +28,8 @@ Player::Player(CollisionTag _tag, bool _alive)
     , m_inputFlameCount(0)
     , m_inputFlameFlag(false)
     , m_timer(new Time())
+    ,m_shield(new Shield(CollisionTag::Shield))
+    ,m_playerDirection(XMFLOAT3(0,0,0))
 {
     Init();
 }
@@ -34,18 +37,38 @@ Player::Player(CollisionTag _tag, bool _alive)
 Player::~Player()
 {
     delete m_shotDirector;
+    delete m_shield;
+    delete m_timer;
+    
 }
 
 void Player::Update()
 {
-    
+    if (m_spreadStatus.shotFlag)
+    {
+        m_shotDirector->SpreadShot(
+            
+            m_shotStatus.shotFlag,
+            m_param.pos,
+            m_shotStatus.shotDirection,
+            m_shotStatus.shotSpeed,
+            m_shotStatus.barrelLevel
+        );
+    }
+    else if (m_shotStatus.shotFlag)
+    {
+        m_shotDirector->NormalShot(
+
+            m_shotStatus.shotFlag,
+            m_param.pos,
+            m_shotStatus.shotDirection,
+            m_shotStatus.shotSpeed,
+            m_shotStatus.barrelLevel
+        );
+    }
     //射撃関連の更新
     m_shotDirector->Update(
-       m_shotStatus.shotFlag,
-        m_param.pos,
-        m_shotStatus.shotDirection,
-        m_shotStatus.shotSpeed
-    );
+  );
     //カメラにプレイヤーの位置を渡す
     m_camera.SetPlayerPosition(GetPosition());
     //カメラ更新
@@ -76,13 +99,45 @@ void Player::Update()
     if (m_shotStatus.shotInterval!=0)
     {
         //カウントを引く
-        m_shotStatus.shotInterval--;
+        m_shotStatus.shotInterval -= 10 + m_shotStatus.intervalCount;
         if (m_shotStatus.shotInterval <= 0)
         {
             m_shotStatus.shotInterval = 0;
         }
     }
-
+    //ショット関連
+    m_spreadStatus.shotFlag = false;
+    if (m_controller.GetTiggerInputR()>0.3f)
+    {
+        //インターバルが0なら
+        if (!m_spreadStatus.shotFlag && m_spreadStatus.shotInterval == 0)
+        {
+            //サウンドとフラグ周り
+            m_sound.Play(SoundType::ShootSE, false, true);
+            //ショットフラグはShotdirector用
+            m_spreadStatus.shotFlag = true;
+            m_spreadStatus.shotInterval = SPREAD_COOL_FLAME;
+            m_shotStatus.shotInterval = SPREAD_COOL_FLAME;
+            //中心部分、弾発射時のみアニメーション
+            m_cubeRotate += 30;
+            if (m_cubeRotate >= 360)
+            {
+                m_cubeRotate = 0;
+            }
+        }
+    }
+    //0でないなら
+    if (m_spreadStatus.shotInterval != 0)
+    {
+        //カウントを引く
+        m_spreadStatus.shotInterval -= 10 + m_spreadStatus.intervalCount;
+        if (m_spreadStatus.shotInterval <= 0)
+        {
+            m_spreadStatus.shotInterval = 0;
+        }
+    }
+    m_shield->Update(GetPosition());
+   
     //移動関連
     Move();
 
@@ -130,8 +185,12 @@ void Player::Draw()
     if (m_isAlive)
     {
         m_shotDirector->Draw();
-        m_model.Draw(GetPosition(), m_shotStatus.cosDirection, PMDModelType::Player);
+        m_model.Draw(GetPosition(), atan2(m_playerDirection.x, m_playerDirection.z), PMDModelType::Player);
         m_model.Draw(XMF3Math::AddXMFLOAT3(GetPosition(),XMF3Math::SetMagnitude(m_shotStatus.shotDirection,-1)),XMF3Math::DegreeForRadian(m_cubeRotate), PMDModelType::PlayerCube);
+       
+        m_shield->Draw();
+       
+            
 
     }
 }
@@ -149,15 +208,30 @@ void Player::Init()
 
 void Player::OnCollisionEnter(Collision* otherCollision)
 {
-    OutputDebugString("HitEnemy.\n");
-    m_effect.PlayEffect(EffectType::DefeatPlayer , GetPosition(), false);
-    m_sound.Play(SoundType::DefeatEnemySE,false,true);
+    if (otherCollision->GetTag() == CollisionTag::Enemy
+        || otherCollision->GetTag() == CollisionTag::EnemyBullet)
+    {
+        OutputDebugString("HitEnemy.\n");
+        m_effect.PlayEffect(EffectType::DefeatPlayer, GetPosition(), false);
+        m_sound.Play(SoundType::DefeatEnemySE, false, true);
 
-    //HitStopみたいな動き
-    m_fps.SetFPS(15);
-    m_timer->SetTimer(0.3f);
+        //HitStopみたいな動き
+        m_fps.SetFPS(15);
+        m_timer->SetTimer(0.3f);
 
-    m_param.mCollision->m_isValidity = false;
+        m_param.mCollision->m_isValidity = false;
+    }
+    if (otherCollision->GetTag() == CollisionTag::ReinforceShotInterval)
+    {
+        m_shotStatus.intervalCount +=3;
+        m_spreadStatus.intervalCount +=8;
+    }
+    if (otherCollision->GetTag() == CollisionTag::ReinforceAddtoShot)
+    {
+        m_spreadStatus.barrelLevel++;
+        m_shotStatus.barrelLevel++;
+    }
+    
 }
 
 
@@ -224,7 +298,8 @@ void Player::TakeAim()
     inputVec = XMF3Math::AddXMFLOAT3(inputVec, XMF3Math::ScalarXMFLOAT3(RIGHT, inputScalar.x));
 
     inputVec=XMF3Math::NormalizeXMFLOAT3(inputVec);
-    m_shotStatus.cosDirection = atan2(inputVec.x, inputVec.z);
+    m_playerDirection = inputVec;
+    m_shotStatus.cosDirection = atan2(m_playerDirection.x, m_playerDirection.z);
 
     m_shotStatus.shotDirection = inputVec;
 }

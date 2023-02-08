@@ -48,9 +48,6 @@ const Fade::FadeState Fade::GetState()
 
 void Fade::Update()
 {
-	
-	
-	
 	if (m_nowFadeIn)
 	{
 		m_wipeSize->wipeSize += FADESPEED * WIPECODE_FADEIN;
@@ -76,32 +73,25 @@ void Fade::Update()
 			
 		}
 	}
-
-
-
-
-	
 }
 
 void Fade::Draw()
 {
-	
 	m_dx12.GetCommandList()->SetGraphicsRootSignature(m_rootSignature.Get());
 	m_dx12.GetCommandList()->SetPipelineState(m_pipeline.Get());
 	m_dx12.GetCommandList()->IASetVertexBuffers(0,1,&vbView);
 	m_dx12.GetCommandList()->IASetIndexBuffer(&ibView);
-	m_dx12.GetCommandList()->SetDescriptorHeaps(1, &basicDescHeap);
-	m_dx12.GetCommandList()->SetGraphicsRootDescriptorTable(0, basicDescHeap->GetGPUDescriptorHandleForHeapStart());
+
+	ID3D12DescriptorHeap* mdh[] = { basicDescHeap.Get() };
+	m_dx12.GetCommandList()->SetDescriptorHeaps(1, mdh);
+
+	auto basicH= basicDescHeap->GetGPUDescriptorHandleForHeapStart();
+	m_dx12.GetCommandList()->SetGraphicsRootDescriptorTable(0, basicH);
 
 	m_dx12.GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	
 	m_dx12.GetCommandList()->DrawIndexedInstanced(6, 1, 0, 0, 0);
-	
-}
-
-void Fade::Load()
-{
 	
 }
 
@@ -326,7 +316,7 @@ void Fade::CreateVB()
 	descHeapDesc.NodeMask = 0;//マスクは0
 	descHeapDesc.NumDescriptors = 2;//SRV1つとCBV1つ
 	descHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;//デスクリプタヒープ種別
-	result =m_dx12.GetDevice()->CreateDescriptorHeap(&descHeapDesc, IID_PPV_ARGS(&basicDescHeap));//生成
+	result =m_dx12.GetDevice()->CreateDescriptorHeap(&descHeapDesc, IID_PPV_ARGS(basicDescHeap.ReleaseAndGetAddressOf()));//生成
 
 	//通常テクスチャビュー作成
 	/*D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};*/

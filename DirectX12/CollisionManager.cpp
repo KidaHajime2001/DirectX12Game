@@ -12,6 +12,16 @@ CollisionManager::CollisionManager()
 	pairsVec.push_back(onepair);
 	onepair = { CollisionTag::Player,CollisionTag::EnemyBullet };
 	pairsVec.push_back(onepair);
+	onepair = { CollisionTag::Player,CollisionTag::EnergyItem };
+	pairsVec.push_back(onepair);
+	onepair = { CollisionTag::Player,CollisionTag::ReinforceShotInterval };
+	pairsVec.push_back(onepair);
+	onepair = { CollisionTag::Player,CollisionTag::ReinforceAddtoShot };
+	pairsVec.push_back(onepair);
+	onepair = { CollisionTag::Shield,CollisionTag::EnemyBullet};
+	pairsVec.push_back(onepair);
+	onepair = { CollisionTag::Shield,CollisionTag::Enemy};
+	pairsVec.push_back(onepair);
 }
 
 CollisionManager::~CollisionManager()

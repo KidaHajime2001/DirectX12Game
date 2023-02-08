@@ -26,11 +26,7 @@ public:
 	void Update();
 	void Draw();
 private:
-
-    void Load();
     DirectXManager& m_dx12;
-    template<typename T>
-    using ComPtr = ComPtr<T>;
 
     //  Fade用パイプライン
     ComPtr<ID3D12PipelineState> m_pipeline = nullptr;
@@ -45,9 +41,9 @@ private:
 
     void CreateVB();
     void CreateIB();
-    ID3D12Resource* vertBuff = nullptr;
+    ComPtr<ID3D12Resource>vertBuff = nullptr;
     D3D12_VERTEX_BUFFER_VIEW vbView = {};
-    ID3D12Resource* idxBuff = nullptr;
+    ComPtr<ID3D12Resource> idxBuff = nullptr;
     D3D12_INDEX_BUFFER_VIEW ibView = {};
     struct WipeParam {
         XMFLOAT2 wipeDir;    //【注目】ワイプする方向
@@ -55,7 +51,7 @@ private:
         XMFLOAT2 rectSize;
     };
     WipeParam* m_wipeSize;
-    ID3D12DescriptorHeap* basicDescHeap = nullptr;
+    ComPtr<ID3D12DescriptorHeap> basicDescHeap = nullptr;
     D3D12_DESCRIPTOR_HEAP_DESC descHeapDesc = {};
     //通常テクスチャビュー作成
     D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};

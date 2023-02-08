@@ -12,6 +12,7 @@
 #include"GameLevel.h"
 #include"Camera.h"
 #include"StringDrawer.h"
+#include"MatrixEffectController.h"
 Title::Title(SceneTag _sceneTag)
 	:SceneBase(_sceneTag)
 	, m_controller(Singleton<Controller>::GetInstance())
@@ -32,6 +33,7 @@ Title::Title(SceneTag _sceneTag)
 	, m_bgmSoundVolume(m_sound.GetSonudVolume().y)
 	, m_seSoundVolume(m_sound.GetSonudVolume().z)
 	,m_camera(Singleton<Camera>::GetInstance())
+	,m_matEffectCon(new MatrixEffectController())
 {
 	m_alphaValue = 1.0f;
 	BGMHandle= m_sound.Play(SoundType::TitleBGM,true,true);
@@ -41,11 +43,13 @@ Title::Title(SceneTag _sceneTag)
 Title::~Title()
 {
 	delete m_player;
+	delete m_matEffectCon;
 }
 
 void Title::Update()
 {
 	m_player->Update();
+	m_matEffectCon->Update();
 	if (m_controller.IsPushEnter(ButtonName::GAMEPAD_A))
 	{
 		PushAButtonState(m_buttonState);
@@ -80,9 +84,9 @@ void Title::Update()
 
 void Title::Draw()
 {
-
 	m_player->Draw();
-	m_sprite.Draw(SpriteType::ControllTitle, XMFLOAT2(0, 0));
+	m_sprite.Draw(SpriteType::ControllTitle, XMFLOAT2(0, -30));
+	m_matEffectCon->Draw();
 }
 
 void Title::DrawLine()

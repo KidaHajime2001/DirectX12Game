@@ -106,7 +106,8 @@ void EnemyBase::OnCollisionEnter(Collision* otherCollision)
 		m_param.pos = XMF3Math::AddXMFLOAT3(enemyPos, awayVec);
 
 	}
-	if (otherCollision->GetTag() == CollisionTag::PlayerBullet)
+	if (otherCollision->GetTag() == CollisionTag::PlayerBullet
+		)
 	{
 		//ƒvƒŒƒCƒ„[‚Ì’e‚ÉÚG
 		m_isHit = true;

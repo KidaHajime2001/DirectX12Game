@@ -53,6 +53,10 @@ void StraightAttack::OnCollisionEnter(Collision* otherCollision)
 	{
 		OutputDebugString("プレイヤーに当たりました。");
 	}
+	if (otherCollision->GetTag() == CollisionTag::Shield)
+	{
+		Init();
+	}
 }
 
 void StraightAttack::Draw()

@@ -11,6 +11,8 @@ StraightShotEnemy::StraightShotEnemy(CollisionTag _tag, bool m_alive)
 	:EnemyBase(_tag, m_alive)
 	, m_timer(new Time())
 	,m_shotNum(0)
+	,seState(SEState::Attack)
+	,m_specialState(SpecialState::CircleMove)
 {
 	//当たり判定
 	//外部データから持ってきたい
@@ -61,6 +63,16 @@ void StraightShotEnemy::Update(const DirectX::XMFLOAT3 _targetPos)
 	}
 }
 
+void StraightShotEnemy::Draw()
+{
+	//描画
+	//ポジション,向きを計算,描画タイプ
+	m_model.Draw(
+		GetPosition(),
+		atan2(m_nowDirection.x,m_nowDirection.z),
+		m_modeltype);
+}
+
 
 
 
@@ -72,33 +84,86 @@ void StraightShotEnemy::WaitUpdate(const DirectX::XMFLOAT3 _targetPos)
 	if (m_timer->CheakTime())
 	{
 		m_enemyState = EnemyState::attack;
+		if (rand() % 3==0)
+		{
+			seState = SEState::SpecialAT;
+		}
+		else
+		{
+			seState = SEState::Attack;
+		}
+		
 	}
 }
 
 void StraightShotEnemy::AttackUpdate(const DirectX::XMFLOAT3 _targetPos)
 {
-	//プレイヤーと自分との距離を算出
-	auto diff = XMF3Math::SubXMFLOAT3(_targetPos, m_param.pos);
-
-	//向き
-	m_nowDirection = diff;
-
-	//発射間隔
-	m_timer->SetTimer(0.25f);
-
-	//ショットを撃つ
-	if (m_timer->CheakTime())
+	switch (seState)
 	{
-		m_enemyShotDirector->Shot(EnemyAttackType::StraightShot, m_param.pos, _targetPos, diff);
-		m_shotNum++;
+	case SEState::Attack:
+		//プレイヤーと自分との距離を算出
+		auto diff = XMF3Math::SubXMFLOAT3(_targetPos, m_param.pos);
+
+		//向き
+		m_nowDirection = diff;
+
+		//発射間隔
+		m_timer->SetTimer(0.25f);
+
+		//ショットを撃つ
+		if (m_timer->CheakTime())
+		{
+			m_enemyShotDirector->Shot(EnemyAttackType::StraightShot, m_param.pos, _targetPos, diff);
+			m_shotNum++;
+		}
+		//攻撃の回数が基底の数を超えたら
+		if (ATTACK_NUM_MAX <= m_shotNum)
+		{
+			//ショットのリセットと状態の遷移
+			m_shotNum = 0;
+			m_enemyState = EnemyState::wait;
+		}
+		break;
+	case SEState::SpecialAT:
+		if (m_specialState== SpecialState::CircleMove)
+		{
+			auto aimPos = XMF3Math::AddXMFLOAT3(
+				XMF3Math::SetMagnitude( TARGET_SPACE,50.0f), _targetPos);
+			//プレイヤーと自分との距離を算出
+			auto diff = XMF3Math::SubXMFLOAT3(aimPos, m_param.pos);
+			
+
+			//向き
+			m_nowDirection = diff;
+			diff = XMF3Math::SetMagnitude(diff, m_speed*10);
+			//移動
+			m_param.pos = XMF3Math::AddXMFLOAT3(m_param.pos, diff);
+			if (XMF3Math::LengthXMFLOAT3(XMF3Math::SubXMFLOAT3(aimPos, m_param.pos))<5.0f)
+			{
+				m_specialState = SpecialState::Aiming;
+			}
+			
+		}
+		else if (m_specialState == SpecialState::Aiming)
+		{
+			auto vec = XMF3Math::RotateVec2_XZ(TARGET_SPACE, m_specialrotate++);
+ 			m_param.pos = XMF3Math::AddXMFLOAT3(GetPosition(),vec);
+			//発射間隔
+			m_timer->SetTimer(0.5f);
+
+			auto diff = XMF3Math::SubXMFLOAT3(_targetPos, m_param.pos);
+			//ショットを撃つ
+			if (m_timer->CheakTime())
+			{
+				m_enemyShotDirector->Shot(EnemyAttackType::StraightShot, m_param.pos, _targetPos, diff);
+			}
+		}
+		break;
+	default:
+		break;
 	}
-	//攻撃の回数が基底の数を超えたら
-	if (ATTACK_NUM_MAX<=m_shotNum)
-	{
-		//ショットのリセットと状態の遷移
-		m_shotNum = 0;
-		m_enemyState = EnemyState::wait;
-	}
+	
+	
 }
 
 void StraightShotEnemy::MoveUpdate(const DirectX::XMFLOAT3 _targetPos)

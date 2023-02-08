@@ -14,8 +14,9 @@ public:
 	/// <param name="_pos">’e”­ŽË‚Ì‚½‚ß‚Ìƒ|ƒWƒVƒ‡ƒ“</param>
 	/// <param name="_direction">’e‚ðŒ‚‚ÂŒü‚«</param>
 	/// <param name="_speed">’e‚Ì‘¬“x</param>
-	void Update(const bool& _isShot,const DirectX::XMFLOAT3& _pos, const DirectX::XMFLOAT3& _direction,const float& _speed);
-
+	void Update();
+	void SpreadShot(const bool& _isShot, const DirectX::XMFLOAT3& _pos, const DirectX::XMFLOAT3& _direction, const float& _speed, const int& _shotLevel);
+	void NormalShot(const bool& _isShot, const DirectX::XMFLOAT3& _pos, const DirectX::XMFLOAT3& _direction, const float& _speed, const int& _shotLevel);
 	//•`‰æ
 	void Draw();
 private:

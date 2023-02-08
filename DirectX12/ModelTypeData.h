@@ -9,21 +9,20 @@ enum class PMDModelType
     //  エネミー
     StraightEnemy,
     BlueEnemy,
-    YellowEnemy,
+    EnergyItem,
 
     //  弾
     AimingBullet,       //  プレイヤーを狙う弾
     NoAimingBullet,     //  プレイヤーを狙わない球
     PlayerBullet,   //  ジグザグ攻撃の弾
-    HitZigzagBullet,    //  衝突後のジグザグ攻撃の弾
-    BulletShadow,   //  影
+    Shield,    //  衝突後のジグザグ攻撃の弾
+    ShieldRing,   //  影
 
     //  エネミーを倒す塔
     //  土台
     Pedestal,
-    //  宙に浮いている立方体部分
-    RedEnemyDefeater,
-    BlueEnemyDefeater,
+    PowerUpItemCore,       //  プレイヤーを狙う弾
+    PowerUpItemShell,
     YellowEnemyDefeater,
     SpreadEnemy,
     LesserEnemy,

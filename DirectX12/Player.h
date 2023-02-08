@@ -35,15 +35,20 @@ private:
 	{
 		bool shotFlag		=false;
 		int	 shotInterval	=0;
+		int intervalCount =0;
 		XMFLOAT3 shotDirection = {0,0,1};
 		float shotSpeed=4.0f;
 		float cosDirection=0.0f;
+		int barrelLevel = 0;
+
 	};
 	ShotStatus m_shotStatus;
+	ShotStatus m_spreadStatus;
 	class PlayerShotDirector* m_shotDirector;
 	//射撃のクールタイム
-	const int SHOT_COOL_FLAME = 3;
-
+	const int SHOT_COOL_FLAME = 30;
+	//射撃のクールタイム
+	const int SPREAD_COOL_FLAME = 200;
 	//入力のデッドゾーン
 	const float DEADZONE = 0.3f;
 
@@ -61,6 +66,9 @@ private:
 	class Fps& m_fps;
 	//タイマー
 	class Time* m_timer;
+
+	class Shield* m_shield;
+
 	//当たり判定半径
 	int RADIUS_NUM = 1;
 
@@ -73,5 +81,12 @@ private:
 	//移動時のエフェクト用変数
 	int m_inputFlameCount;
 	bool m_inputFlameFlag;
+
+
+
+
+
+
+	DirectX::XMFLOAT3 m_playerDirection;
 };
 

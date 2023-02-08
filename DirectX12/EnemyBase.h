@@ -16,7 +16,7 @@ public:
 	//更新
 	virtual void Update(const DirectX::XMFLOAT3 _targetPos);
 	//描画
-	void Draw();
+	virtual void Draw();
 
 	//データのロード
 	void LoadData(const EnemyType _enemyType);

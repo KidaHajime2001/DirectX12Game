@@ -43,14 +43,16 @@ Bullet* BulletPool::GetUnUsedBullet()
 
 void BulletPool::Update()
 {
+	int i = 0;
 	for (auto _bullet : m_bulletPool)
 	{
 		if (_bullet->IsAlive())
 		{
 			_bullet->Update();
+			i++;
 		}
-
 	}
+	return;
 }
 
 void BulletPool::Draw()

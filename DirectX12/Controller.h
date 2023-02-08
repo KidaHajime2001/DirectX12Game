@@ -64,7 +64,9 @@ public:
 	////右のスティック入力を0.0f～1.0fで受け取れる(x,y)
 	const DirectX::XMFLOAT2 GetLeftStickInput();
 	////右のスティック入力を0.0f～1.0fで受け取れる(x,y)
-	const DirectX::XMFLOAT2 GetTiggerInput();
+	const float GetTiggerInputR();
+	////右のスティック入力を0.0f～1.0fで受け取れる(x,y)
+	const float GetTiggerInputL();
 	const float INPUT_MAX = 32767.0f;
 	const float TRIGGER_INPUT_MAX = 255.0f;
 };

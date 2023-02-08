@@ -168,13 +168,19 @@ const DirectX::XMFLOAT2 Controller::GetLeftStickInput()
 	return DirectX::XMFLOAT2(x, y);
 }
 
-const DirectX::XMFLOAT2 Controller::GetTiggerInput()
+const float Controller::GetTiggerInputL()
 {
-	float x = (float)(padState.Gamepad.bLeftTrigger/ TRIGGER_INPUT_MAX);
-	float y = (float)(padState.Gamepad.bRightTrigger / TRIGGER_INPUT_MAX);
-	return DirectX::XMFLOAT2(x,y);
+	float x = (float)(padState.Gamepad.bLeftTrigger / TRIGGER_INPUT_MAX);
+
+	return x;
 }
 
+const float Controller::GetTiggerInputR()
+{
+	
+	float x = (float)(padState.Gamepad.bRightTrigger / TRIGGER_INPUT_MAX);
+	return x;
+}
 
 
 
@@ -222,12 +228,13 @@ Controller::Controller()
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_START)]			= VK_TAB;
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_A)]				= VK_RETURN;
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_START)]			= VK_ESCAPE;
+	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_RIGHT_SHOULDER)] =   VK_RSHIFT;
 		/*
-	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_BACK)]				= ;*/
-	/*SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_LEFT_THUMB)]		= ;
+	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_BACK)]				= ;
+	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_LEFT_THUMB)]		= ;
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_RIGHT_THUMB)]		=;
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_LEFT_SHOULDER)]	=;
-	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_RIGHT_SHOULDER)]	=;*//*
+	
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_A)]				= 0x57;
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_B)]				=;
 	SubInputKeyBord[static_cast<int>(ButtonName::GAMEPAD_X)]				=;

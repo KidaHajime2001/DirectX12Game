@@ -8,7 +8,7 @@ public:
 	~StraightShotEnemy();
 	//更新
 	void Update(const DirectX::XMFLOAT3 _targetPos);
-	
+	void Draw()override;
 	
 private:
 	/// <summary>
@@ -47,6 +47,20 @@ private:
 	//ショット数
 	int m_shotNum;
 	//攻撃回数の最大値
-	const int ATTACK_NUM_MAX = 5;
+	const int ATTACK_NUM_MAX = 3;
+	enum SEState
+	{
+		Attack,
+		SpecialAT,
+	};
+	SEState seState;
+	enum SpecialState
+	{
+		Aiming,
+		CircleMove,
+	};
+	SpecialState m_specialState;
+	const DirectX::XMFLOAT3 TARGET_SPACE = XMFLOAT3(1,0,0);
+	float m_specialrotate=0.0f;
 
 };

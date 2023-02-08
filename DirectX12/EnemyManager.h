@@ -16,6 +16,7 @@ public:
 	
 	//描画
 	void Draw();
+	void LineDraw();
 
 	//90秒時点からの出現イベント
 	void Advent90s();
@@ -46,7 +47,7 @@ private:
 	
 	//敵プール
 	class EnemyPool& m_enemyPool;
-
+	class ItemManager* m_itemManager;
 	//敵の攻撃プール
 	class EnemyAttackPool& m_enemyAttackPool;
 
