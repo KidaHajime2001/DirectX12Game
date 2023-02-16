@@ -101,7 +101,9 @@ void EnemyManager::Advent90s()
 
 void EnemyManager::Advent60s()
 {
-    AddEnemy(EnemyType::LesserEnemy, 300, XMFLOAT3(100, 0, -100));
+    AddEnemy(EnemyType::LesserEnemy, 50, XMFLOAT3(100, 0, -100));
+
+    AddEnemy(EnemyType::LesserEnemy, 50, XMFLOAT3(-100, 0, 100));
     ////“ñ‚©Š‚©‚ç“Á’è‚Ì“G‚ğoŒ»
     //AddEnemy(EnemyType::StraightShotEnemy, 1, XMFLOAT3(100,0,100));
     //AddEnemy(EnemyType::StraightShotEnemy, 1, XMFLOAT3(-100, 0, -100));
@@ -110,8 +112,9 @@ void EnemyManager::Advent60s()
 void EnemyManager::Advent30s()
 {
     //“ñ‚©Š‚©‚ç“Á’è‚Ì“G‚ğoŒ»
-    AddEnemy(EnemyType::LesserEnemy, 300, XMFLOAT3(100, 0, -100));/*
-    AddEnemy(EnemyType::SpreadShotEnemy, 1, XMFLOAT3(-100, 0, 100));*/
+    AddEnemy(EnemyType::LesserEnemy, 75, XMFLOAT3(-100, 0, -100));
+
+    AddEnemy(EnemyType::LesserEnemy, 75, XMFLOAT3(100, 0, 100));
 }
 
 void EnemyManager::SetGameLevel(int _level)

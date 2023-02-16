@@ -1,5 +1,7 @@
 #pragma once
 #include"Actor.h"
+
+#include"Shield.h"
 class Player:public Actor
 {
 public:
@@ -23,6 +25,10 @@ public:
 	void OnCollisionEnter(class Collision* otherCollision)override;
 
 	const bool IsAlive() { return m_isAlive; };
+
+	const float GetShieldGauge() { return m_shield->GetShieldGauge(); };
+
+	
 private:
 	
 	//移動系の処理updateの中で動いてほしいのでプライベート
@@ -69,6 +75,8 @@ private:
 
 	class Shield* m_shield;
 
+	class SpriteDrawer& m_sprite;
+
 	//当たり判定半径
 	int RADIUS_NUM = 1;
 
@@ -83,8 +91,8 @@ private:
 	bool m_inputFlameFlag;
 
 
-
-
+	
+	
 
 
 	DirectX::XMFLOAT3 m_playerDirection;

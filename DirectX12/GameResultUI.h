@@ -10,11 +10,14 @@ public:
 		int higherScore;
 		int clearScore;
 		int sumScore;
+
+		int bestScore;
 	};
 	GameResultUI();
 	~GameResultUI();
 	void Update();
 	void Draw(const ScoreData _score);
+	const int GetScore() { return sumScore; };
 private:
 	void CalculationCode();
 	class StringDrawer& m_drawer;
@@ -32,5 +35,6 @@ private:
 	
 	float x = 0;
 	float y = 0;
+	int sumScore=0;
 	class Controller& m_controller;
 };

@@ -24,21 +24,25 @@ void PlayerShotDirector::Update()
 
 void PlayerShotDirector::SpreadShot(const bool& _isShot, const DirectX::XMFLOAT3& _pos, const DirectX::XMFLOAT3& _direction, const float& _speed, const int& _shotLevel)
 {
-	for (int i = 0; i < 7; i++)
+	for (int j = 0; j < _shotLevel+1; j++)
 	{
-
-		//未使用の弾を確保
-		auto bullet = m_bulletPool->GetUnUsedBullet();
-		//プールの上限なら終了
-		if (!bullet)
+		for (int i = 0; i < 7; i++)
 		{
-			return;
+
+			//未使用の弾を確保
+			auto bullet = m_bulletPool->GetUnUsedBullet();
+			//プールの上限なら終了
+			if (!bullet)
+			{
+				return;
+			}
+			//弾発射位置をプレイヤーの先端に調整
+			auto vec = XMF3Math::RotateVec2_XZ(_direction, (float)(5 * (3 - (i + 1))));
+			auto firePos = XMF3Math::AddXMFLOAT3(_pos, XMF3Math::SetMagnitude(vec, FIRE_POSITION*(j+1)));
+			bullet->SpreadShot(firePos, vec, _speed);
 		}
-		//弾発射位置をプレイヤーの先端に調整
-		auto vec = XMF3Math::RotateVec2_XZ(_direction, (float)(5 * (3 - (i + 1))));
-		auto firePos = XMF3Math::AddXMFLOAT3(_pos, XMF3Math::SetMagnitude(vec, FIRE_POSITION));
-		bullet->SpreadShot(firePos, vec, _speed);
 	}
+	
 }
 
 void PlayerShotDirector::NormalShot(const bool& _isShot, const DirectX::XMFLOAT3& _pos, const DirectX::XMFLOAT3& _direction, const float& _speed, const int& _shotLevel)

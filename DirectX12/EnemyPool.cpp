@@ -14,8 +14,10 @@ EnemyPool::~EnemyPool()
 {
 }
 
+
  EnemyBase* EnemyPool::UnUsedEnemyAdvent(const EnemyType _type)
 {
+     //未使用＝生存フラグの立っていないクラスを呼び出す
     for (auto enemy : m_enemyPool[_type])
     {
         if (!enemy->IsAlive())
@@ -23,13 +25,14 @@ EnemyPool::~EnemyPool()
             return enemy;
         }
     }
+    //nullptrを渡すことでエラーの対策をする
     return nullptr;
 }
 
  void EnemyPool::AddCollision( CollisionManager* _mng)
  {
+     //プールをすべて当たり判定登録する
      typedef EnumIterator<EnemyType, EnemyType::LesserEnemy, EnemyType::AimShotEnemy> typeItr;
-     //  タイプごとにエネミー攻撃クラスをプールに登録
      for (auto itr : typeItr())
      {
          for (auto enemyColision : m_enemyPool[itr])
@@ -43,8 +46,8 @@ EnemyPool::~EnemyPool()
 
  void EnemyPool::DeleteCollision(CollisionManager* _mng)
  {
+     //プールの当たり判定を取り除く
      typedef EnumIterator<EnemyType, EnemyType::LesserEnemy, EnemyType::AimShotEnemy> typeItr;
-     //  タイプごとにエネミー攻撃クラスをプールに登録
      for (auto itr : typeItr())
      {
          for (auto enemyColision : m_enemyPool[itr])
@@ -70,24 +73,25 @@ EnemyPool::~EnemyPool()
 
  void EnemyPool::Create(const EnemyType _type)
 {
+     //プール各タイプのエネミークラスを作成
     switch (_type)
     {
     case EnemyType::LesserEnemy:
-        for (int i = 0; i < LESSER_POOL_MAX; i++)
+        for (int i = 0; i < LESSER_ENEMY_MAX; i++)
         {
             m_enemyPool[_type].emplace_back(new LesserEnemy(CollisionTag::Enemy, false));
         } 
         break;
 
     case EnemyType::StraightShotEnemy:
-        for (int i = 0; i < ADVENT_MAX; i++)
+        for (int i = 0; i < HIGHER_ENEMY_MAX; i++)
         {
             m_enemyPool[_type].emplace_back(new StraightShotEnemy(CollisionTag::Enemy, false));
         }
         break;
 
     case EnemyType::SpreadShotEnemy:
-        for (int i = 0; i < ADVENT_MAX; i++)
+        for (int i = 0; i < HIGHER_ENEMY_MAX; i++)
         {
             m_enemyPool[_type].emplace_back(new SpreadShotEnemy(CollisionTag::Enemy, false));
         }
@@ -107,8 +111,8 @@ EnemyPool::~EnemyPool()
 
 void EnemyPool::DestroyAll()
 {
+    //全てのタイプのエネミークラスを削除
     typedef EnumIterator<EnemyType, EnemyType::LesserEnemy, EnemyType::AimShotEnemy> typeItr;
-    //  タイプごとにエネミー攻撃クラスをプールに登録
     for (auto itr : typeItr())
     {
         for (auto enemy : m_enemyPool[itr])

@@ -1,4 +1,8 @@
 #pragma once
+/// <summary>
+/// 敵クラスのタイプ
+/// イテレーターなどで使う
+/// </summary>
 enum class EnemyType
 {
 	LesserEnemy = 0,

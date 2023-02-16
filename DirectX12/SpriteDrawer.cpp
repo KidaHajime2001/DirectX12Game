@@ -127,3 +127,8 @@ XMVECTORF32 SpriteDrawer::GetColorWithalpha(const float _alpha)
 {
     return { Colors::White.f[0],Colors::White.f[1],Colors::White.f[2],_alpha };
 }
+
+XMVECTORF32 SpriteDrawer::GetColorWithalpha(const DirectX::XMVECTORF32 _color, const float _alpha)
+{
+    return { _color.f[0],_color.f[1],_color.f[2],_alpha };
+}

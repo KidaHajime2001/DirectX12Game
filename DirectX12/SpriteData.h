@@ -30,7 +30,8 @@ namespace SpriteData
         { SpriteType::count8,L"Data/Img/GameScene/count8.png"},
         { SpriteType::count9,L"Data/Img/GameScene/count9.png"},
         { SpriteType::count10,L"Data/Img/GameScene/count10.png"},
-
+         { SpriteType::shieldGauge,L"Data/Img/GameScene/shieldGauge.png"},
+         { SpriteType::shieldGaugeFlame ,L"Data/Img/GameScene/shieldGaugeFlame.png"},
         { SpriteType::GameBackGround,L"Data/Img/GameScene/backgroundColor.png" },
         { SpriteType::GameScoreTest,L"Data/Img/GameScene/UI.png" },
         { SpriteType::matrix0,L"Data/Img/Title/0s.png" },
@@ -39,6 +40,7 @@ namespace SpriteData
         { SpriteType::ResultBack,L"Data/Img/GameScene/Gray.png" },
         { SpriteType::ResultText,L"Data/Img/GameScene/test5.png" },
         { SpriteType::ResultLine,L"Data/Img/GameScene/result4.png" },
+
     };
 
 

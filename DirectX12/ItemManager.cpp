@@ -82,8 +82,11 @@ void ItemManager::CreateDropItem(EnemyType _type, DirectX::XMFLOAT3 _position)
     ItemBase* item{};
     if (_type == EnemyType::LesserEnemy)
     {
-
-        item = m_itemPool.GetUnUsedItem(ItemTag::Energy);
+        if (rand() % 2 == 0)
+        {
+            item = m_itemPool.GetUnUsedItem(ItemTag::Energy);
+        }
+        
     }
     else  if (rand() % DROP_PROBABILITY == 0)
     {

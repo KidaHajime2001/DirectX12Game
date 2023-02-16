@@ -25,6 +25,7 @@ public:
         , const float _topMagnification, const float _leftMagnification, const float _bottomMagnification, const float _rightMagnification
         , const float _magnification = 1.0f, const XMVECTOR& _color = Colors::White);
     XMVECTORF32 GetColorWithalpha(const float _alpha);
+    XMVECTORF32 GetColorWithalpha(const DirectX::XMVECTORF32 _color,const float _alpha);
 private:
     //  ÉçÅ[Éh
     int Load();

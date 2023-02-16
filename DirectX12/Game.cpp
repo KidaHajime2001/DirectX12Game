@@ -41,6 +41,7 @@ Game::Game(SceneTag _sceneTag)
 	, m_gameSceneWaveManager(new GameSceneWaveManager())
 
 
+	, m_shieldImg(SHIELD_IMAGE_SIZE* SHIELD_IMAGE_VAR)
 {
 	m_backGroundCode = 0;
 
@@ -117,7 +118,25 @@ void Game::Draw()
 	m_gameSceneWaveManager->Draw(); 
 	if (m_gameSceneWaveManager->GetNowGameWave() == GameSceneWaveManager::GameWave::Wave)
 	{
+		float alpha = 1.0f;
+		if (m_player->GetShieldGauge()<=1.0f)
+		{
+			alpha = m_player->GetShieldGauge()+0.2f;
+		}
 		m_sprite.Draw(SpriteType::ControllGame, XMFLOAT2(0, -30),1.0f,m_sprite.GetColorWithalpha(m_controllerImageAlpha));
+		float var = m_player->GetShieldGauge();
+		m_sprite.Draw(SpriteType::shieldGauge, XMFLOAT2(500 + m_shieldPos.x, m_shieldPos.y + (m_shieldImg - (m_shieldImg * var))),
+			var,
+			1.0f,
+			1.0f,
+			1.0f,
+			1.0f * SHIELD_IMAGE_VAR, m_sprite.GetColorWithalpha(alpha));
+		m_sprite.Draw(SpriteType::shieldGaugeFlame, XMFLOAT2(500 + m_shieldPos.x, m_shieldPos.y),
+			1.0f,
+			1.0f,
+			1.0f,
+			1.0f,
+			1.0f * SHIELD_IMAGE_VAR, m_sprite.GetColorWithalpha(alpha));
 	}
 	if (m_gameSceneWaveManager->GetNowGameWave() == GameSceneWaveManager::GameWave::Result)
 	{
@@ -128,7 +147,6 @@ void Game::Draw()
 void Game::DrawString()
 {
 	
-
 	
 	if (m_debugFlag)
 	{
@@ -146,9 +164,16 @@ void Game::DrawString()
 	{
 		m_drawer.DrawStringBlackAndWhite("SCORE : ", XMFLOAT2(80, 30));
 		m_drawer.DrawStringBlackAndWhiteForNumber(m_defeatScore, XMFLOAT2(300, 30), 1.0f);
-		m_drawer.DrawStringBlackAndWhite("TIME  : ", XMFLOAT2(106, 85));
+		m_drawer.DrawStringBlackAndWhite("TIME  : ", XMFLOAT2(104, 85));
+		
+
+		m_drawer.DrawStringBlackAndWhite("SHIELD : ", XMFLOAT2(70, 135));
 		m_drawer.DrawStringBlackAndWhiteForNumber(m_gameSceneWaveManager->GetNowCountTime(), XMFLOAT2(300, 85), 1.0f);
+
+		m_drawer.DrawStringBlackAndWhiteForNumber(m_player->GetShieldGauge()*100, XMFLOAT2(300, 135), 1.0f);
+		m_drawer.DrawStringBlackAndWhite("/100", XMFLOAT2(360, 135), 1.0f);
 		m_gameSceneWaveManager->DrawString();
+		
 	}
 	else if(m_gameSceneWaveManager->GetNowGameWave() == GameSceneWaveManager::GameWave::Result)
 	{
@@ -161,9 +186,14 @@ void Game::DrawString()
 		{
 			gameClearScore = 1000;
 		}
-		GameResultUI::ScoreData score = { m_gameSceneWaveManager->GetNowOverTime(),m_enemyManager->GetEnemyDefeatScore().x,m_enemyManager->GetEnemyDefeatScore().y,gameClearScore ,m_defeatScore };
+		GameResultUI::ScoreData score = { m_gameSceneWaveManager->GetNowOverTime(),m_enemyManager->GetEnemyDefeatScore().x,m_enemyManager->GetEnemyDefeatScore().y,gameClearScore ,m_defeatScore,m_gameLevel->GetGameScore() };
 		m_gameResultUI->Draw(score);
-
+		int sum =m_gameResultUI->GetScore();
+		if (sum> m_gameLevel->GetGameScore())
+		{
+			m_gameLevel->SetGameScore(sum);
+		}
+		
 	}
 		
 	

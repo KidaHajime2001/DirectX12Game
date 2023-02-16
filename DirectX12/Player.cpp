@@ -13,7 +13,9 @@
 #include"PlayerShotDirector.h"
 #include"Fps.h"
 #include"Time.h"
-#include"Shield.h"
+#include "SpriteType.h"
+
+#include"SpriteDrawer.h"
 Player::Player(CollisionTag _tag, bool _alive)
     :m_model(Singleton<PMDModel>::GetInstance())
     , m_fps(Singleton<Fps>::GetInstance())
@@ -30,6 +32,7 @@ Player::Player(CollisionTag _tag, bool _alive)
     , m_timer(new Time())
     ,m_shield(new Shield(CollisionTag::Shield))
     ,m_playerDirection(XMFLOAT3(0,0,0))
+    , m_sprite(Singleton<SpriteDrawer>::GetInstance())
 {
     Init();
 }
@@ -177,6 +180,7 @@ void Player::RestrictionsPosition()
     {
         m_param.pos = XMFLOAT3(GetPosition().x, GetPosition().y, 100);
     }
+
 }
 
 
@@ -190,8 +194,9 @@ void Player::Draw()
        
         m_shield->Draw();
        
-            
 
+
+        
     }
 }
 
@@ -230,6 +235,10 @@ void Player::OnCollisionEnter(Collision* otherCollision)
     {
         m_spreadStatus.barrelLevel++;
         m_shotStatus.barrelLevel++;
+    }
+    if (otherCollision->GetTag() == CollisionTag::EnergyItem)
+    {
+        m_shield->Charge();
     }
     
 }

@@ -28,6 +28,8 @@ enum SpriteType
     count8,
     count9,
     count10,
+    shieldGauge, 
+    shieldGaugeFlame,
 
     matrix0,
     matrix1,

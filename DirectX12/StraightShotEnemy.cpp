@@ -156,6 +156,11 @@ void StraightShotEnemy::AttackUpdate(const DirectX::XMFLOAT3 _targetPos)
 			if (m_timer->CheakTime())
 			{
 				m_enemyShotDirector->Shot(EnemyAttackType::StraightShot, m_param.pos, _targetPos, diff);
+				m_shotNum++;
+			}
+			if (m_shotNum>15)
+			{
+				m_enemyState = EnemyState::move;
 			}
 		}
 		break;

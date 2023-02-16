@@ -50,5 +50,11 @@ private:
 	float m_backGroundCode;
 
 	float m_controllerImageAlpha=1.0f;
+	const float SHIELD_IMAGE_SIZE = 534;
+	const float SHIELD_IMAGE_VAR = 0.1f;
+	float m_shieldImg;
+
+	DirectX::XMFLOAT2 m_shieldPos = DirectX::XMFLOAT2(-40, 130);
+
 };
 

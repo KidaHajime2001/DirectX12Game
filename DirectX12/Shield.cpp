@@ -4,10 +4,12 @@
 #include"Collision.h"
 #include "PMDModel.h"
 #include "XMF3Math.h"
+#include"Time.h"
 Shield::Shield(CollisionTag _tag)
     :Actor(_tag)
     ,m_controller(Singleton<Controller>::GetInstance())
     ,m_model(Singleton<PMDModel>::GetInstance())
+    ,m_timer(new Time())
 {
 
     m_param.mCollision->m_data.radius = 15;
@@ -31,17 +33,33 @@ void Shield::Update(DirectX::XMFLOAT3 _pos)
     if (m_controller.IsPushEnter(ButtonName::GAMEPAD_LEFT_SHOULDER))
     {
         m_shieldFlag = !m_shieldFlag;
+        
+    }
+    if (m_shieldGauge<=0.0f)
+    {
+        m_shieldFlag=false;
     }
 
     if (m_shieldFlag)
     {
         m_shieldRadian++;
+        m_timer->SetTimer(0.1f);
+        if (m_timer->CheakTime())
+        {
+
+            m_shieldGauge -= 0.04f;
+            if (m_shieldGauge<=0.0f)
+            {
+                m_shieldGauge = 0.0f;
+            }
+        }
     }
     m_param.mCollision->m_isValidity = m_shieldFlag;
 }
 
 void Shield::Draw()
 { 
+    
     //ƒV[ƒ‹ƒh¶¬’†‚•`‰æ
     if (m_shieldFlag)
     {
@@ -76,4 +94,14 @@ void Shield::Draw()
 
 
     }
+}
+
+void Shield::Charge()
+{
+    m_shieldGauge += 0.02f;
+    if (m_shieldGauge>=1.0f)
+    {
+        m_shieldGauge = 1.0f;
+    }
+    
 }

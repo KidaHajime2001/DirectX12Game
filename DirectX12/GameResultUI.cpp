@@ -40,6 +40,7 @@ void GameResultUI::Draw(ScoreData _score)
 	m_drawer.DrawStringBlackAndWhite("HIGHER ENEMY",	XMFLOAT2(350, 550), 1.5f, 1.0f);
 	m_drawer.DrawStringBlackAndWhite("CLEAR",			XMFLOAT2(350, 650), 1.5f, 1.0f);
 	m_drawer.DrawStringBlackAndWhite("TOTAL SCORE",		XMFLOAT2(350, 850), 1.5f, 1.0f);
+	m_drawer.DrawStringBlackAndWhite("BEST SCORE",		XMFLOAT2(350, 950), 1.5f, 1.0f);
 
 	m_maxScoreData.timeScore = _score.timeScore * TIME_SCORE;
 	m_maxScoreData.lesserScore = _score.lesserScore * DEFEAT_LESSER;
@@ -93,7 +94,9 @@ void GameResultUI::Draw(ScoreData _score)
 	m_drawer.DrawStringBlackAndWhiteForNumber(m_drawScoreData.higherScore,	XMFLOAT2(1030, 550), 1.5f, 1.0f);
 	m_drawer.DrawStringBlackAndWhiteForNumber(m_drawScoreData.clearScore,	XMFLOAT2(1030, 650), 1.5f, 1.0f);
 	m_drawer.DrawStringBlackAndWhiteForNumber(m_drawScoreData.sumScore,		XMFLOAT2(1030, 850), 1.5f, 1.0f);
+	m_drawer.DrawStringBlackAndWhiteForNumber(_score.bestScore,		 XMFLOAT2(1030, 950), 1.5f, 1.0f);
 
+	sumScore = m_drawScoreData.sumScore;
 	//m_drawer.DrawStringBlackAndWhiteForFewNumber(x, XMFLOAT2(0, 300), 0.5f);
 	//m_drawer.DrawStringBlackAndWhiteForFewNumber(y, XMFLOAT2(0, 400), 0.5f);
 }
